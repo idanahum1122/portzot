@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <!-- Header -->
-    <header>
-        <div class="header-content">
+    <header class="site-header">
+        <div class="header-content container">
             <div class="logo-section">
                 <img src="logo.png" alt="לוגו פורצות דרך" class="logo">
                 <h1 class="site-title">פורצות דרך</h1>
             </div>
-            <nav>
+            <nav class="main-nav">
                 <ul>
                     <li><a href="#intro">עמוד הבית</a></li>
                     <li><a href="#process">התהליך</a></li>
@@ -63,8 +64,9 @@
         <div class="container">
             <h2 class="section-title">איך זה מתחבר לקורס?</h2>
             <p class="section-subtitle">התהליך המלא בקורס בנוי משלושה שלבים מרכזיים:</p>
-            
+
             <div class="process-steps">
+
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h3>מגדר והעצמה</h3>
@@ -73,7 +75,7 @@
                 </div>
 
                 <div class="step-card active">
-                    <div class="step-number current">↓</div>
+                    <div class="step-number">↓</div>
                     <h3>שלב מעבר: בחירת תחום וכיוון</h3>
                     <p class="current-step">זהו השלב שבו אתן נמצאות עכשיו באתר.</p>
                     <p>לאחר שלב ההעצמה, כל אחת בוחרת תחום מרכזי שמעניין אותה או שהיא הייתה רוצה להשפיע בו.</p>
@@ -93,6 +95,7 @@
                     <h3>פרזנטציה</h3>
                     <p>בסיום התהליך תלמדו להציג את הרעיון שלכן, לבנות פיץ' ולהעביר מסר ברור ומשכנע.</p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -118,7 +121,7 @@
                     <p>בסיום התהליך תצאו עם תחום שמעניין אתכן במיוחד</p>
                 </div>
             </div>
-            
+
             <div class="outcomes-box">
                 <h3>בסיום התהליך תצאו עם:</h3>
                 <ul class="outcomes-list">
@@ -135,8 +138,9 @@
         <div class="container">
             <h2 class="section-title">התחומים</h2>
             <p class="section-subtitle">חמישה תחומי-על להשפעה ועשייה</p>
-            
+
             <div class="domains-grid">
+
                 <div class="domain-card" data-domain="1">
                     <div class="domain-icon">💻</div>
                     <h3>הייטק ליבה</h3>
@@ -221,6 +225,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -231,7 +236,7 @@
             <h2 class="section-title">הבחירה שלי</h2>
             <div class="selection-card">
                 <p class="selection-instruction">לאחר שסיימתן לחקור את כל התחומים, סכמו את המחשבות שלכן:</p>
-                
+
                 <div class="summary-box" id="summaryBox">
                     <p class="empty-state">עדיין לא דירגתן אף תחום. התחילו לחקור את התחומים ולדרג אותם! ⭐</p>
                 </div>
@@ -241,7 +246,7 @@
                     <textarea id="personalNotes" placeholder="רשמו כאן את המחשבות שלכן, מה שמעניין אתכן, שאלות שעלו, או כל דבר אחר שחשוב לכן..."></textarea>
                 </div>
 
-                <button class="save-btn" onclick="saveSelection()">שמירת הבחירה</button>
+                <button class="save-btn" type="button" onclick="saveSelection()">שמירת הבחירה</button>
             </div>
         </div>
     </section>
