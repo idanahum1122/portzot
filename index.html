@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מסע פורצות דרך | 9 תחנות</title>
 
+<!-- ספריות PDF -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
 <style>
 :root {
   --primary: #9b59b6;
@@ -182,7 +186,7 @@ body {
 }
 
 /* שדות קלט */
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="file"] {
   width: 100%;
   padding: 14px;
   font-size: 15px;
@@ -237,7 +241,8 @@ textarea:focus, input[type="text"]:focus {
   transform: translateX(-3px);
 }
 
-.checkbox-group input[type="checkbox"] {
+.checkbox-group input[type="checkbox"],
+.checkbox-group input[type="radio"] {
   margin-left: 10px;
   width: 20px;
   height: 20px;
@@ -412,25 +417,71 @@ button.success {
   animation: celebration 1s ease infinite;
 }
 
-/* אזור סיכום */
-.summary-box {
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+/* העלאת תמונה */
+.upload-box {
+  border: 2px dashed #aaa;
+  border-radius: 12px;
   padding: 20px;
-  border-radius: 15px;
-  margin: 20px 0;
-  box-shadow: 0 4px 15px rgba(142, 197, 252, 0.3);
+  text-align: center;
+  background: #f8f9fa;
+  margin-top: 10px;
 }
 
-.summary-box h4 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 1.2em;
+.upload-box input {
+  margin-top: 10px;
+  border: none;
+  padding: 10px;
 }
 
-.summary-box p {
-  margin: 5px 0;
-  color: #444;
+/* פוסטר מוסתר */
+#poster {
+  width: 1000px;
+  height: 700px;
+  padding: 40px;
+  box-sizing: border-box;
+  display: none;
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+}
+
+.template-light {
+  background: #ffffff;
+  color: #222;
+}
+
+.template-color {
+  background: linear-gradient(135deg,#fbc2eb,#a6c1ee);
+  color: #222;
+}
+
+.template-dark {
+  background: #1e1e2f;
+  color: #ffffff;
+}
+
+.poster-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  height: 100%;
+}
+
+#poster h2 {
+  margin-top: 0;
+  font-size: 2em;
+}
+
+.poster-section {
+  margin-bottom: 16px;
   line-height: 1.6;
+}
+
+#poster img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 /* אנימציות */
@@ -534,21 +585,18 @@ button.success {
     למה אנחנו כאן: בוחרים כיוון שמסקרן אותך. לא בוחרים מקצוע, עכשיו.
   </div>
 
-  <!-- שלב א: סימון -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> מה מושך אותי</h3>
     <p>סמני עד 3 תחומים שמעניינים אותך:</p>
     <div class="checkbox-group" id="directionsBox"></div>
   </div>
 
-  <!-- שלב ב: מיקוד קצר -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> מיקוד קצר</h3>
     <p>לכל תחום שסימנת – מילה אחת למה:</p>
     <div id="focusFields"></div>
   </div>
 
-  <!-- שלב ג: החלטה -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> החלטה</h3>
     <div class="checkbox-group two-col">
@@ -574,7 +622,6 @@ button.success {
     למה אנחנו כאן: רעיון טוב מתחיל מבעיה אמיתית – לא מפתרון.
   </div>
 
-  <!-- שלב א: זיהוי ראשוני -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> זיהוי ראשוני</h3>
     <p>מה נכון לגבי הבעיה? (סמני את הרלוונטי):</p>
@@ -587,7 +634,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: תיאור מנומק -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> תיאור מנומק</h3>
     
@@ -607,7 +653,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: בדיקת עומק -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> בדיקת עומק</h3>
     <div class="checkbox-group">
@@ -635,7 +680,6 @@ button.success {
     למה אנחנו כאן: בהייטק – בעיה שלא מנוסחת טוב, לא נפתרת טוב.
   </div>
 
-  <!-- שלב א: רכיבי הבעיה -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> רכיבי הבעיה</h3>
     <div class="checkbox-group">
@@ -645,7 +689,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: מילוי רכיבים -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> מילוי רכיבים (קצר)</h3>
     
@@ -670,7 +713,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: ניסוח סופי -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> ניסוח סופי (משפט אחד)</h3>
     <p>השלימי את המשפט:</p>
@@ -695,7 +737,6 @@ button.success {
     למה אנחנו כאן: לא ממציאים באוויר. לומדים מה כבר קיים.
   </div>
 
-  <!-- שלב א: פתרונות קיימים -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> פתרונות קיימים</h3>
     <div class="checkbox-group">
@@ -705,7 +746,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: חיפוש במקורות מידע -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> תיאור קצר – חיפוש במקורות מידע</h3>
     
@@ -732,7 +772,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: עובדה/נתון -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> עובדה / נתון</h3>
     <div class="field-group">
@@ -741,7 +780,6 @@ button.success {
     </div>
   </div>
 
-  <!-- תובנות -->
   <div class="sub-stage">
     <h3>תובנות (3 סעיפים קצרים)</h3>
     <div class="field-group">
@@ -776,7 +814,6 @@ button.success {
     למה אנחנו כאן: רעיון פתרון עקרוני. לא מתכננים מוצר, מנסחים.
   </div>
 
-  <!-- שלב א: סוג הפתרון -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> סוג הפתרון</h3>
     <div class="checkbox-group two-col">
@@ -787,7 +824,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: בעיה-פתרון במשפט אחד -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> בעיה-פתרון במשפט אחד</h3>
     <div class="field-group">
@@ -795,7 +831,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: מה חדש כאן -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> מה חדש כאן?</h3>
     <p>בחרי לפחות אחת:</p>
@@ -825,7 +860,6 @@ button.success {
     למה אנחנו כאן: עכשיו לא שואלים מה הרעיון אלא איך הוא עובד בפועל.
   </div>
 
-  <!-- שלב א: נקודת התחלה של המשתמש -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> נקודת התחלה של המשתמש</h3>
     <div class="checkbox-group two-col">
@@ -835,7 +869,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: תרחיש שימוש ברור אחד -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> תרחיש שימוש ברור אחד</h3>
     
@@ -845,7 +878,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: רצף פעולות -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> רצף פעולות (לא מסכים, לא פיצ'רים)</h3>
     
@@ -888,7 +920,6 @@ button.success {
     למה אנחנו כאן: למה זה משנה. לא מסבירים מה עשינו – מסבירים למה זה חשוב.
   </div>
 
-  <!-- שלב א: בחירת זווית סיפור -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> בחירת זווית סיפור</h3>
     <p>בחרי אחת:</p>
@@ -900,7 +931,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: מבנה סיפור קצר -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> מבנה סיפור קצר</h3>
     
@@ -920,7 +950,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: משפט משמעות -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> משפט משמעות</h3>
     <div class="field-group">
@@ -946,7 +975,6 @@ button.success {
     למה אנחנו כאן: 45 שניות שגורמות להבין ולהרגיש.
   </div>
 
-  <!-- שלב א: מבנה -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> מבנה</h3>
     <div class="checkbox-group two-col">
@@ -957,7 +985,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ב: תסריט קצר -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ב</span> תסריט קצר</h3>
     
@@ -982,7 +1009,6 @@ button.success {
     </div>
   </div>
 
-  <!-- שלב ג: יצירת פרומפטים (אוטומטי) -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב ג</span> יצירת פרומפטים – סרטון ותמונה (אוטומטי)</h3>
     <p>בסיום מילוי התחנה יופיעו שני כפתורים:</p>
@@ -1007,29 +1033,26 @@ button.success {
   </div>
 </div>
 
-<!-- תחנה 9: פוסטר מסכם (עבודה על תבנית) -->
-<<!-- תחנה 9: פוסטר מסכם (סגור) -->
+<!-- תחנה 9: פוסטר מסכם -->
 <div class="step step-final" id="step9">
   <div class="celebration">🎉</div>
   <h2><span class="icon">🎨</span> תחנה 9: פוסטר מסכם</h2>
   
   <div class="step-intro">
-    למה אנחנו כאן: פוסטר סופי על תבנית קבועה.
-    את מזינה תוכן – המערכת בונה.
+    ממלאים תוכן, מעלים תמונה אחת, ומקבלים פוסטר PDF מוכן. אין בחירת עיצוב – התוכן הוא העיקר.
   </div>
 
-  <!-- שלב א: מילוי תוכן לפוסטר -->
+  <!-- תוכן הפוסטר -->
   <div class="sub-stage">
     <h3><span class="sub-stage-label">שלב א</span> תוכן לפוסטר</h3>
-    <p>התוכן זורם מהתחנות הקודמות. אפשר לחדד בקיצור.</p>
     
     <div class="field-group">
-      <label>כותרת הפרויקט:</label>
+      <label>שם המיזם:</label>
       <input type="text" id="posterTitle" placeholder="שם הפרויקט שלך">
     </div>
 
     <div class="field-group">
-      <label>הבעיה (2–3 שורות):</label>
+      <label>הבעיה:</label>
       <textarea id="posterProblem"></textarea>
     </div>
 
@@ -1039,17 +1062,17 @@ button.success {
     </div>
 
     <div class="field-group">
-      <label>תובנות מהחקר (3 נקודות – שורה לכל תובנה):</label>
-      <textarea id="posterInsights"></textarea>
-    </div>
-
-    <div class="field-group">
-      <label>הפתרון (איך זה עובד):</label>
+      <label>הפתרון:</label>
       <textarea id="posterSolution"></textarea>
     </div>
 
     <div class="field-group">
-      <label>השינוי / הערך:</label>
+      <label>איך זה עובד:</label>
+      <textarea id="posterHow"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label>הערך / השינוי:</label>
       <textarea id="posterValue"></textarea>
     </div>
 
@@ -1057,20 +1080,23 @@ button.success {
       <label>מה הלאה:</label>
       <textarea id="posterNext"></textarea>
     </div>
+  </div>
 
-    <div class="field-group">
-      <label>תמונה לפוסטר (תמונה אחת):</label>
-      <input type="file" id="posterImage" accept="image/*">
+  <!-- העלאת תמונה -->
+  <div class="sub-stage">
+    <h3><span class="sub-stage-label">שלב ב</span> העלאת תמונה</h3>
+    <div class="upload-box">
+      <strong>העלאת תמונה אחת</strong><br>
+      צילום דגם / סקיצה / תמונה מ־AI
+      <input type="file" id="posterImageInput" accept="image/*">
     </div>
   </div>
 
-  <!-- שלב ב: יצוא -->
+  <!-- יצוא -->
   <div class="sub-stage">
-    <h3><span class="sub-stage-label">שלב ב</span> יצוא פוסטר</h3>
-    <p>העיצוב נבחר אוטומטית. כל הפוסטרים שווים במבנה.</p>
-    
-    <button class="success" onclick="exportPoster()">📥 יצוא לפוסטר PDF</button>
-    <p style="margin-top: 10px; color: #666;">
+    <h3><span class="sub-stage-label">שלב ג</span> יצוא</h3>
+    <button class="success" onclick="exportPosterPDF()">📄 יצירת פוסטר PDF</button>
+    <p style="margin-top: 10px; color: #666; text-align: center;">
       גודל: 100×70 ס״מ (Landscape) – מוכן להדפסה ולהצגה
     </p>
   </div>
@@ -1083,7 +1109,7 @@ button.success {
     <button onclick="prevStep()">← חזרה</button>
   </div>
 
-  <!-- המשך הדרך -->
+  <!-- פיץ' להצגה -->
   <div class="sub-stage">
     <h3>המשך הדרך והצגה</h3>
     <p>משך כולל: 6 דקות – 2 דקות לכל תלמידה</p>
@@ -1097,53 +1123,35 @@ button.success {
   </div>
 </div>
 
-
-  <div class="encouragement">
-    💜 סיימת את המסע! את פורצת דרך אמיתית!
-  </div>
-
-  <div class="nav">
-    <button onclick="prevStep()">← חזרה</button>
-  </div>
-
-  <!-- שלב ו: המשך הדרך והצגה -->
-  <div class="sub-stage">
-    <h3>המשך הדרך והצגה – שלב סיום</h3>
-    <p>משך כולל: 6 דקות – חלוקה: 2 דקות לכל תלמידה</p>
-    
-    <button class="success" onclick="generatePitch()">🎤 צור פיץ׳ להצגה קבוצתית (6 דקות)</button>
-    
-    <div id="pitchOutput" class="output"></div>
-    
-    <p style="margin-top: 20px;">הפיץ׳ מבוסס על התכנים שמולאו לאורך המסע, ומוכן להצגה בפני כיתה / קהל.</p>
-  </div>
-
-  <div class="warning-tip">
-    חשוב: לא כל שדה חייב להתמלא בצורה משולמת. החשיבה חשובה מהדיוק.
-  </div>
 </div>
 
+<!-- פוסטר מוסתר ליצוא -->
+<div id="poster" class="poster">
+  <div class="poster-grid">
+    <div>
+      <h2 id="pTitle"></h2>
+      <div class="poster-section"><strong>הבעיה:</strong><br><span id="pProblem"></span></div>
+      <div class="poster-section"><strong>קהל יעד:</strong><br><span id="pAudience"></span></div>
+      <div class="poster-section"><strong>הפתרון:</strong><br><span id="pSolution"></span></div>
+      <div class="poster-section"><strong>איך זה עובד:</strong><br><span id="pHow"></span></div>
+      <div class="poster-section"><strong>הערך:</strong><br><span id="pValue"></span></div>
+      <div class="poster-section"><strong>מה הלאה:</strong><br><span id="pNext"></span></div>
+    </div>
+    <div>
+      <img id="pImage" alt="תמונת הפרויקט">
+    </div>
+  </div>
 </div>
 
 <script>
 // רשימת הכיוונים
 const directions = [
-  "תחבורה 🚗",
-  "בטיחות 🛡️",
-  "בריאות ❤️",
-  "בריאות נפשית 🧠",
-  "בית חכם / IoT 🏠",
-  "חינוך (EdTech) 📚",
-  "סביבה וקיימות 🌱",
-  "חברה / קהילה 🤝",
-  "מדיה 📱",
-  "AI חברתי 🤖",
-  "צרכנות 🛍️",
-  "עיצוב 🎨",
-  "מנהיגות 👑"
+  "תחבורה 🚗", "בטיחות 🛡️", "בריאות ❤️", "בריאות נפשית 🧠",
+  "בית חכם / IoT 🏠", "חינוך (EdTech) 📚", "סביבה וקיימות 🌱",
+  "חברה / קהילה 🤝", "מדיה 📱", "AI חברתי 🤖", "צרכנות 🛍️",
+  "עיצוב 🎨", "מנהיגות 👑"
 ];
 
-// מילוי תיבות הסימון של הכיוונים
 const box = document.getElementById("directionsBox");
 directions.forEach(d => {
   const label = document.createElement('label');
@@ -1156,7 +1164,6 @@ directions.forEach(d => {
   box.appendChild(label);
 });
 
-// עדכון שדות המיקוד
 function updateFocusFields() {
   const selected = [...document.querySelectorAll('#directionsBox input:checked')].map(i => i.value);
   const focusFields = document.getElementById('focusFields');
@@ -1208,25 +1215,17 @@ function prevStep() {
 }
 
 function saveData() {
-  // שמירת כל הנתונים ב-localStorage
   const data = {
-    // תחנה 1
     directions: [...document.querySelectorAll('#directionsBox input:checked')].map(i => i.value),
     decision1: document.querySelector('input[name="decision1"]:checked')?.value || '',
-    
-    // תחנה 2
     where: document.getElementById('where')?.value || '',
     who: document.getElementById('who')?.value || '',
     moment: document.getElementById('moment')?.value || '',
-    
-    // תחנה 3
     domain: document.getElementById('domain')?.value || '',
     target: document.getElementById('target')?.value || '',
     difficulty: document.getElementById('difficulty')?.value || '',
     cause: document.getElementById('cause')?.value || '',
     problemStatement: document.getElementById('problemStatement')?.value || '',
-    
-    // תחנה 4
     source1: document.getElementById('source1')?.value || '',
     solution1: document.getElementById('solution1')?.value || '',
     source2: document.getElementById('source2')?.value || '',
@@ -1235,25 +1234,17 @@ function saveData() {
     insight1: document.getElementById('insight1')?.value || '',
     insight2: document.getElementById('insight2')?.value || '',
     insight3: document.getElementById('insight3')?.value || '',
-    
-    // תחנה 5
     solutionOneLine: document.getElementById('solutionOneLine')?.value || '',
-    
-    // תחנה 6
     scenario: document.getElementById('scenario')?.value || '',
     action1: document.getElementById('action1')?.value || '',
     action2: document.getElementById('action2')?.value || '',
     action3: document.getElementById('action3')?.value || '',
     action4: document.getElementById('action4')?.value || '',
-    
-    // תחנה 7
     storyAngle: document.querySelector('input[name="storyAngle"]:checked')?.value || '',
     before: document.getElementById('before')?.value || '',
     change: document.getElementById('change')?.value || '',
     after: document.getElementById('after')?.value || '',
     meaning: document.getElementById('meaning')?.value || '',
-    
-    // תחנה 8
     script1: document.getElementById('script1')?.value || '',
     script2: document.getElementById('script2')?.value || '',
     script3: document.getElementById('script3')?.value || '',
@@ -1267,15 +1258,11 @@ function loadData() {
   const saved = localStorage.getItem('portzotData');
   if (saved) {
     const data = JSON.parse(saved);
-    
-    // טעינת נתונים חזרה לשדות
     if (data.where) document.getElementById('where').value = data.where;
     if (data.who) document.getElementById('who').value = data.who;
-    // ... (ניתן להוסיף את כל השדות)
   }
 }
 
-// פונקציות ליצירת פרומפטים
 function generateVideoPrompt() {
   const data = JSON.parse(localStorage.getItem('portzotData') || '{}');
   
@@ -1326,11 +1313,6 @@ function copyText(id) {
   }
 }
 
-function exportPoster() {
-  alert("🎨 הפוסטר מוכן ליצוא! (בגרסה מלאה ייווצר קובץ PDF מוכן להדפסה)");
-  // כאן תתווסף פונקציונליות יצוא אמיתית
-}
-
 function generatePitch() {
   const data = JSON.parse(localStorage.getItem('portzotData') || '{}');
   
@@ -1355,6 +1337,50 @@ function generatePitch() {
 הפיץ׳ מבוסס על המסע שעברתן ומוכן להצגה!`;
 
   document.getElementById('pitchOutput').innerText = pitch;
+}
+
+// יצוא פוסטר ל-PDF
+function exportPosterPDF() {
+  const poster = document.getElementById('poster');
+
+  // מילוי תוכן הפוסטר
+  document.getElementById('pTitle').innerText = document.getElementById('posterTitle').value || 'שם המיזם';
+  document.getElementById('pProblem').innerText = document.getElementById('posterProblem').value || '';
+  document.getElementById('pAudience').innerText = document.getElementById('posterAudience').value || '';
+  document.getElementById('pSolution').innerText = document.getElementById('posterSolution').value || '';
+  document.getElementById('pHow').innerText = document.getElementById('posterHow').value || '';
+  document.getElementById('pValue').innerText = document.getElementById('posterValue').value || '';
+  document.getElementById('pNext').innerText = document.getElementById('posterNext').value || '';
+
+  // בחירת תבנית אקראית
+  const templates = ['template-light','template-color','template-dark'];
+  poster.className = 'poster ' + templates[Math.floor(Math.random() * templates.length)];
+  poster.style.display = 'block';
+
+  // טעינת תמונה
+  const file = document.getElementById('posterImageInput').files[0];
+  if (!file) {
+    alert('⚠️ יש להעלות תמונה אחת לפוסטר');
+    poster.style.display = 'none';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('pImage').src = e.target.result;
+
+    setTimeout(() => {
+      html2canvas(poster, {scale: 2, useCORS: true}).then(canvas => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('landscape', 'pt', [1000, 700]);
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 1000, 700);
+        pdf.save('poster_portzot_drach.pdf');
+        poster.style.display = 'none';
+        alert('✅ הפוסטר נוצר בהצלחה!');
+      });
+    }, 500);
+  };
+  reader.readAsDataURL(file);
 }
 
 // אתחול
