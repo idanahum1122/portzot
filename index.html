@@ -1008,18 +1008,20 @@ button.success {
 </div>
 
 <!-- תחנה 9: פוסטר מסכם (עבודה על תבנית) -->
+<<!-- תחנה 9: פוסטר מסכם (סגור) -->
 <div class="step step-final" id="step9">
   <div class="celebration">🎉</div>
   <h2><span class="icon">🎨</span> תחנה 9: פוסטר מסכם</h2>
   
   <div class="step-intro">
-    למה אנחנו כאן: פוסטר סופי על תבנית קבועה. לא כותבים עוד טקסט – בונים.
+    למה אנחנו כאן: פוסטר סופי על תבנית קבועה.
+    את מזינה תוכן – המערכת בונה.
   </div>
 
   <!-- שלב א: מילוי תוכן לפוסטר -->
   <div class="sub-stage">
-    <h3><span class="sub-stage-label">שלב א</span> מילוי תוכן לפוסטר (שדות קצרים)</h3>
-    <p>התשובות שמילאת בתחנות הקודמות יזרמו אוטומטית לשדות הבאים, וניתן לערוך בקיצור:</p>
+    <h3><span class="sub-stage-label">שלב א</span> תוכן לפוסטר</h3>
+    <p>התוכן זורם מהתחנות הקודמות. אפשר לחדד בקיצור.</p>
     
     <div class="field-group">
       <label>כותרת הפרויקט:</label>
@@ -1027,7 +1029,7 @@ button.success {
     </div>
 
     <div class="field-group">
-      <label>הבעיה (2-3 שורות):</label>
+      <label>הבעיה (2–3 שורות):</label>
       <textarea id="posterProblem"></textarea>
     </div>
 
@@ -1037,7 +1039,7 @@ button.success {
     </div>
 
     <div class="field-group">
-      <label>תובנות מהחקר (3 נקודות):</label>
+      <label>תובנות מהחקר (3 נקודות – שורה לכל תובנה):</label>
       <textarea id="posterInsights"></textarea>
     </div>
 
@@ -1055,39 +1057,46 @@ button.success {
       <label>מה הלאה:</label>
       <textarea id="posterNext"></textarea>
     </div>
-  </div>
 
-  <!-- שלב ב: בחירת תבנית עיצוב -->
-  <div class="sub-stage">
-    <h3><span class="sub-stage-label">שלב ב</span> בחירת תבנית עיצוב</h3>
-    <p>בחרי רקע אחד לפוסטר (כל התבניות באותו מבנה):</p>
-    
-    <div class="checkbox-group two-col">
-      <label><input type="radio" name="template" value="1"> תבנית 1 – בהירה ונקייה (אקדמית)</label>
-      <label><input type="radio" name="template" value="2"> תבנית 2 – צבעונית וחדשנית (טכנולוגית)</label>
-      <label><input type="radio" name="template" value="3"> תבנית 3 – כהה ומרשימה (פיץ׳ / תחרות)</label>
-    </div>
-
-    <p style="margin-top: 15px; color: #666;">רק העיצוב משתנה – התוכן נשאר זהה.</p>
-  </div>
-
-  <!-- שלב ג: תצוגה מקדימה -->
-  <div class="sub-stage">
-    <h3><span class="sub-stage-label">שלב ג</span> תצוגה מקדימה</h3>
-    <p>לאחר בחירת התבנית תוצג תצוגה מקדימה מלאה של הפוסטר בגודל אמיתי.</p>
-    
-    <div class="summary-box">
-      <h4>📊 תצוגה מקדימה של הפוסטר תופיע כאן</h4>
-      <p>(כאן תוצג תצוגה מקדימה של הפוסטר עם כל התוכן שמילאת)</p>
+    <div class="field-group">
+      <label>תמונה לפוסטר (תמונה אחת):</label>
+      <input type="file" id="posterImage" accept="image/*">
     </div>
   </div>
 
-  <!-- שלב ד: יצוא -->
+  <!-- שלב ב: יצוא -->
   <div class="sub-stage">
-    <h3><span class="sub-stage-label">שלב ד</span> יצוא</h3>
+    <h3><span class="sub-stage-label">שלב ב</span> יצוא פוסטר</h3>
+    <p>העיצוב נבחר אוטומטית. כל הפוסטרים שווים במבנה.</p>
+    
     <button class="success" onclick="exportPoster()">📥 יצוא לפוסטר PDF</button>
-    <p style="margin-top: 10px; color: #666;">גודל: 100×70 ס״מ (Landscape) – מוכן להדפסה ולהצגה</p>
+    <p style="margin-top: 10px; color: #666;">
+      גודל: 100×70 ס״מ (Landscape) – מוכן להדפסה ולהצגה
+    </p>
   </div>
+
+  <div class="encouragement">
+    💜 סיימת את המסע! את פורצת דרך אמיתית!
+  </div>
+
+  <div class="nav">
+    <button onclick="prevStep()">← חזרה</button>
+  </div>
+
+  <!-- המשך הדרך -->
+  <div class="sub-stage">
+    <h3>המשך הדרך והצגה</h3>
+    <p>משך כולל: 6 דקות – 2 דקות לכל תלמידה</p>
+    
+    <button class="success" onclick="generatePitch()">🎤 צור פיץ׳ להצגה קבוצתית</button>
+    <div id="pitchOutput" class="output"></div>
+  </div>
+
+  <div class="warning-tip">
+    חשוב: לא כל שדה חייב להיות מושלם. החשיבה חשובה מהדיוק.
+  </div>
+</div>
+
 
   <div class="encouragement">
     💜 סיימת את המסע! את פורצת דרך אמיתית!
