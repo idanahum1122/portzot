@@ -76,16 +76,22 @@ body{
   gap:20px;
 }
 
+/* === ניווט כפתורי – אפשרות A (עדין ונקי) === */
 .main-nav a,
 .nav-link{
   color:#fff;
   text-decoration:none;
   font-weight:500;
+  padding:8px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+  transition:background .25s ease, transform .2s ease;
 }
 
 .main-nav a:hover,
 .nav-link:hover{
-  text-decoration:underline;
+  background:rgba(255,255,255,0.28);
+  transform:translateY(-1px);
 }
 
 /* ================= HERO ================= */
