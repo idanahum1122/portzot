@@ -56,8 +56,7 @@ body.locked{
   align-items:center;
   justify-content:space-between;
   gap:20px;
-  height:72px;
-  padding:0;
+  padding:16px 0;
 }
 
 .logo-section,
@@ -72,9 +71,8 @@ img.logo,
 .logo img,
 .logo-section img,
 .logo-container img{
-  height:52px;
+  height:56px;
   width:auto;
-  max-height:52px;
   max-width:180px;
   object-fit:contain;
   display:block;
