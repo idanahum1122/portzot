@@ -12,6 +12,7 @@ styles.css – baseline מלא ותקין
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:72px;
 }
 
 body{
@@ -23,7 +24,7 @@ body{
 
 /* ===== Scroll Lock ===== */
 body.locked{
-  overflow:hidden !important;
+  overflow:hidden;
 }
 
 /* ===== Variables ===== */
@@ -50,6 +51,7 @@ header.header{
   position:sticky;
   top:0;
   z-index:1000;
+  height:72px;
   background:linear-gradient(135deg,#f6f0fb,#ffffff);
   box-shadow:var(--shadow);
   overflow:visible;
