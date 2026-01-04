@@ -46,7 +46,10 @@ body.locked{
 /* ===== Header ===== */
 .site-header,
 .header{
-  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:linear-gradient(135deg,#f6f0fb,#ffffff);
   box-shadow:var(--shadow);
 }
 
@@ -56,7 +59,8 @@ body.locked{
   align-items:center;
   justify-content:space-between;
   gap:20px;
-  padding:16px 0;
+  height:72px;
+  padding:0;
 }
 
 .logo-section,
@@ -71,8 +75,9 @@ img.logo,
 .logo img,
 .logo-section img,
 .logo-container img{
-  height:56px;
+  height:52px;
   width:auto;
+  max-height:52px;
   max-width:180px;
   object-fit:contain;
   display:block;
@@ -82,6 +87,41 @@ img.logo,
   font-size:1.4rem;
   font-weight:700;
   color:var(--purple);
+}
+
+/* Header navigation */
+.main-nav ul,
+.nav{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin:0;
+  padding:0;
+}
+
+.main-nav a,
+.nav-link{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#f5f5f7,#ffffff);
+  transition:transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.main-nav a:hover,
+.nav-link:hover{
+  background:linear-gradient(135deg,#ececf1,#f5f5f7);
+  color:var(--purple);
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(0,0,0,.08);
+}
+
+.nav-link.active{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;
 }
 
 /* ריווח בין סקשנים */
