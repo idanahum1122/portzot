@@ -43,6 +43,21 @@ section{
 padding:60px 0;
 }
 
+/* החרגה: ה-Hero לא מקבל padding כללי */
+.hero{
+background:linear-gradient(135deg,#f6f0fb,#ffffff);
+text-align:center;
+}
+
+/* קיבוע עמוד הבית למסך מלא */
+.hero .container{
+min-height:calc(100vh - 80px); /* גובה מסך פחות header */
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
 /* ================= HEADER ================= */
 
 .site-header{
@@ -96,15 +111,23 @@ text-decoration:underline;
 
 /* ================= HERO ================= */
 
+/* עטיפת Hero – אחראית רק על הרקע והגובה */
 .hero{
 background:linear-gradient(135deg,#f6f0fb,#ffffff);
-text-align:center;
-
 min-height:100vh;        /* מסך מלא – ללא הצצה */
-display:flex;
-align-items:center;
-
 padding-top:80px;        /* פיצוי על header sticky */
+}
+
+/* בידוד תוכן עמוד הבית בלבד */
+.hero-content{
+max-width:720px;         /* בידוד רוחב הטקסט */
+margin:0 auto;
+text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:calc(100vh - 80px);
 }
 
 .hero-title{
