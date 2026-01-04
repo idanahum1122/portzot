@@ -1,6 +1,6 @@
 /* ===============================
-   styles.css – גרסה יציבה
-   פורצות דרך
+   styles.css – עיצוב מקור
+   פורצות דרך | baseline יציב
    =============================== */
 
 /* ===== Reset ===== */
@@ -25,11 +25,10 @@ body{
 :root{
   --pink:#e84393;
   --purple:#9b59b6;
-  --cyan:#00bcd4;
   --gray:#f5f5f7;
   --dark:#2d2d2d;
   --white:#ffffff;
-  --shadow:0 12px 30px rgba(0,0,0,.08);
+  --shadow:0 10px 28px rgba(0,0,0,.08);
 }
 
 /* ===== Layout ===== */
@@ -39,9 +38,12 @@ body{
   padding:0 20px;
 }
 
-/* ================= HEADER ================= */
+/* ===============================
+   HEADER – גרסה נקייה ויציבה
+   =============================== */
+
 .site-header{
-  background:linear-gradient(135deg,var(--purple),var(--pink));
+  background: linear-gradient(135deg, var(--purple), var(--pink));
   padding:18px 0;
   position:sticky;
   top:0;
@@ -50,11 +52,11 @@ body{
 
 .site-header .container{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 }
 
-/* Logo */
+/* ===== לוגו ===== */
 .logo-section{
   display:flex;
   align-items:center;
@@ -66,30 +68,38 @@ body{
 }
 
 .site-title{
-  color:#fff;
   font-size:1.5rem;
   font-weight:700;
+  color:#fff;
+  white-space:nowrap;
 }
 
-/* Navigation – כפתורים אחידים */
+/* ===== ניווט ===== */
 .main-nav ul{
   list-style:none;
   display:flex;
   gap:14px;
+  margin:0;
+  padding:0;
 }
 
 .main-nav a{
+  width:120px;
+  height:38px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  width:130px;        /* רוחב אחיד */
-  height:40px;        /* גובה אחיד */
+
+  font-size:0.95rem;
+  font-weight:500;
   color:#fff;
   text-decoration:none;
-  font-weight:500;
+
   border-radius:20px;
   background:rgba(255,255,255,0.18);
-  transition:background .25s ease, transform .2s ease;
+
+  transition:background 0.25s ease, transform 0.2s ease;
 }
 
 .main-nav a:hover{
@@ -151,7 +161,7 @@ section{
   margin-bottom:50px;
 }
 
-/* ================= CARDS (כללי) ================= */
+/* ================= CARDS ================= */
 .intro-card,
 .selection-card,
 .step-card,
@@ -165,8 +175,8 @@ section{
 /* ================= DOMAINS ================= */
 .domains-grid{
   display:grid;
-  grid-template-columns:repeat(5, 1fr); /* 5 בשורה */
-  gap:20px;
+  grid-template-columns:repeat(5, 1fr);
+  gap:22px;
   margin-top:40px;
 }
 
@@ -176,12 +186,11 @@ section{
   padding:26px 22px 28px;
   text-align:center;
   box-shadow:var(--shadow);
-  transition:transform .3s ease, box-shadow .3s ease;
+  transition:transform .3s ease;
 }
 
 .domain-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 20px 45px rgba(0,0,0,.15);
 }
 
 .domain-icon{
@@ -209,6 +218,8 @@ section{
   font-weight:600;
   text-decoration:none;
   margin-bottom:16px;
+  border:none;
+  cursor:pointer;
 }
 
 .explore-btn.disabled{
@@ -267,5 +278,16 @@ section{
 
   .hero-title{
     font-size:2rem;
+  }
+
+  .site-header .container{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .main-nav ul{
+    flex-direction:column;
+    width:100%;
+    text-align:center;
   }
 }
