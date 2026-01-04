@@ -76,13 +76,18 @@ body{
   gap:20px;
 }
 
-/* === ניווט כפתורי – אפשרות A (עדין ונקי) === */
+/* === ניווט כפתורי – אחיד ומדויק === */
 .main-nav a,
 .nav-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:38px;              /* גובה אחיד לכל הכפתורים */
+  min-width:96px;           /* רוחב מינימלי – מונע קפיצות */
+  padding:0 18px;           /* בלי שינוי גובה בין טקסטים */
   color:#fff;
   text-decoration:none;
   font-weight:500;
-  padding:8px 16px;
   border-radius:20px;
   background:rgba(255,255,255,0.15);
   transition:background .25s ease, transform .2s ease;
