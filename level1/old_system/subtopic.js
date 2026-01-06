@@ -111,6 +111,7 @@ function showSubtopicResult(score) {
     }
     
     if (resultText) {
+        resultText.textContent = text;
     }
     resultBox.style.display = 'block';
 }
