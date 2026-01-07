@@ -1,26 +1,25 @@
 /* =====================================================
-   פורצות דרך | FINAL COLORFUL DESIGN
-   styles-colorful.css — עיצוב צבעוני ומודרני כמו הדוגמה
+   פורצות דרך | styles.css – FINAL CLEAN VERSION
+   עיצוב מודרני, יציב, חינוכי (גיל 15–16)
    ===================================================== */
 
 /* ===== Variables ===== */
 :root{
-  /* Colors - עזים וצבעוניים */
-  --primary:#7c3aed;      /* סגול */
-  --secondary:#06b6d4;    /* טורקיז */
-  --accent:#f59e0b;       /* כתום */
-  --success:#10b981;      /* ירוק */
-  --danger:#ef4444;       /* אדום */
-  
+  --primary:#7c3aed;
+  --secondary:#06b6d4;
+  --accent:#f59e0b;
+  --success:#10b981;
+  --danger:#ef4444;
+
   --text:#1e293b;
   --text-light:#64748b;
   --bg:#ffffff;
   --surface:#f8fafc;
-  
+
   --border:#e2e8f0;
   --shadow:0 4px 6px rgba(0,0,0,.07);
   --shadow-lg:0 10px 25px rgba(0,0,0,.1);
-  
+
   --radius:16px;
   --max-width:1200px;
 }
@@ -29,7 +28,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Segoe UI', 'Heebo', Tahoma, sans-serif;
+  font-family:'Segoe UI','Heebo',Tahoma,sans-serif;
   line-height:1.7;
   color:var(--text);
   background:var(--bg);
@@ -39,7 +38,7 @@ img{max-width:100%;height:auto}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
 
-/* ===== Container ===== */
+/* ===== Layout ===== */
 .container{
   max-width:var(--max-width);
   margin:0 auto;
@@ -58,25 +57,22 @@ ul{list-style:none}
 }
 .header-inner{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 }
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
-  text-decoration:none;
 }
 .brand-badge{
-  width:48px;
-  height:48px;
-  background:linear-gradient(135deg, var(--primary), var(--secondary));
+  width:44px;
+  height:44px;
   border-radius:12px;
-  box-shadow:var(--shadow);
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
 }
 .brand-title strong{
   font-size:20px;
-  color:var(--text);
   font-weight:700;
 }
 .brand-title span{
@@ -91,7 +87,6 @@ ul{list-style:none}
   border:2px solid var(--border);
   padding:8px 16px;
   border-radius:8px;
-  cursor:pointer;
   font-weight:600;
 }
 .main-nav ul{
@@ -99,73 +94,51 @@ ul{list-style:none}
   gap:8px;
 }
 .main-nav a{
-  padding:10px 20px;
+  padding:10px 18px;
   border-radius:10px;
-  font-weight:500;
-  transition:all .2s;
-  border:2px solid transparent;
+  transition:.2s;
 }
 .main-nav a:hover{
   background:var(--surface);
-  border-color:var(--primary);
   color:var(--primary);
-}
-.main-nav a[aria-current="page"]{
-  background:var(--primary);
-  color:#fff;
-  font-weight:600;
 }
 
 /* ===== Breadcrumb ===== */
 .breadcrumb{
   padding:16px 0;
-  color:var(--text-light);
   font-size:14px;
-}
-.breadcrumb a{
   color:var(--text-light);
-  transition:color .2s;
-}
-.breadcrumb a:hover{
-  color:var(--primary);
-  text-decoration:underline;
 }
 
 /* ===== Hero ===== */
 .hero{
-  background:linear-gradient(135deg, 
-    rgba(124,58,237,.1) 0%, 
-    rgba(6,182,212,.08) 50%, 
-    rgba(245,158,11,.06) 100%);
   padding:60px 0;
-  border-bottom:3px solid var(--border);
+  background:linear-gradient(135deg,
+    rgba(124,58,237,.1),
+    rgba(6,182,212,.08),
+    rgba(245,158,11,.06));
 }
 .hero-inner{
   display:grid;
   grid-template-columns:1.3fr .7fr;
   gap:40px;
-  align-items:center;
 }
 .hero h1{
-  font-size:42px;
+  font-size:40px;
   font-weight:800;
-  line-height:1.2;
-  background:linear-gradient(135deg, var(--primary), var(--secondary));
+  margin-bottom:16px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:16px;
 }
 .hero p{
   font-size:18px;
   color:var(--text-light);
-  line-height:1.7;
-  margin-bottom:24px;
 }
 .hero-actions{
   display:flex;
   gap:12px;
-  flex-wrap:wrap;
+  margin-top:24px;
 }
 
 /* ===== Buttons ===== */
@@ -173,53 +146,30 @@ ul{list-style:none}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  padding:14px 28px;
+  padding:14px 26px;
   border-radius:12px;
   font-weight:600;
-  font-size:16px;
-  border:none;
+  border:2px solid var(--border);
+  background:#fff;
   cursor:pointer;
-  transition:all .2s;
-  box-shadow:var(--shadow);
+  transition:.2s;
 }
 .btn:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-lg);
-}
-.btn.primary{
-  background:linear-gradient(135deg, var(--primary), var(--secondary));
-  color:#fff;
-}
-.btn.primary:hover{
-  filter:brightness(1.1);
-}
-.btn:not(.primary){
-  background:#fff;
-  border:2px solid var(--border);
-  color:var(--text);
-}
-.btn:not(.primary):hover{
   border-color:var(--primary);
   color:var(--primary);
 }
-.btn.wide{
-  flex:2;
+.btn.primary{
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;
+  border:none;
 }
 
-/* ===== Pills ===== */
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 16px;
-  background:#fff;
-  border:2px solid var(--border);
-  border-radius:999px;
-  font-size:14px;
-  color:var(--text-light);
-  font-weight:500;
+/* ===== Sections ===== */
+.section{
+  padding:60px 0;
 }
+.section h1{font-size:32px;margin-bottom:8px}
+.section h2{font-size:24px;margin:24px 0 12px}
 
 /* ===== Cards ===== */
 .card{
@@ -228,16 +178,13 @@ ul{list-style:none}
   border-radius:var(--radius);
   padding:24px;
   box-shadow:var(--shadow);
-  transition:all .3s;
+  transition:.2s;
 }
 .card:hover{
   transform:translateY(-4px);
   box-shadow:var(--shadow-lg);
-  border-color:var(--primary);
 }
-.card.pad{
-  padding:28px;
-}
+.card.pad{padding:28px}
 
 /* ===== Grid ===== */
 .grid{
@@ -245,202 +192,73 @@ ul{list-style:none}
   gap:20px;
 }
 .grid.domains{
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 }
 
-/* ===== Domain Cards - צבעוניים! ===== */
+/* ===== Domain Cards ===== */
 .domain-card{
-  background:#fff;
-  border:3px solid var(--border);
-  border-radius:var(--radius);
-  padding:32px;
   text-align:center;
-  transition:all .3s;
-  box-shadow:var(--shadow);
 }
-.domain-card:hover{
-  transform:translateY(-6px);
-  box-shadow:var(--shadow-lg);
-}
-
-/* כל תחום עם צבע ייחודי */
-.domain-card:nth-child(1){
-  border-color:#8b5cf6;
-  background:linear-gradient(135deg, rgba(139,92,246,.05), rgba(139,92,246,.02));
-}
-.domain-card:nth-child(1):hover{
-  border-color:#8b5cf6;
-  background:linear-gradient(135deg, rgba(139,92,246,.1), rgba(139,92,246,.05));
-}
-.domain-card:nth-child(1) h3{color:#8b5cf6}
-
-.domain-card:nth-child(2){
-  border-color:#ef4444;
-  background:linear-gradient(135deg, rgba(239,68,68,.05), rgba(239,68,68,.02));
-}
-.domain-card:nth-child(2):hover{
-  border-color:#ef4444;
-  background:linear-gradient(135deg, rgba(239,68,68,.1), rgba(239,68,68,.05));
-}
-.domain-card:nth-child(2) h3{color:#ef4444}
-
-.domain-card:nth-child(3){
-  border-color:#14b8a6;
-  background:linear-gradient(135deg, rgba(20,184,166,.05), rgba(20,184,166,.02));
-}
-.domain-card:nth-child(3):hover{
-  border-color:#14b8a6;
-  background:linear-gradient(135deg, rgba(20,184,166,.1), rgba(20,184,166,.05));
-}
-.domain-card:nth-child(3) h3{color:#14b8a6}
-
-.domain-card:nth-child(4){
-  border-color:#f59e0b;
-  background:linear-gradient(135deg, rgba(245,158,11,.05), rgba(245,158,11,.02));
-}
-.domain-card:nth-child(4):hover{
-  border-color:#f59e0b;
-  background:linear-gradient(135deg, rgba(245,158,11,.1), rgba(245,158,11,.05));
-}
-.domain-card:nth-child(4) h3{color:#f59e0b}
-
-.domain-card:nth-child(5){
-  border-color:#06b6d4;
-  background:linear-gradient(135deg, rgba(6,182,212,.05), rgba(6,182,212,.02));
-}
-.domain-card:nth-child(5):hover{
-  border-color:#06b6d4;
-  background:linear-gradient(135deg, rgba(6,182,212,.1), rgba(6,182,212,.05));
-}
-.domain-card:nth-child(5) h3{color:#06b6d4}
-
 .domain-card h3{
   font-size:20px;
-  font-weight:700;
-  margin:16px 0;
-}
-.domain-card p{
-  color:var(--text-light);
-  font-size:15px;
-  line-height:1.6;
-  margin-bottom:20px;
-}
-
-/* ===== Sections ===== */
-.section{
-  padding:60px 0;
-}
-.section h1{
-  font-size:36px;
-  font-weight:700;
-  margin-bottom:12px;
-  color:var(--text);
-}
-.section h2{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:16px;
-  color:var(--text);
-}
-.section h3{
-  font-size:20px;
-  font-weight:600;
-  margin-bottom:12px;
-  color:var(--text);
-}
-
-/* ===== Typography ===== */
-.muted{
-  color:var(--text-light);
-}
-.kicker{
-  display:inline-block;
-  font-size:13px;
-  font-weight:700;
-  text-transform:uppercase;
-  color:var(--primary);
-  letter-spacing:.5px;
   margin-bottom:8px;
 }
 
-/* ===== Lists - מעוצבים יפה! ===== */
+/* ===== Text helpers ===== */
+.muted{color:var(--text-light)}
+.kicker{
+  font-size:13px;
+  font-weight:700;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+
+/* ===== Lists ===== */
 .list{
-  list-style:none;
-  padding:0;
-  margin:16px 0;
+  margin-top:12px;
 }
 .list li{
-  padding:14px 16px 14px 50px;
-  margin-bottom:12px;
-  background:#fff;
+  padding:14px 16px;
+  margin-bottom:10px;
   border:2px solid var(--border);
   border-radius:12px;
   position:relative;
-  transition:all .2s;
-  font-size:15px;
-  line-height:1.6;
 }
-.list li:hover{
-  border-color:var(--primary);
-  transform:translateX(-4px);
-  box-shadow:var(--shadow);
+
+/* ===== Typed Cards (יציב!) ===== */
+.card-questions .list li{
+  border-color:#8b5cf6;
 }
-.list li::before{
-  content:"●";
+.card-questions .list li::before{
+  content:"?";
   position:absolute;
-  right:18px;
+  right:14px;
   top:14px;
-  font-size:20px;
-  color:var(--primary);
+  color:#8b5cf6;
   font-weight:700;
 }
 
-/* רשימות לפי סוג */
-.card:has(.kicker:contains("שאלות")) .list li{
-  border-color:#8b5cf6;
-  background:linear-gradient(90deg, rgba(139,92,246,.05), transparent);
+.card-reflection .list li{
+  border-color:#14b8a6;
 }
-.card:has(.kicker:contains("שאלות")) .list li::before{
-  content:"?";
-  background:#8b5cf6;
-  color:#fff;
-  width:28px;
-  height:28px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
+.card-reflection .list li::before{
+  content:"💭";
+  position:absolute;
+  right:14px;
   top:12px;
 }
 
-.card:has(.kicker:contains("רפלקציה")) .list li{
-  border-color:#14b8a6;
-  background:linear-gradient(90deg, rgba(20,184,166,.05), transparent);
-}
-.card:has(.kicker:contains("רפלקציה")) .list li::before{
-  content:"💭";
-  font-size:22px;
-}
-
-.card:has(.kicker:contains("ממשקים")) .list li{
+.card-interfaces .list li{
   border-color:#f59e0b;
-  background:linear-gradient(90deg, rgba(245,158,11,.05), transparent);
 }
-.card:has(.kicker:contains("ממשקים")) .list li::before{
+.card-interfaces .list li::before{
   content:"⚡";
-  font-size:22px;
+  position:absolute;
+  right:14px;
+  top:12px;
 }
 
-/* ===== HR ===== */
-.hr{
-  height:2px;
-  background:var(--border);
-  border:none;
-  margin:32px 0;
-}
-
-/* ===== Flow Navigation ===== */
+/* ===== Flow Nav ===== */
 .flow-nav{
   display:flex;
   gap:12px;
@@ -449,182 +267,24 @@ ul{list-style:none}
 }
 .flow-nav .btn{
   flex:1;
-  min-width:180px;
 }
 
 /* ===== Footer ===== */
 .footer{
-  background:var(--surface);
-  border-top:2px solid var(--border);
+  margin-top:60px;
   padding:32px 0;
   text-align:center;
-  color:var(--text-light);
-  font-size:14px;
-  margin-top:60px;
-}
-
-/* ===== Notice ===== */
-.notice{
-  background:linear-gradient(90deg, rgba(139,92,246,.1), rgba(139,92,246,.05));
-  border:2px solid var(--primary);
-  border-right-width:6px;
-  border-radius:12px;
-  padding:20px;
-  margin:20px 0;
-}
-.notice strong{
-  display:block;
-  color:var(--primary);
-  font-weight:700;
-  margin-bottom:8px;
-  font-size:16px;
-}
-
-/* ===== Quiz ===== */
-.quiz-wrap{
-  display:grid;
-  gap:20px;
-}
-.q-card{
-  background:#fff;
-  border:2px solid var(--border);
-  border-radius:var(--radius);
-  padding:24px;
-  box-shadow:var(--shadow);
-}
-.q-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:12px;
-  color:var(--text);
-}
-.q-help{
   font-size:14px;
   color:var(--text-light);
-  margin-bottom:16px;
-}
-.q-options{
-  display:grid;
-  gap:12px;
-}
-.choice{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  padding:16px;
-  background:#fff;
-  border:2px solid var(--border);
-  border-radius:12px;
-  cursor:pointer;
-  transition:all .2s;
-}
-.choice:hover{
-  border-color:var(--primary);
-  background:rgba(124,58,237,.03);
-  transform:translateX(-4px);
-}
-.choice input{
-  margin-top:4px;
-  cursor:pointer;
-  width:18px;
-  height:18px;
-}
-.scale{
-  display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:12px;
-}
-.scale label{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  padding:16px 12px;
-  background:#fff;
-  border:2px solid var(--border);
-  border-radius:12px;
-  cursor:pointer;
-  transition:all .2s;
-  text-align:center;
-}
-.scale label:hover{
-  border-color:var(--primary);
-  background:rgba(124,58,237,.03);
-  transform:translateY(-2px);
-}
-.scale small{
-  font-size:12px;
-  color:var(--text-light);
-}
-.result{
-  background:#fff;
-  border:2px solid var(--border);
-  border-radius:var(--radius);
-  padding:28px;
-  box-shadow:var(--shadow);
-  margin-top:24px;
-}
-.result h2{
-  color:var(--primary);
-  margin-bottom:16px;
+  background:var(--surface);
+  border-top:2px solid var(--border);
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 900px){
-  .hero-inner{
-    grid-template-columns:1fr;
-  }
-  .grid.domains{
-    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  }
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
 }
-@media (max-width: 600px){
-  .nav-toggle{
-    display:block;
-  }
-  .main-nav{
-    display:none;
-  }
-  .main-nav.open{
-    display:block;
-  }
-  .main-nav ul{
-    flex-direction:column;
-    gap:8px;
-    padding:16px 0;
-  }
-  .hero h1{
-    font-size:32px;
-  }
-  .btn{
-    padding:12px 20px;
-    font-size:15px;
-  }
-  .flow-nav{
-    flex-direction:column;
-  }
-  .flow-nav .btn{
-    width:100%;
-  }
-  .scale{
-    grid-template-columns:repeat(3, 1fr);
-  }
+@media (max-width:600px){
+  .nav-toggle{display:block}
+  .main-nav{display:none}
 }
-
-/* ===== Animations ===== */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.card,.domain-card{
-  animation:fadeIn .5s ease-out;
-}
-
-/* ===== Focus States ===== */
-*:focus-visible{
-  outline:3px solid var(--primary);
-  outline-offset:2px;
-  border-radius:8px;
-}
-
-/* ===== סוף הקובץ ===== */
