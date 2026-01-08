@@ -6,288 +6,216 @@
   <title>פורצות דרך | הדרך שלך לפרוץ קדימה</title>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    /* Reset & Full Screen Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
       --bg-primary: #ffffff;
-      --bg-soft: #f1f5f9;
+      --bg-soft: #f8fafc;
       --text-main: #0f172a;
-      --text-muted: #475569;
-      --accent: #7c3aed; /* סגול מנהיגות */
-      --secondary: #0d9488; /* טורקיז טכנולוגי */
-      --pink: #db2777; /* ורוד עוצמה */
-      --max-width: 1100px;
+      --accent: #7c3aed; 
+      --secondary: #0d9488;
+      --max-width: 1200px;
     }
 
-    body {
+    body, html {
+      height: 100%;
+      margin: 0;
       font-family: 'Varela Round', sans-serif;
       background: var(--bg-primary);
       color: var(--text-main);
-      line-height: 1.8;
       direction: rtl;
-      font-size: 1.25rem;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.5rem;
+    /* main container as a full screen flex */
+    .full-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Header */
     .header {
       background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
-      padding: 1.5rem 0;
+      padding: 1rem 0;
       color: white;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .header-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .brand-logo {
-      height: 70px;
-      background: white;
-      padding: 5px;
-      border-radius: 12px;
-    }
+    .brand-logo { height: 60px; background: white; padding: 4px; border-radius: 10px; }
 
-    .brand-text { font-size: 2.2rem; font-weight: 800; }
-
-    /* Hero Section */
-    .hero {
-      padding: 6rem 0;
+    /* Hero & Content Section */
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
       text-align: center;
-      background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.05), transparent);
     }
 
-    .hero h1 {
-      font-size: clamp(3.5rem, 10vw, 5rem);
-      background: linear-gradient(135deg, var(--accent), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
+    .hero-title {
+      font-size: 3rem;
       font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
 
     .hero-subtitle {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 2rem;
-    }
-
-    .hero-description {
-      font-size: 1.6rem;
-      color: var(--text-muted);
-      max-width: 900px;
-      margin: 0 auto;
-      font-weight: 500;
-    }
-
-    /* Sections */
-    .section { padding: 5rem 0; border-bottom: 1px solid #e2e8f0; }
-
-    .main-title {
-      font-size: 3rem;
-      color: var(--accent);
-      margin-bottom: 2.5rem;
-      border-right: 12px solid var(--secondary);
-      padding-right: 1.5rem;
-    }
-
-    /* Steps Design */
-    .step-box {
-      background: var(--bg-soft);
-      border-radius: 35px;
-      padding: 3.5rem;
-      margin-bottom: 3rem;
-      border: 2px solid #e2e8f0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    }
-
-    .step-header {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
 
-    .step-number {
-      background: var(--accent);
-      color: white;
-      width: 65px; height: 65px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2rem; font-weight: 900; flex-shrink: 0;
+    .hero-desc {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem auto;
+      color: #475569;
     }
 
-    .step-title { font-size: 2.2rem; color: var(--text-main); font-weight: 800; }
-
-    /* Intermediate Step & Domains */
-    .intermediate-step {
-      background: white;
-      border: 4px dashed var(--secondary);
-      padding: 4rem 2rem;
-      border-radius: 40px;
-      margin: 4rem 0;
-      text-align: center;
-    }
-
-    .intermediate-step h3 {
-      color: var(--secondary);
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-weight: 800;
-    }
-
-    .domains-grid {
+    /* Process Steps Grid - Horizontal on Desktop */
+    .steps-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      align-items: stretch;
     }
 
-    .domain-card {
-      background: white;
-      padding: 2rem 1rem;
-      border-radius: 24px;
-      text-align: center;
-      text-decoration: none;
-      border: 3px solid #e2e8f0;
-      transition: all 0.3s ease;
+    .step-card {
+      background: var(--bg-soft);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid #e2e8f0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 1rem;
+      transition: transform 0.3s ease;
     }
 
-    .domain-card:hover { 
-      transform: translateY(-10px); 
-      border-color: var(--accent);
-      box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
+    .step-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+    .step-num {
+      background: var(--accent);
+      color: white;
+      width: 35px; height: 35px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      margin-bottom: 1rem;
     }
 
-    .domain-icon { font-size: 3.8rem; display: block; }
-    .domain-name { font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
+    .step-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--accent); }
+    .step-card p { font-size: 0.95rem; line-height: 1.5; color: #475569; }
+
+    /* Special style for Intermediate Step */
+    .step-highlight {
+      background: #fff;
+      border: 2px dashed var(--secondary);
+    }
+
+    .domain-links {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+
+    .mini-btn {
+      text-decoration: none;
+      font-size: 1.2rem;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 5px;
+      transition: 0.2s;
+    }
+
+    .mini-btn:hover { background: var(--bg-soft); border-color: var(--secondary); }
 
     .footer {
-      padding: 4rem;
+      padding: 1rem;
       text-align: center;
-      background: var(--bg-soft);
-      font-weight: 700;
-      color: var(--text-muted);
-      font-size: 1.3rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
     }
 
-    @media (max-width: 768px) {
-      body { font-size: 1.15rem; }
-      .main-title { font-size: 2.2rem; }
-      .step-title { font-size: 1.7rem; }
-      .hero h1 { font-size: 2.8rem; }
-      .intermediate-step h3 { font-size: 1.8rem; }
+    @media (max-width: 900px) {
+      .steps-container { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.2rem; }
+      .main-content { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="container">
+  <div class="full-page-wrapper">
+    
+    <header class="header">
       <div class="header-content">
-        <div class="brand-text">פורצות דרך</div>
+        <div style="font-size: 1.5rem; font-weight: 800;">פורצות דרך</div>
         <img src="logo.png" alt="לוגו" class="brand-logo">
       </div>
-    </div>
-  </header>
+    </header>
 
-  <section class="hero">
-    <div class="container">
-      <h1>הדרך שלך לפרוץ קדימה</h1>
-      <p class="hero-subtitle">זהו מסע שמתחיל בך ומסתיים בשינוי המציאות.</p>
-      <p class="hero-description">
+    <main class="main-content">
+      <h1 class="hero-title">הדרך שלך לפרוץ קדימה</h1>
+      <p class="hero-subtitle">זהו מסע שמתחיל בך ומסתיים בשינוי המציאות</p>
+      <p class="hero-desc">
         בתוכנית "פורצות דרך" תגלי שהשילוב בין החוזקות שלך לבין טכנולוגיה הוא הכוח הכי חזק שיש לך בידיים. כאן לא רק לומדות על העתיד – כאן יוצרות אותו
       </p>
-    </div>
-  </section>
 
-  <main class="container">
-    
-    <section class="section">
-      <h2 class="main-title">איך זה עובד?</h2>
-
-      <div class="step-box">
-        <div class="step-header">
-          <div class="step-number">1</div>
-          <h3 class="step-title">מגלות את ה-Power שלך: זהות ומנהיגות</h3>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>מגלות את ה-Power</h3>
+          <p>לפני הטכנולוגיה – מתחילות בך. בניית ביטחון עצמי, זיהוי חוזקות ופריצת תקרות זכוכית יחד עם נשים מעוררות השראה.</p>
         </div>
-        <p><strong>לפני הטכנולוגיה – מתחילות בך.</strong></p>
-        <p>בשלב הזה מחזקות את הביטחון העצמי והקול האישי שלך, מזהות חוזקות, ושוברות יחד חסמים ותקרות זכוכית. נחשפות לנשים מעוררות השראה שעשו את זה בענק בעולמות המדע, ההייטק והיזמות ולומדות איך בונות זהות של מנהיגה שמובילה שינוי.</p>
-      </div>
 
-      <div class="intermediate-step">
-        <h3>שלב ביניים: בחירת תחום – אתר החקר</h3>
-        <p>בשלב הזה את בוחרת תחום מרכזי שמעניין אותך באמת, או תחום שבו היית רוצה להשפיע וליצור שינוי. דרך חקר, שאלות וחשיבה, את מדייקת כיוון אישי שישמש בסיס לבחירת הבעיה ולפיתוח הפתרון.</p>
-        
-        <div class="domains-grid">
-          <a href="domain-1.html" class="domain-card">
-            <span class="domain-icon">💻</span>
-            <span class="domain-name">הייטק וליבה</span>
-          </a>
-          <a href="domain-2.html" class="domain-card">
-            <span class="domain-icon">💪</span>
-            <span class="domain-name">אדם וטכנולוגיה</span>
-          </a>
-          <a href="domain-3.html" class="domain-card">
-            <span class="domain-icon">🌱</span>
-            <span class="domain-name">סביבה וקיימות</span>
-          </a>
-          <a href="domain-4.html" class="domain-card">
-            <span class="domain-icon">🤝</span>
-            <span class="domain-name">חברה ודיגיטל</span>
-          </a>
-          <a href="domain-5.html" class="domain-card">
-            <span class="domain-icon">🚀</span>
-            <span class="domain-name">עתיד ויזמות</span>
-          </a>
+        <div class="step-card step-highlight">
+          <div class="step-num">★</div>
+          <h3>בחירת תחום - חקר</h3>
+          <p>בחירת תחום שמעניין אותך באמת להשפיע בו. דיוק כיוון אישי שישמש בסיס לפתרון הבעיה.</p>
+          <div class="domain-links">
+            <a href="domain-1.html" class="mini-btn" title="הייטק וליבה">💻</a>
+            <a href="domain-2.html" class="mini-btn" title="אדם וטכנולוגיה">💪</a>
+            <a href="domain-3.html" class="mini-btn" title="סביבה וקיימות">🌱</a>
+            <a href="domain-4.html" class="mini-btn" title="חברה ודיגיטל">🤝</a>
+            <a href="domain-5.html" class="mini-btn" title="עתיד ויזמות">🚀</a>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>רעיון לפתרון</h3>
+          <p>עבודה בקבוצה על בעיה אמיתית. שימוש בכלי AI ויזמות כדי לפתח מענה טכנולוגי חכם וחדשני.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>מציגות ומשפיעות</h3>
+          <p>סיכום התהליך בפוסטר חקר ופיץ' יזמי. עמידה מול קהל והצגת הפתרון בדיוק כמו בעולם האמיתי.</p>
         </div>
       </div>
+    </main>
 
-      <div class="step-box">
-        <div class="step-header">
-          <div class="step-number">2</div>
-          <h3 class="step-title">הופכות רעיון לפתרון טכנולוגי: יזמות ו-AI</h3>
-        </div>
-        <p>בשלב הזה את עובדת בקבוצה על בעיה אמיתית מתוך התחום שנבחר.</p>
-        <p>לומדות לחשוב כמו יזמיות, חוקרות פתרונות קיימים ומשתמשות בכלי AI כדי לפתח פתרון טכנולוגי חכם. הדגש הוא על חקר, חשיבה מערכתית והבנה איך טכנולוגיה ובינה מלאכותית יכולות לתת מענה אמיתי לאתגר.</p>
-      </div>
+    <footer class="footer">
+      <p>© 2026 קורס פורצות דרך | הדרך שלך לפרוץ קדימה</p>
+    </footer>
 
-      <div class="step-box">
-        <div class="step-header">
-          <div class="step-number">3</div>
-          <h3 class="step-title">מציגות ומשפיעות: פוסטר חקר ופיץ’ יזמי</h3>
-        </div>
-        <p>בשלב הסיום את מסכמת את תהליך העבודה והחקר בשני תוצרים מרכזיים:</p>
-        <p><strong>פוסטר חקר טכנולוגי</strong> שמציג את הבעיה, תהליך החשיבה, הפתרון וההשפעה הצפויה – לצד <strong>פיץ’ יזמי</strong> קצר וברור.</p>
-        <p>לומדות להציג רעיון טכנולוגי בצורה ויזואלית ומשכנעת, לעמוד מול קהל ולהסביר למה הפתרון שלך חשוב – בדיוק כמו בעולם ההייטק האמיתי.</p>
-      </div>
-
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2026 קורס פורצות דרך | מסע של חקירה, חשיבה והשפעה</p>
-  </footer>
+  </div>
 
 </body>
 </html>
