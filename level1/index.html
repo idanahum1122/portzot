@@ -3,206 +3,349 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>פורצות דרך | דף הבית</title>
+  <title>פורצות דרך | מסע של חקירה וחשיבה</title>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    /* Variables - Updated for better visibility */
     :root {
-      --primary-gradient: linear-gradient(135deg, #6d28d9 0%, #0d9488 100%);
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --bg-light: #f8fafc;
-      --max-width: 1000px;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #0f172a; /* כהה יותר */
+      --text-secondary: #334155; /* בולט יותר */
+      
+      --domain-1: #7c3aed;
+      --domain-2: #db2777;
+      --domain-3: #0d9488;
+      --domain-4: #d97706;
+      --domain-5: #0891b2;
+      
+      --accent-primary: #8b5cf6;
+      --max-width: 1200px;
+      
+      --radius-lg: 18px;
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     body {
       font-family: 'Varela Round', sans-serif;
-      background: #ffffff;
+      background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.8;
       direction: rtl;
-      font-size: 1.15rem;
+      font-size: 1.2rem; /* הגדלת טקסט בסיסי */
     }
 
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
     /* Header */
-    .main-header {
-      background: var(--primary-gradient);
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.98) 0%, rgba(20, 184, 166, 0.98) 100%);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
       color: white;
-      padding: 4rem 0;
+    }
+
+    .brand-logo {
+      height: 70px;
+      background: white;
+      padding: 5px;
+      border-radius: 12px;
+    }
+
+    .brand-text { font-weight: 800; font-size: 1.8rem; }
+
+    .nav { display: flex; gap: 1rem; }
+    .nav-link {
+      padding: 0.6rem 1.2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 5rem 0;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
     }
 
-    .main-header h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 1rem; }
-    .main-header p { font-size: 1.5rem; opacity: 0.9; font-weight: 500; }
-
-    /* Section Styles */
-    .content-section { padding: 4rem 0; border-bottom: 2px solid #f1f5f9; }
-
-    .main-title {
-      font-size: 2.5rem;
-      color: #6d28d9;
-      margin-bottom: 2rem;
-      border-right: 8px solid #0d9488;
-      padding-right: 1.5rem;
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+      font-weight: 900;
     }
 
-    .subsection-title {
+    .hero-subtitle {
       font-size: 1.8rem;
-      margin: 2rem 0 1.2rem;
-      color: #1e293b;
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
 
-    p { margin-bottom: 1.5rem; }
+    .hero-text {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; }
+    .btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+    .btn-primary { background: #8b5cf6; color: white; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
+    .btn-ghost { border: 2px solid #8b5cf6; color: #8b5cf6; }
+
+    /* Section Typography */
+    .section { padding: 5rem 0; }
+    .section-title {
+      font-size: 3rem;
+      color: #1e293b;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .section-subtitle {
+      font-size: 1.4rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3.5rem;
+      color: var(--text-secondary);
+    }
+
+    /* Process Grid */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .process-card {
+      padding: 2.5rem;
+      border-radius: 24px;
+      background: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      transition: 0.3s;
+    }
+
+    .process-card-highlight {
+      border: 4px solid var(--accent-primary);
+      background: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .process-number {
+      width: 50px; height: 50px;
+      background: var(--accent-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem;
+    }
+
+    .process-title { font-size: 1.6rem; margin-bottom: 1rem; color: #1e293b; }
+    .process-text { font-size: 1.15rem; color: var(--text-secondary); }
 
     /* Domains Grid */
     .domains-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
     }
 
     .domain-card {
       background: white;
-      border: 3px solid #e2e8f0;
-      border-radius: 24px;
       padding: 2.5rem;
+      border-radius: 20px;
       text-align: center;
       text-decoration: none;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 4px solid transparent;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    .domain-card:hover {
-      transform: translateY(-10px);
-      border-color: #6d28d9;
-      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.15);
-    }
+    .domain-card:hover { transform: translateY(-10px); }
 
-    .domain-icon { font-size: 4rem; margin-bottom: 1.5rem; }
-    .domain-card h3 { font-size: 2rem; color: #6d28d9; margin-bottom: 1rem; }
-    .domain-card p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .domain-icon { font-size: 4rem; margin-bottom: 1rem; display: block; }
+    .domain-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
 
-    .btn-enter {
-      background: #6d28d9;
-      color: white;
-      padding: 0.8rem 2rem;
-      border-radius: 12px;
+    .domain-btn {
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
       font-weight: 700;
-      transition: background 0.2s;
+      border: 2px solid;
+      background: transparent;
+      font-size: 1.1rem;
     }
 
-    .domain-card:hover .btn-enter { background: #0d9488; }
+    /* Colors per domain */
+    .domain-card:nth-child(1) { border-color: var(--domain-1); }
+    .domain-card:nth-child(1) .domain-title, .domain-card:nth-child(1) .domain-btn { color: var(--domain-1); }
+    .domain-card:nth-child(2) { border-color: var(--domain-2); }
+    .domain-card:nth-child(2) .domain-title, .domain-card:nth-child(2) .domain-btn { color: var(--domain-2); }
+    .domain-card:nth-child(3) { border-color: var(--domain-3); }
+    .domain-card:nth-child(3) .domain-title, .domain-card:nth-child(3) .domain-btn { color: var(--domain-3); }
+    .domain-card:nth-child(4) { border-color: var(--domain-4); }
+    .domain-card:nth-child(4) .domain-title, .domain-card:nth-child(4) .domain-btn { color: var(--domain-4); }
+    .domain-card:nth-child(5) { border-color: var(--domain-5); }
+    .domain-card:nth-child(5) .domain-title, .domain-card:nth-child(5) .domain-btn { color: var(--domain-5); }
 
-    /* Steps Box */
-    .steps-container {
-      background: #f1f5f9;
-      padding: 3rem;
-      border-radius: 30px;
-      margin: 3rem 0;
-    }
+    .footer { padding: 4rem; text-align: center; background: #f8fafc; font-weight: 700; font-size: 1.2rem; }
 
-    .step-item {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .step-num {
-      background: #6d28d9;
-      color: white;
-      width: 45px; height: 45px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-weight: 800;
-    }
-
-    .footer { padding: 4rem; text-align: center; background: #f8fafc; font-weight: 600; border-top: 1px solid #e2e8f0; }
-
-    @media (max-width: 600px) {
-      .main-header h1 { font-size: 2.5rem; }
-      .main-title { font-size: 1.8rem; }
-      .domain-card { padding: 1.5rem; }
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; gap: 1rem; }
+      .brand-text { font-size: 1.4rem; }
+      .hero-title { font-size: 2.8rem; }
+      .section-title { font-size: 2.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <header class="main-header">
+  <header class="header">
     <div class="container">
-      <h1>פורצות דרך</h1>
-      <p>קורס חקירה, חשיבה הנדסית והשפעה טכנולוגית</p>
+      <div class="header-content">
+        <a href="index.html" class="brand">
+          <img src="logo.png" alt="לוגו" class="brand-logo">
+          <span class="brand-text">פורצות דרך</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html" class="nav-link">🏠 בית</a>
+          <a href="#about" class="nav-link">ℹ️ על הקורס</a>
+          <a href="#domains" class="nav-link">🎯 התחומים</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">פורצות דרך</h1>
+      <p class="hero-subtitle">ברוכות הבאות — באיזה תחום היית רוצה להשפיע?</p>
+      <p class="hero-text">
+        התהליך מתחיל בבחירת תחום שמסקרן אותך ומעניין אותך באמת.<br>
+        בהמשך, הבחירות האישיות נפגשות בעבודה קבוצתית — לומדות יחד, משתפות רעיונות ומפתחות כיוון משותף.
+      </p>
+      <div class="hero-buttons">
+        <a href="#domains" class="btn btn-primary">🚀 בחירת תחום</a>
+        <a href="#about" class="btn btn-ghost">💡 איך זה עובד?</a>
+      </div>
+    </div>
+  </section>
 
-    <section class="content-section">
-      <h2 class="main-title">ברוכות הבאות למסע שלכן</h2>
-      <p>קורס "פורצות דרך" הוא מרחב שבו טכנולוגיה פוגשת סקרנות אנושית. כאן אנחנו לא רק לומדות להשתמש בכלים, אלא לומדות להבין את המנגנונים שמניעים את העולם המודרני.</p>
-      
-      <h3 class="subsection-title">מה מחכה לנו בדרך?</h3>
-      <p>במהלך התהליך, נצא לחקירה מעמיקה של עולמות התוכן המרכזיים בהייטק ובמדע. נלמד לזהות בעיות אמיתיות, לשאול שאלות חקר נוקבות ולתכנן פתרונות הנדסיים שיש להם משמעות.</p>
-      
-      <div class="steps-container">
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div>
-            <strong>חשיפה וחקירה:</strong> הכרת תחומי הליבה והבנת האתגרים הקיימים בהם.
-          </div>
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">איך זה עובד?</h2>
+      <p class="section-subtitle">בשלה הזה עדיין לא בוחרים בעיה ולא מפתחים פתרון. המטרה היא לעצור לרגע, להכיר תחומים שונים, לחשוב, ולהרגיש מה מדבר אליך באמת.</p>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="process-number">1</div>
+          <h3 class="process-title">מגדר והעצמה</h3>
+          <p class="process-text">היכרות עם עצמך – החוזקות שלך, תחומי העניין, והקול האישי שלך. שלב של חיבור, ביטחון והבנה שיש לך מקום, יכולת והשפעה בעולם הטכנולוגי והיזמי.</p>
         </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div>
-            <strong>בחירת נושא חקר:</strong> התמקדות בבעיה ספציפית שמעוררת בכן עניין אישי.
-          </div>
+
+        <div class="process-card process-card-highlight">
+          <div class="process-number">2</div>
+          <h3 class="process-title">בחירת תחום וכיוון</h3>
+          <p class="process-text"><strong>זהו השלב שבו את נמצאת עכשיו באתר.</strong> בחירת תחום מרכזי שמעניין אותך או שהיית רוצה להשפיע בו. הבחירה כאן היא כיוון כללי, לא בעיה ספציפית ולא פתרון.</p>
         </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div>
-            <strong>תכנון הנדסי:</strong> פיתוח רעיונות ופתרונות טכנולוגיים חדשניים.
-          </div>
+
+        <div class="process-card">
+          <div class="process-number">3</div>
+          <h3 class="process-title">מרעיון למוצר</h3>
+          <p class="process-text">בהמשך הקורס, לאחר חלוקה לקבוצות, תעברו לבחירת בעיה, חקר מעמיק ופיתוח רעיון לפתרון.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-number">4</div>
+          <h3 class="process-title">פרזנטציה</h3>
+          <p class="process-text">בסיום התהליך תלמדי להציג את הרעיון שלך, לבנות פיץ' ולהעביר מסר ברור ומשכנע.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="content-section">
-      <h2 class="main-title">בחרי תחום חקירה</h2>
-      <p>לפניכן דלתות לעולמות תוכן שונים. בכל דומיין תמצאו מידע מפורט, שאלות למחשבה והכוונה לקראת קבלת החלטה על נושא החקר שלכן.</p>
+  <section id="domains" class="section" style="background: #f8fafc;">
+    <div class="container">
+      <h2 class="section-title">התחומים</h2>
+      <p class="section-subtitle">בחרי תחום שמעניין אותך ולחצי עליו כדי להתחיל לחקור</p>
 
       <div class="domains-grid">
-        <a href="domain1.html" class="domain-card">
-          <div class="domain-icon">💻</div>
-          <h3>הייטק ליבה</h3>
-          <p>קוד, תשתיות ענן, סייבר ואלגוריתמיקה. להבין מה קורה "מתחת למכסה המנוע" של הדיגיטל.</p>
-          <span class="btn-enter">כניסה לחקר התחום</span>
+        <a href="domain-1.html" class="domain-card">
+          <span class="domain-icon">💻</span>
+          <h3 class="domain-title">הייטק וליבה</h3>
+          <button class="domain-btn">כניסה לתחום ←</button>
         </a>
 
-        <a href="#" class="domain-card">
-          <div class="domain-icon">🧬</div>
-          <h3>ביוטכנולוגיה ורפואה</h3>
-          <p>המפגש בין טכנולוגיה לגוף האדם. חקר פתרונות למחלות ושיפור איכות החיים.</p>
-          <span class="btn-enter">בקרוב...</span>
+        <a href="domain-2.html" class="domain-card">
+          <span class="domain-icon">💪</span>
+          <h3 class="domain-title">אדם וטכנולוגיה</h3>
+          <button class="domain-btn">כניסה לתחום ←</button>
+        </a>
+
+        <a href="domain-3.html" class="domain-card">
+          <span class="domain-icon">🌱</span>
+          <h3 class="domain-title">סביבה וקיימות</h3>
+          <button class="domain-btn">כניסה לתחום ←</button>
+        </a>
+
+        <a href="domain-4.html" class="domain-card">
+          <span class="domain-icon">🤝</span>
+          <h3 class="domain-title">חברה ודיגיטל</h3>
+          <button class="domain-btn">כניסה לתחום ←</button>
+        </a>
+
+        <a href="domain-5.html" class="domain-card">
+          <span class="domain-icon">🚀</span>
+          <h3 class="domain-title">עתיד ויזמות</h3>
+          <button class="domain-btn">כניסה לתחום ←</button>
         </a>
       </div>
-    </section>
-
-    <section class="content-section">
-      <h2 class="main-title">למה זה חשוב?</h2>
-      <p>בעולם שמשתנה במהירות, היכולת להבין מערכות מורכבות היא כוח. אנחנו מאמינים שכל אחת מכן יכולה להיות זו שתפתור את האתגר הבא בתעשייה – בין אם זה בייעול קוד, באבטחת מידע או ביצירת טכנולוגיה הוגנת ושקופה יותר.</p>
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <footer class="footer">
-    <p>© 2026 קורס פורצות דרך | הנדסה, חברה וטכנולוגיה</p>
+    <p>© 2026 קורס פורצות דרך | מסע של חקירה, חשיבה והשפעה</p>
   </footer>
 
 </body>
