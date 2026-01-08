@@ -21,7 +21,7 @@
       --accent: #7c3aed; /* סגול מנהיגות */
       --secondary: #0d9488; /* טורקיז טכנולוגי */
       --pink: #db2777; /* ורוד עוצמה */
-      --max-width: 1000px;
+      --max-width: 1100px;
     }
 
     body {
@@ -30,7 +30,7 @@
       color: var(--text-main);
       line-height: 1.8;
       direction: rtl;
-      font-size: 1.25rem; /* טקסט רץ גדול וקריא */
+      font-size: 1.25rem;
     }
 
     .container {
@@ -63,17 +63,17 @@
       border-radius: 12px;
     }
 
-    .brand-text { font-size: 2rem; font-weight: 800; }
+    .brand-text { font-size: 2.2rem; font-weight: 800; }
 
     /* Hero Section */
     .hero {
-      padding: 5rem 0;
+      padding: 6rem 0;
       text-align: center;
       background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.05), transparent);
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 10vw, 4.5rem);
+      font-size: clamp(3.5rem, 10vw, 5rem);
       background: linear-gradient(135deg, var(--accent), var(--pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -82,38 +82,39 @@
     }
 
     .hero-subtitle {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 2rem;
     }
 
     .hero-description {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: var(--text-muted);
-      max-width: 850px;
+      max-width: 900px;
       margin: 0 auto;
       font-weight: 500;
     }
 
     /* Sections */
-    .section { padding: 4rem 0; border-bottom: 1px solid #e2e8f0; }
+    .section { padding: 5rem 0; border-bottom: 1px solid #e2e8f0; }
 
     .main-title {
-      font-size: 2.8rem;
+      font-size: 3rem;
       color: var(--accent);
-      margin-bottom: 2rem;
-      border-right: 10px solid var(--secondary);
+      margin-bottom: 2.5rem;
+      border-right: 12px solid var(--secondary);
       padding-right: 1.5rem;
     }
 
     /* Steps Design */
     .step-box {
       background: var(--bg-soft);
-      border-radius: 30px;
-      padding: 3rem;
-      margin-bottom: 2.5rem;
+      border-radius: 35px;
+      padding: 3.5rem;
+      margin-bottom: 3rem;
       border: 2px solid #e2e8f0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
 
     .step-header {
@@ -126,51 +127,60 @@
     .step-number {
       background: var(--accent);
       color: white;
-      width: 60px; height: 60px;
+      width: 65px; height: 65px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; font-weight: 900; flex-shrink: 0;
+      font-size: 2.2rem; font-weight: 900; flex-shrink: 0;
     }
 
-    .step-title { font-size: 2rem; color: var(--text-main); font-weight: 800; }
+    .step-title { font-size: 2.2rem; color: var(--text-main); font-weight: 800; }
 
+    /* Intermediate Step & Domains */
     .intermediate-step {
       background: white;
       border: 4px dashed var(--secondary);
-      padding: 2.5rem;
-      border-radius: 30px;
-      margin: 3rem 0;
+      padding: 4rem 2rem;
+      border-radius: 40px;
+      margin: 4rem 0;
       text-align: center;
     }
 
     .intermediate-step h3 {
       color: var(--secondary);
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 1.5rem;
+      font-weight: 800;
     }
 
-    /* Domains Grid */
     .domains-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1.5rem;
-      margin-top: 3rem;
+      margin-top: 3.5rem;
     }
 
     .domain-card {
       background: white;
-      padding: 2rem;
-      border-radius: 20px;
+      padding: 2rem 1rem;
+      border-radius: 24px;
       text-align: center;
       text-decoration: none;
-      border: 3px solid var(--accent);
-      transition: 0.3s;
+      border: 3px solid #e2e8f0;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .domain-card:hover { transform: translateY(-10px); background: var(--bg-soft); }
+    .domain-card:hover { 
+      transform: translateY(-10px); 
+      border-color: var(--accent);
+      box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
+    }
 
-    .domain-icon { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
-    .domain-name { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+    .domain-icon { font-size: 3.8rem; display: block; }
+    .domain-name { font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
 
     .footer {
       padding: 4rem;
@@ -178,13 +188,15 @@
       background: var(--bg-soft);
       font-weight: 700;
       color: var(--text-muted);
+      font-size: 1.3rem;
     }
 
     @media (max-width: 768px) {
-      body { font-size: 1.1rem; }
-      .main-title { font-size: 2rem; }
-      .step-title { font-size: 1.5rem; }
-      .hero h1 { font-size: 2.5rem; }
+      body { font-size: 1.15rem; }
+      .main-title { font-size: 2.2rem; }
+      .step-title { font-size: 1.7rem; }
+      .hero h1 { font-size: 2.8rem; }
+      .intermediate-step h3 { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -228,14 +240,26 @@
         <p>בשלב הזה את בוחרת תחום מרכזי שמעניין אותך באמת, או תחום שבו היית רוצה להשפיע וליצור שינוי. דרך חקר, שאלות וחשיבה, את מדייקת כיוון אישי שישמש בסיס לבחירת הבעיה ולפיתוח הפתרון.</p>
         
         <div class="domains-grid">
-          <a href="domain1.html" class="domain-card">
+          <a href="domain-1.html" class="domain-card">
             <span class="domain-icon">💻</span>
-            <span class="domain-name">הייטק ליבה</span>
+            <span class="domain-name">הייטק וליבה</span>
           </a>
-          <div class="domain-card" style="opacity: 0.6; border-style: dashed;">
-            <span class="domain-icon">🧬</span>
-            <span class="domain-name">תחומים נוספים...</span>
-          </div>
+          <a href="domain-2.html" class="domain-card">
+            <span class="domain-icon">💪</span>
+            <span class="domain-name">אדם וטכנולוגיה</span>
+          </a>
+          <a href="domain-3.html" class="domain-card">
+            <span class="domain-icon">🌱</span>
+            <span class="domain-name">סביבה וקיימות</span>
+          </a>
+          <a href="domain-4.html" class="domain-card">
+            <span class="domain-icon">🤝</span>
+            <span class="domain-name">חברה ודיגיטל</span>
+          </a>
+          <a href="domain-5.html" class="domain-card">
+            <span class="domain-icon">🚀</span>
+            <span class="domain-name">עתיד ויזמות</span>
+          </a>
         </div>
       </div>
 
