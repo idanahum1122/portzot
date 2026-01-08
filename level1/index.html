@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-primary: #fafbfc;
@@ -32,11 +34,7 @@
       --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -54,6 +52,7 @@
       background: linear-gradient(135deg, #8b5cf6 0%, #14b8a6 100%);
       padding: 1rem 2rem;
       box-shadow: var(--shadow-md);
+      will-change: transform;
     }
 
     .header-content {
@@ -81,11 +80,13 @@
       background: white;
       padding: 6px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      flex: 0 0 auto;
     }
 
     .brand-text {
       font-size: 1.5rem;
       font-weight: 800;
+      white-space: nowrap;
     }
 
     nav {
@@ -109,39 +110,176 @@
       transform: translateY(-2px);
     }
 
-    /* Hero Section */
+    /* Hero Section + WOW layer */
     .hero {
+      position: relative;
+      overflow: hidden;
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       padding: var(--spacing-xl) 2rem;
       text-align: center;
       border-bottom: 3px solid var(--accent-primary);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -40% -20%;
+      z-index: -1;
+      background: radial-gradient(circle at 20% 30%, rgba(236, 72, 153, 0.16), transparent 55%),
+                  radial-gradient(circle at 80% 25%, rgba(20, 184, 166, 0.18), transparent 55%),
+                  radial-gradient(circle at 50% 85%, rgba(139, 92, 246, 0.18), transparent 60%);
+      filter: blur(10px);
+      transform: translateZ(0);
+    }
+
+    .hero::after {
+      inset: -60% -40%;
+      opacity: 0.65;
+      animation: floatGlow 12s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(2%, -2%, 0) scale(1.02); }
     }
 
     .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(3.5rem, 10vw, 6rem);
       font-weight: 800;
-      background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #14b8a6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+      line-height: 1.2;
     }
 
     .hero-subtitle {
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: var(--spacing-lg);
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 3rem;
       line-height: 1.5;
+      max-width: 1000px;
     }
 
     .hero-text {
-      font-size: 1.05rem;
-      max-width: 800px;
+      font-size: 1.5rem;
+      max-width: 1000px;
       margin: 0 auto;
-      line-height: 1.7;
-      color: var(--text-secondary);
+      line-height: 1.9;
+      font-weight: 500;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hero buttons */
+    .hero-actions{
+      display:flex;
+      gap:1rem;
+      margin-top:2.5rem;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .hero-btn{
+      text-decoration:none;
+      padding:0.85rem 2rem;
+      border-radius:999px;
+      font-weight:700;
+      font-size:1.05rem;
+      transition:all .3s ease;
+      border:2px solid transparent;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:160px;
+    }
+
+    .hero-btn.primary{
+      background:linear-gradient(135deg,#8b5cf6,#ec4899);
+      color:#fff;
+      box-shadow:0 10px 28px rgba(139,92,246,.35);
+    }
+
+    .hero-btn.primary.quiz{
+      background:linear-gradient(135deg,#14b8a6,#10b981);
+      box-shadow:0 10px 28px rgba(16,185,129,.35);
+    }
+
+    .hero-btn.primary.quiz:hover{
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 14px 36px rgba(16,185,129,.45);
+    }
+
+    .hero-btn.primary:hover{
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 14px 36px rgba(139,92,246,.45);
+    }
+
+    .hero-btn.secondary{
+      background:#ffffff;
+      color:#6b21a8;
+      border-color:#e9d5ff;
+    }
+
+    .hero-btn.secondary:hover{
+      background:#faf5ff;
+      transform:translateY(-2px);
+    }
+
+    @media (max-width:768px){
+      .hero-actions{
+        gap:.75rem;
+        margin-top:2rem;
+      }
+      .hero-btn{
+        width:100%;
+        max-width:320px;
+      }
+    }
+
+    /* Scroll hint */
+    .scroll-hint{
+      position:absolute;
+      bottom:24px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+      font-size:0.9rem;
+      color:#6b7280;
+      opacity:0.85;
+      pointer-events:none;
+    }
+
+    .scroll-arrow{
+      font-size:1.6rem;
+      animation:scrollBounce 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(8px)}
+    }
+
+    @media (max-width:768px){
+      .scroll-hint{bottom:16px}
     }
 
     /* Process Section */
@@ -157,15 +295,13 @@
     }
 
     .section-title {
-      font-size: 2rem;
-      color: var(--text-primary);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      margin-top: 0.5rem;
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #14b8a6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--spacing-lg);
     }
 
     /* Process Cards */
@@ -181,15 +317,18 @@
       border-radius: var(--radius-lg);
       padding: 1.5rem;
       box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 2px solid #e2e8f0;
       min-height: 320px;
       display: flex;
       flex-direction: column;
       animation: fadeInUp 0.6s ease forwards;
       opacity: 0;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Card backgrounds */
     .process-card:nth-child(1) {
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(168, 139, 250, 0.05) 100%);
       border-color: rgba(139, 92, 246, 0.3);
@@ -202,7 +341,6 @@
       border-style: dashed;
       border-width: 3px;
       animation-delay: 0.2s;
-      animation: pulse 2s ease-in-out infinite;
     }
 
     .process-card:nth-child(3) {
@@ -218,23 +356,23 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 0 10px rgba(13, 148, 136, 0);
-      }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.4); }
+      50%      { box-shadow: 0 0 0 10px rgba(13, 148, 136, 0); }
+    }
+
+    /* Only the highlighted card pulses */
+    .process-card.is-highlight {
+      animation-name: fadeInUp, pulse;
+      animation-duration: 0.6s, 2s;
+      animation-timing-function: ease, ease-in-out;
+      animation-iteration-count: 1, infinite;
+      animation-fill-mode: forwards, both;
+      animation-delay: 0.2s, 0.6s;
     }
 
     .process-card:hover {
@@ -254,6 +392,7 @@
       margin-bottom: var(--spacing-md);
       background: var(--accent-primary);
       color: white;
+      line-height: 1;
     }
 
     .process-card:nth-child(2) .process-number {
@@ -261,18 +400,15 @@
       font-size: 2rem;
       width: 55px;
       height: 55px;
-      line-height: 1;
-    }
-
-    .process-card:nth-child(2) .process-number::before {
-      content: '⭐️';
-      display: block;
     }
 
     .process-title {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: var(--text-primary);
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: var(--spacing-sm);
     }
 
@@ -304,6 +440,7 @@
       justify-content: center;
       min-width: 50px;
       min-height: 50px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .domain-link:hover {
@@ -421,62 +558,84 @@
       margin-top: var(--spacing-xl);
     }
 
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .process-card,
+      .process-card.is-highlight,
+      .hero::after {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
     /* Responsive */
     @media (max-width: 1200px) {
-      .domains-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .domains-grid { grid-template-columns: repeat(3, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
-      .process-grid {
-        grid-template-columns: 1fr;
+      header { padding: 0.75rem 1rem; }
+
+      .header-content {
+        gap: 0.75rem;
       }
 
-      .domains-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .brand-logo { height: 54px; max-width: 78px; }
+      .brand-text { font-size: 1.15rem; }
+
+      nav { gap: 0.5rem; }
+      .nav-link { font-size: 0.95rem; padding: 0.45rem 0.8rem; }
+
+      .hero {
+        min-height: calc(100vh - 80px);
+        padding: 2.25rem 1.25rem;
       }
 
-      .hero-title {
-        font-size: 2rem;
+      .hero-title { font-size: 2.6rem; margin-bottom: 1.5rem; }
+      .hero-subtitle { font-size: 1.35rem; margin-bottom: 1.75rem; }
+      .hero-text { font-size: 1.1rem; line-height: 1.85; }
+
+      .section { padding: 0 1.25rem; }
+      .section-title { font-size: 2rem; }
+
+      .process-grid { grid-template-columns: 1fr; }
+
+      /* WOW mobile micro-interactions */
+      .process-card {
+        opacity: 1;
+        animation: mobileFade 0.65s ease both;
+        transform-origin: center;
       }
 
-      .hero-subtitle {
-        font-size: 1.1rem;
+      .process-card:active { transform: scale(0.985); }
+
+      .process-card.is-highlight {
+        box-shadow: 0 14px 38px rgba(16, 185, 129, 0.22);
+        animation: mobileFade 0.7s ease both, pulse 2s ease-in-out infinite;
+        animation-delay: 0s, 0.8s;
       }
 
-      .section-title {
-        font-size: 1.5rem;
+      @keyframes mobileFade {
+        from { opacity: 0; transform: translateY(22px) scale(0.98); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
       }
 
-      nav {
-        gap: 0.5rem;
-      }
-
-      .nav-link {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-      }
-
-      .brand-text {
-        font-size: 1.2rem;
-      }
+      .domains-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 480px) {
-      .domains-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .domain-links {
-        justify-content: center;
-      }
+      .domains-grid { grid-template-columns: 1fr; }
+      .domain-links { justify-content: center; }
     }
   </style>
+
 </head>
 <body>
 
   <!-- Header -->
+
   <header>
     <div class="header-content">
       <a href="index.html" class="brand">
@@ -491,111 +650,134 @@
   </header>
 
   <!-- Hero Section -->
+
   <section class="hero">
     <h1 class="hero-title">הדרך שלך לפרוץ קדימה</h1>
     <p class="hero-subtitle">זהו מסע שמתחיל בך ומסתיים בשינוי המציאות.</p>
     <p class="hero-text">
-      בתוכנית "פורצות דרך" תגלי שהשילוב בין החוזקות שלך לבין טכנולוגיה הוא הכוח הכי חזק שיש לך בידיים. כאן לא רק לומדות על העתיד – כאן יוצרות אותו.
+      בתוכנית "פורצות דרך" תגלי שהשילוב בין החוזקות שלך לבין טכנולוגיה<br>הוא הכוח הכי חזק שיש לך בידיים.<br><br>כאן לא רק לומדות על העתיד – כאן יוצרות אותו.
     </p>
+
+```
+<div class="hero-actions">
+  <a href="#domains" class="hero-btn primary">לבחירת תחום</a>
+  <a href="#quiz" class="hero-btn primary quiz">שאלון לבחירת תחום</a>
+  <a href="#about" class="hero-btn secondary">איך זה עובד?</a>
+</div>
+  <!-- Scroll Hint -->
+<div class="scroll-hint" aria-hidden="true">
+  <span class="scroll-text">גללי למטה</span>
+  <span class="scroll-arrow">⌄</span>
+</div>
+```
+
   </section>
 
   <!-- Process Section -->
+
   <section id="about" class="section">
     <div class="section-header">
       <h2 class="section-title">איך זה עובד?</h2>
-      <p class="section-subtitle">(השלבים שלנו)</p>
     </div>
 
-    <div class="process-grid">
-      <!-- Card 1 -->
-      <div class="process-card">
-        <div class="process-number">1</div>
-        <h3 class="process-title">מגלות את ה-Power שלך: זהות ומנהיגות</h3>
-        <p class="process-text">
-          לפני הטכנולוגיה – מתחילות בך.
-          בשלב הזה מחזקות את הביטחון העצמי והקול האישי שלך, מזהות חוזקות, ושוברות יחד חסמים ותקרות זכוכית. נחשפות לנשים מעוררות השראה שעשו את זה בענק בעולמות המדע, ההייטק והיזמות, ולומדות איך בונות זהות של מנהיגה שמובילה שינוי.
-        </p>
-      </div>
+```
+<div class="process-grid">
+  <!-- Card 1 -->
+  <div class="process-card">
+    <div class="process-number">1</div>
+    <h3 class="process-title">מגלות את ה-Power שלך: זהות ומנהיגות</h3>
+    <p class="process-text">
+      לפני הטכנולוגיה – מתחילות בך.
+      בשלב הזה מחזקות את הביטחון העצמי והקול האישי שלך, מזהות חוזקות, ושוברות יחד חסמים ותקרות זכוכית. נחשפות לנשים מעוררות השראה שעשו את זה בענק בעולמות המדע, ההייטק והיזמות, ולומדות איך בונות זהות של מנהיגה שמובילה שינוי.
+    </p>
+  </div>
 
-      <!-- Card 2 - Highlighted -->
-      <div class="process-card">
-        <div class="process-number">⭐️</div>
-        <h3 class="process-title">שלב ביניים: בחירת תחום – אתר החקר</h3>
-        <p class="process-text">
-          בשלב הזה את בוחרת תחום מרכזי שמעניין אותך באמת, או תחום שבו היית רוצה להשפיע וליצור שינוי. דרך חקר, שאלות וחשיבה, את מדייקת כיוון אישי שישמש בסיס לבחירת הבעיה ולפיתוח הפתרון.
-        </p>
-        <div class="domain-links">
-          <a href="domain-1.html" class="domain-link" title="הייטק ליבה">💻</a>
-          <a href="domain-2.html" class="domain-link" title="אדם וטכנולוגיה">💪</a>
-          <a href="domain-3.html" class="domain-link" title="סביבה וקיימות">🌱</a>
-          <a href="domain-4.html" class="domain-link" title="חברה ודיגיטל">🤝</a>
-          <a href="domain-5.html" class="domain-link" title="יזמות ועתיד">🚀</a>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="process-card">
-        <div class="process-number">2</div>
-        <h3 class="process-title">הופכות רעיון לפתרון טכנולוגי: יזמות ו-AI</h3>
-        <p class="process-text">
-          בשלב הזה את עובדת בקבוצה על בעיה אמיתית מתוך התחום שנבחר.
-          לומדות לחשוב כמו יזמיות, חוקרות פתרונות קיימים ומשתמשות בכלי AI כדי לפתח פתרון טכנולוגי חכם. הדגש הוא על חקר, חשיבה מערכתית והבנה איך טכנולוגיה ובינה מלאכותית יכולות לתת מענה אמיתי לאתגר.
-        </p>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="process-card">
-        <div class="process-number">3</div>
-        <h3 class="process-title">מציגות ומשפיעות: פוסטר חקר ופיץ' יזמי</h3>
-        <p class="process-text">
-          בשלב הסיום את מסכמת את תהליך העבודה והחקר בשני תוצרים מרכזיים:
-          פוסטר חקר טכנולוגי שמציג את הבעיה, תהליך החשיבה, הפתרון וההשפעה הצפויה – לצד פיץ' יזמי קצר וברור.
-          לומדות להציג רעיון טכנולוגי בצורה ויזואלית ומשכנעת, לעמוד מול קהל ולהסביר למה הפתרון שלך חשוב – בדיוק כמו בעולם ההייטק האמיתי.
-        </p>
-      </div>
+  <!-- Card 2 - Highlighted -->
+  <div class="process-card is-highlight">
+    <div class="process-number">⭐️</div>
+    <h3 class="process-title">שלב ביניים: בחירת תחום – אתר החקר</h3>
+    <p class="process-text">
+      בשלב הזה את בוחרת תחום מרכזי שמעניין אותך באמת, או תחום שבו היית רוצה להשפיע וליצור שינוי. דרך חקר, שאלות וחשיבה, את מדייקת כיוון אישי שישמש בסיס לבחירת הבעיה ולפיתוח הפתרון.
+    </p>
+    <div class="domain-links">
+      <a href="domain-1.html" class="domain-link" title="הייטק ליבה">💻</a>
+      <a href="domain-2.html" class="domain-link" title="אדם וטכנולוגיה">💪</a>
+      <a href="domain-3.html" class="domain-link" title="סביבה וקיימות">🌱</a>
+      <a href="domain-4.html" class="domain-link" title="חברה ודיגיטל">🤝</a>
+      <a href="domain-5.html" class="domain-link" title="יזמות ועתיד">🚀</a>
     </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="process-card">
+    <div class="process-number">2</div>
+    <h3 class="process-title">הופכות רעיון לפתרון טכנולוגי: יזמות ו-AI</h3>
+    <p class="process-text">
+      בשלב הזה את עובדת בקבוצה על בעיה אמיתית מתוך התחום שנבחר.
+      לומדות לחשוב כמו יזמיות, חוקרות פתרונות קיימים, ומשתמשות בכלי AI כדי לפתח פתרון טכנולוגי חכם. הדגש הוא על חקר, חשיבה מערכתית והבנה איך טכנולוגיה ובינה מלאכותית יכולות לתת מענה אמיתי לאתגר.
+    </p>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="process-card">
+    <div class="process-number">3</div>
+    <h3 class="process-title">מציגות ומשפיעות: פוסטר חקר ופיץ' יזמי</h3>
+    <p class="process-text">
+      בשלב הסיום את מסכמת את תהליך העבודה והחקר בשני תוצרים מרכזיים:
+      פוסטר חקר טכנולוגי שמציג את הבעיה, תהליך החשיבה, הפתרון וההשפעה הצפויה – לצד פיץ' יזמי קצר וברור.
+      לומדות להציג רעיון טכנולוגי בצורה ויזואלית ומשכנעת, לעמוד מול קהל ולהסביר למה הפתרון שלך חשוב – בדיוק כמו בעולם ההייטק האמיתי.
+    </p>
+  </div>
+</div>
+```
+
   </section>
 
   <!-- Domains Section -->
+
   <section id="domains" class="section">
     <div class="section-header">
       <h2 class="section-title">התחומים</h2>
     </div>
 
-    <div class="domains-grid">
-      <a href="domain-1.html" class="domain-card">
-        <div class="domain-icon">💻</div>
-        <h3 class="domain-title">הייטק ליבה</h3>
-        <div class="domain-btn">כניסה לתחום ←</div>
-      </a>
+```
+<div class="domains-grid">
+  <a href="domain-1.html" class="domain-card">
+    <div class="domain-icon">💻</div>
+    <h3 class="domain-title">הייטק ליבה</h3>
+    <div class="domain-btn">כניסה לתחום ←</div>
+  </a>
 
-      <a href="domain-2.html" class="domain-card">
-        <div class="domain-icon">💪</div>
-        <h3 class="domain-title">אדם וטכנולוגיה</h3>
-        <div class="domain-btn">כניסה לתחום ←</div>
-      </a>
+  <a href="domain-2.html" class="domain-card">
+    <div class="domain-icon">💪</div>
+    <h3 class="domain-title">אדם וטכנולוגיה</h3>
+    <div class="domain-btn">כניסה לתחום ←</div>
+  </a>
 
-      <a href="domain-3.html" class="domain-card">
-        <div class="domain-icon">🌱</div>
-        <h3 class="domain-title">סביבה וקיימות</h3>
-        <div class="domain-btn">כניסה לתחום ←</div>
-      </a>
+  <a href="domain-3.html" class="domain-card">
+    <div class="domain-icon">🌱</div>
+    <h3 class="domain-title">סביבה וקיימות</h3>
+    <div class="domain-btn">כניסה לתחום ←</div>
+  </a>
 
-      <a href="domain-4.html" class="domain-card">
-        <div class="domain-icon">🤝</div>
-        <h3 class="domain-title">חברה ודיגיטל</h3>
-        <div class="domain-btn">כניסה לתחום ←</div>
-      </a>
+  <a href="domain-4.html" class="domain-card">
+    <div class="domain-icon">🤝</div>
+    <h3 class="domain-title">חברה ודיגיטל</h3>
+    <div class="domain-btn">כניסה לתחום ←</div>
+  </a>
 
-      <a href="domain-5.html" class="domain-card">
-        <div class="domain-icon">🚀</div>
-        <h3 class="domain-title">יזמות ועתיד</h3>
-        <div class="domain-btn">כניסה לתחום ←</div>
-      </a>
-    </div>
+  <a href="domain-5.html" class="domain-card">
+    <div class="domain-icon">🚀</div>
+    <h3 class="domain-title">יזמות ועתיד</h3>
+    <div class="domain-btn">כניסה לתחום ←</div>
+  </a>
+</div>
+```
+
   </section>
 
   <!-- Footer -->
+
   <footer>
     <p>© 2026 קורס פורצות דרך | הדרך שלך לפרוץ קדימה</p>
   </footer>
