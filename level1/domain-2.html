@@ -1,91 +1,523 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>פורצות דרך | תחום-על 2: העצמי והחוסן בעידן טכנולוגי</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אדם וטכנולוגיה | פורצות דרך</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Variables */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #1a1a1a;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      
+      --domain-color: #ec4899;
+      --domain-light: rgba(236, 72, 153, 0.1);
+      --domain-border: rgba(236, 72, 153, 0.3);
+      
+      --max-width: 1200px;
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --spacing-xxl: 4rem;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Base */
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      direction: rtl;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+    h4 { font-size: 1.2rem; }
+
+    p {
+      margin-bottom: var(--spacing-md);
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      margin-bottom: var(--spacing-md);
+      padding-right: var(--spacing-lg);
+    }
+
+    li {
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    strong {
+      color: var(--domain-color);
+      font-weight: 700;
+    }
+
+    /* Layout */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+
+    .section {
+      padding: var(--spacing-xl) 0;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(20, 184, 166, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+      padding: var(--spacing-md) 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: scale(1.05);
+    }
+
+    .brand-logo {
+      width: auto;
+      height: 80px;
+      max-width: 110px;
+      border-radius: 14px;
+      object-fit: contain;
+      background: white;
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand-text {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: 0.625rem 1.25rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: white;
+      color: var(--domain-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--domain-light) 0%, transparent 100%);
+      padding: var(--spacing-xxl) 0;
+      text-align: center;
+      border-bottom: 3px solid var(--domain-border);
+    }
+
+    .hero-icon {
+      font-size: 4rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hero-title {
+      color: var(--domain-color);
+      margin-bottom: var(--spacing-sm);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Subtopics Section */
+    .subtopics-section {
+      background: var(--bg-secondary);
+      padding: var(--spacing-xl) 0;
+      border-bottom: 2px solid var(--domain-border);
+    }
+
+    .subtopics-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .subtopics-title {
+      color: var(--domain-color);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .subtopics-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .subtopics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
+
+    .subtopic-card {
+      background: white;
+      border: 2px solid var(--domain-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subtopic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--domain-color);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .subtopic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--domain-color);
+    }
+
+    .subtopic-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .subtopic-number {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: var(--domain-color);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .subtopic-title {
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Content Sections */
+    .content-section {
+      margin-bottom: var(--spacing-xxl);
+    }
+
+    .content-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      color: var(--domain-color);
+      border-right: 4px solid var(--domain-color);
+      padding-right: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .subsection {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .subsection-title {
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    /* Question Box */
+    .question-box {
+      background: var(--domain-light);
+      border-right: 4px solid var(--domain-color);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .question-box p {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, var(--domain-light) 0%, rgba(236, 72, 153, 0.05) 100%);
+      border: 2px solid var(--domain-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+    }
+
+    .highlight-box h4 {
+      color: var(--domain-color);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* List Styles */
+    .custom-list {
+      list-style: none;
+      padding-right: 0;
+    }
+
+    .custom-list li {
+      position: relative;
+      padding-right: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .custom-list li::before {
+      content: '●';
+      position: absolute;
+      right: 0;
+      color: var(--domain-color);
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    /* Jobs Grid */
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+      margin: var(--spacing-lg) 0;
+    }
+
+    .job-card {
+      background: white;
+      border: 2px solid var(--domain-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      transition: all 0.3s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--domain-color);
+    }
+
+    .job-title {
+      color: var(--domain-color);
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+      font-size: 1.1rem;
+    }
+
+    .job-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Summary Section */
+    .summary-section {
+      background: linear-gradient(135deg, var(--domain-light) 0%, rgba(236, 72, 153, 0.05) 100%);
+      border: 3px solid var(--domain-color);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      text-align: center;
+      margin: var(--spacing-xxl) 0;
+    }
+
+    .summary-section h2 {
+      color: var(--domain-color);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .summary-section p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-secondary);
+      padding: var(--spacing-xl) 0;
+      text-align: center;
+      border-top: 1px solid rgba(236, 72, 153, 0.1);
+      margin-top: var(--spacing-xxl);
+    }
+
+    .footer-text {
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+
+      .hero {
+        padding: var(--spacing-xl) 0;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .subtopics-grid,
+      .jobs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-section,
+    .subtopic-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .subtopic-card:nth-child(1) { animation-delay: 0.1s; }
+    .subtopic-card:nth-child(2) { animation-delay: 0.15s; }
+    .subtopic-card:nth-child(3) { animation-delay: 0.2s; }
+    .subtopic-card:nth-child(4) { animation-delay: 0.25s; }
+  </style>
 </head>
 <body>
-<a class="skip-link" href="#main">דלגי לתוכן</a>
-<header class="site-header">
-  <div class="container">
-    <div class="header-inner">
-      <a class="brand" href="index.html">
-        <div class="brand-badge" aria-hidden="true"></div>
-        <div class="brand-title">
-          <strong>פורצות דרך</strong>
-          <span>תחומי חקר והכוונה | שלב בחירה</span>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="brand">
+          <img src="logo.png" alt="לוגו פורצות דרך" class="brand-logo">
+          <span class="brand-text">פורצות דרך</span>
+        </a>
+        <a href="index.html" class="back-btn">
+          <span>→</span>
+          <span>חזרה לדף הבית</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-icon">💪</div>
+      <h1 class="hero-title">אדם וטכנולוגיה</h1>
+      <p class="hero-tagline">לבדוק איך טכנולוגיה משפיעה על תחושות, התנהגות וחוסן אישי.</p>
+    </div>
+  </section>
+
+  <!-- Subtopics Section -->
+  <section class="subtopics-section">
+    <div class="container">
+      <div class="subtopics-header">
+        <h2 class="subtopics-title">תתי התחומים</h2>
+        <p class="subtopics-subtitle">העצמי והחוסן בעידן דיגיטלי</p>
+      </div>
+
+      <div class="subtopics-grid">
+        <div class="subtopic-card">
+          <span class="subtopic-number">1</span>
+          <h3 class="subtopic-title">חוסן רגשי ובריאות נפשית</h3>
         </div>
-      </a>
-      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mainNav">תפריט</button>
-      <nav class="main-nav" id="mainNav" data-nav>
-        <ul>
-          <li><a href="index.html">בית</a></li>
-          <li><a href="domain-1.html">תחומים</a></li>
-          <li><a href="quiz.html">שאלון מסכם</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
-  <div class="container">
-    <div class="breadcrumb"><a href="index.html">בית</a> &nbsp;›&nbsp; <span>תחום-על 2: העצמי והחוסן בעידן טכנולוגי</span></div>
-  </div>
-  <main id="main">
-<section class="section">
-  <div class="container">
-    <h1 style="margin:0 0 8px; font-size:28px">תחום-על 2: העצמי והחוסן בעידן טכנולוגי</h1>
-    <p class="muted" style="margin:0 0 12px">איך טכנולוגיה יכולה לחזק אותך — ולא להכביד.</p>
 
-    <div class="grid" style="grid-template-columns:1fr; gap:14px">
-      <div class="card pad">
-        <p class="kicker">פתיח רעיוני</p>
-        <p style="margin:0">תחום זה עוסק בקשר שבין האדם לבין הטכנולוגיה שמשפיעה על התחושות, ההתנהגות, הבריאות, הביטחון וההתמודדות היומיומית שלה. הוא בוחן כיצד מערכות טכנולוגיות, מוצרים דיגיטליים ופיזיים, ואינטראקציות עם טכנולוגיה משפיעות על חוסן אישי, רווחה נפשית, תחושת ביטחון ושליטה.</p>
-      </div>
-
-      <div class="card pad">
-        <p class="kicker">למה זה נוגע לחיים שלי</p>
-        <p style="margin:0">בעידן שבו טכנולוגיה מלווה כמעט כל רגע בחיים, נוצר צורך הולך וגובר בפתרונות שמחזקים את האדם ולא מחלישים אותו: עומס מידע, חשיפה מתמדת, לחץ חברתי, פגיעות ברשת וחוסר גבולות דיגיטליים.</p>
-      </div>
-
-      <div class="card pad">
-        <p class="kicker">איך זה פוגש טכנולוגיה / חברה / עצמי</p>
-        <p style="margin:0">זה פוגש טכנולוגיה דרך אפליקציות תמיכה, מוצרים חכמים ולבישים, מערכות ניטור והתראה, עיצוב חוויית משתמש ואלגוריתמים — ובעיקר דרך השאלה: האם המערכת מתחשבת באדם?</p>
-      </div>
-
-      <div class="card pad">
-        <p class="kicker">איך לחקור כאן</p>
-        <p style="margin:0">כאן חוקרות חוויות אמיתיות: מה מציף, מה מרגיע, מה מחזק תחושת שליטה — ואיך אפשר להבין את זה לעומק לפני שמחליטות על כיוון.</p>
-      </div>
-    </div>
-
-    <div class="hr"></div>
-
-    <h2 style="margin:0 0 10px; font-size:20px">תתי-תחומים</h2>
-    <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px">
-      <div class="card pad">
-            <p class="kicker">תת-תחום מומלץ</p>
-            <h3 style="margin:0 0 8px">תת-תחום 2: חוסן רגשי ורווחה דיגיטלית</h3>
-            <p class="muted" style="margin:0 0 10px">כי חוסן אישי הוא בסיס — וטכנולוגיה יכולה להשפיע עליו מאוד.</p>
-            <a class="btn" href="sub-2.html">כניסה לתת-תחום</a>
-          </div>
-    </div>
-
-    <div class="flow-nav">
-      <a class="btn" href="domain-1.html">הקודם</a>
-<a class="btn wide" href="quiz.html">לשאלון מסכם</a>
-<a class="btn" href="domain-3.html">הבא</a>
-    </div>
-  </div>
-</section>
-  </main>
-<footer class="footer">
-  <div class="container">
-    <div>© 2026 פורצות דרך | אתר חקר והכוונה (שלב בחירת תחום)</div>
-  </div>
-</footer>
-<script src="assets/js/app.js"></script>
-
-</body>
-</html>
+        <div class="subtopic-card">
+          <span class="subtopic-number">2</span>
+          <h3 class="subtopic-title">בריאות דיגיטלית וטכנולוגיה נשית (
