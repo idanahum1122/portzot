@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>פורצות דרך | הדרך שלך לפרוץ קדימה</title>
+  <title>פורצות דרך | התחלת החקר</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Rubik+Rounded:wght@700;800;900&display=swap" rel="stylesheet">
 
@@ -13,14 +13,17 @@
       font-family:'Varela Round', sans-serif;
       background:#ffffff;
       color:#1a1a1a;
-      line-height:1.7;
+      line-height:1.6;
+      min-height:100vh;
+      overflow:hidden; /* ללא גלילה בדסקטופ */
     }
 
     header{
-      position:sticky;
+      position:fixed;
       top:0;
+      left:0;
+      right:0;
       z-index:100;
-      /* הוספת מעט שקיפות לרקע ההדר */
       background:linear-gradient(135deg, rgba(139,92,246,.92), rgba(236,72,153,.92));
       padding:1rem 2rem;
       backdrop-filter:saturate(110%) blur(2px);
@@ -30,11 +33,10 @@
       max-width:1200px;
       margin:auto;
       display:flex;
-      justify-content:space-between;
+      justify-content:flex-start;
       align-items:center;
     }
 
-    /* === Brand + Logo (שומר על העיצוב המקורי) === */
     .brand{
       display:flex;
       align-items:center;
@@ -42,267 +44,136 @@
       color:white;
       font-size:1.4rem;
       font-weight:900;
-      font-family:'Rubik Rounded','Varela Round',sans-serif; /* שינוי סגנון גופן לטיפוגרפיה מותגית */
+      font-family:'Rubik Rounded','Varela Round',sans-serif;
       letter-spacing:0.04em;
       text-decoration:none;
       white-space:nowrap;
     }
 
     .brand-logo{
-      height:54px;
-      width:auto;
-      max-width:90px;
-      border-radius:14px;
+      height:72px;
+      width:54px;
+      border-radius:16px;
       object-fit:contain;
       background:rgba(255,255,255,.9);
-      /* ריפוד דק מאוד ללוגו */
-      padding:2px;
+      padding:3px;
       box-shadow:0 6px 16px rgba(0,0,0,.18);
-      flex:0 0 auto;
     }
 
-    nav{
-      display:flex;
-      gap:0.75rem;
-    }
-
-    .nav-link{
-      color:white;
-      text-decoration:none;
-      padding:0.45rem 0.9rem;
-      border-radius:999px;
-      background:rgba(255,255,255,0.22);
-      font-weight:600;
-      position:relative;
-    }
-
-    .nav-link::after{
-      content:attr(data-label);
-      position:absolute;
-      bottom:-36px;
-      left:50%;
-      transform:translateX(-50%);
-      background:#111;
-      color:white;
-      font-size:0.75rem;
-      padding:0.3rem 0.6rem;
-      border-radius:6px;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .2s;
-      white-space:nowrap;
-    }
-
-    .nav-link:hover::after{
-      opacity:1;
-    }
-
+    /* ===== HERO FULL SCREEN ===== */
     .hero{
-      min-height:80vh;
+      height:100vh;
       display:flex;
-      flex-direction:column;
       justify-content:center;
       align-items:center;
-      text-align:center;
-      padding:2rem 1.5rem;
-      position:relative;
-      background:#ffffff;
+      padding-top:110px; /* פיצוי על ההדר */
+      box-sizing:border-box;
     }
 
-    /* מעבר עמוד – Hero */
-    .hero::after{
-      content:"";
-      position:absolute;
-      bottom:-1px;
-      left:0;
+    .hero-box{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr; /* טקסט רחב, תמונה צרה */
+      gap:2rem;
+      max-width:900px;
       width:100%;
-      height:120px;
-      background:linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
-      pointer-events:none;
+    }
+
+    .hero-square{
+      background:#ffffff;
+      border-radius:22px;
+      padding:2rem;
+      box-shadow:0 20px 40px rgba(0,0,0,.08);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      box-sizing:border-box;
+    }
+
+    .hero-image{
+      width:100%;
+      height:auto;
+      aspect-ratio:3 / 4; /* מלבן צר לגובה */
+      object-fit:contain;
+      border-radius:18px;
+      filter:drop-shadow(0 18px 36px rgba(139,92,246,.25));
+    }
+
+    .hero-content{
+      max-width:100%; /* הטקסט מותאם לריבוע */
+      text-align:center;
     }
 
     .hero-brand{
       font-family:'Rubik Rounded','Varela Round',sans-serif;
-      font-size:clamp(3.2rem,9vw,5.2rem);
+      font-size:clamp(2.4rem,4.5vw,3.4rem); /* מוקטן ומותאם לריבוע */
       font-weight:900;
       letter-spacing:0.04em;
-      line-height:1.05;
       margin-bottom:0.5rem;
       background:linear-gradient(135deg,#ec4899,#8b5cf6);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
-      text-shadow:0 8px 20px rgba(236,72,153,.22);
     }
 
     .hero-title{
-      font-size:clamp(1.9rem,4.8vw,2.8rem);
-      margin-bottom:0.6rem;
+      font-size:clamp(1.5rem,3.2vw,2rem); /* מוקטן */
       font-weight:800;
-      font-family:'Rubik Rounded','Varela Round',sans-serif;
+      margin-bottom:0.6rem;
       color:#6d28d9;
-    }
-
-    .hero-subtitle{
-      font-size:1.25rem;
-      margin-bottom:0.25rem; /* רווח קטן מאוד */
-      font-weight:600;
-      color:#2a2a2a;
+      font-family:'Rubik Rounded','Varela Round',sans-serif;
     }
 
     .hero-text{
-      font-size:1.15rem;
-      max-width:760px;
-      color:#333333;
-      line-height:1.45; /* צפוף ואחיד */
-      margin-top:0;
-    }
-
-    .section{
-      max-width:1200px;
-      margin:0 auto;
-      padding:6rem 1.5rem;
-      position:relative;
-    }
-
-    /* תחושת עמוד נפרד */
-    .section-page{
-      background:#ffffff;
-      box-shadow:0 -40px 80px rgba(0,0,0,0.04);
-    }
-
-    .section-page::before{
-      content:"";
-      position:absolute;
-      top:-80px;
-      left:0;
-      width:100%;
-      height:80px;
-      background:linear-gradient(to top, rgba(255,255,255,0), #ffffff);
-    }
-
-    .section-page.alt{
-      background:#faf7ff;
-    }
-
-    .section-title{
-      text-align:center;
-      font-size:2.3rem;
-      font-weight:700;
-      margin-bottom:3rem;
-      font-family:'Varela Round', sans-serif; /* שינוי סגנון גופן לכותרת "איך זה עובד" */
-      background:linear-gradient(135deg,#8b5cf6,#ec4899);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .process-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:1.5rem;
-    }
-
-    .process-card{
-      border:2px solid #e5e7eb;
-      border-radius:20px;
-      padding:1.5rem;
-      background:#fafafa;
-    }
-
-    .process-number{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      font-size:1.2rem;
-      font-weight:900;
-      margin-bottom:0.75rem;
-      background:#fde68a; /* ברירת מחדל למספרים */
-      color:#92400e;
-    }
-
-    /* צבע ייעודי לכוכב (שלב ביניים) */
-    .process-number:has(> :not(*)){
-      /* fallback – לא פעיל בדפדפנים ישנים */
-    }
-    .process-card:nth-child(2) .process-number{
-      background:#bfdbfe; /* כחול רך */
-      color:#1e3a8a;
-    }
-
-    .process-title{
-      font-size:1.35rem;
-      font-weight:800;
-      margin-bottom:0.5rem;
-      font-family:'Rubik Rounded','Varela Round',sans-serif;
-      color:#7c3aed;
-    }
-
-    .process-text{
-      font-size:1rem;
+      font-size:1rem; /* מותאם לריבוע */
+      max-width:100%;
+      margin:0 auto 1.4rem;
       color:#333;
+      line-height:1.5;
     }
 
-    .domains-grid{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:1.5rem;
-    }
-
-    .domain-card{
-      border:2px solid #e5e7eb;
-      border-radius:20px;
-      padding:2rem 1.5rem;
-      text-align:center;
+    .cta-btn{
+      display:inline-block;
+      padding:0.45rem 1.2rem; /* הקטנה משמעותית */
+      font-size:0.9rem;       /* טקסט קטן יותר */
+      font-weight:600;
+      border-radius:999px;
       text-decoration:none;
-      color:#111;
+      color:white;
+      background:linear-gradient(135deg,#8b5cf6,#ec4899);
+      box-shadow:0 6px 14px rgba(139,92,246,.25); /* צל עדין יותר */
       transition:.25s;
     }
 
-    .domain-card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 12px 28px rgba(0,0,0,.12);
-    }
-
-    .domain-icon{
-      font-size:2.8rem;
-      margin-bottom:0.5rem;
-    }
-
-    .domain-title{
-      font-size:1.2rem;
-      font-weight:700;
-      margin-bottom:0.75rem;
-    }
-
-    /* צבע שונה לכל תחום */
-    .domain-card:nth-child(1) .domain-title{color:#7c3aed;} /* סגול */
-    .domain-card:nth-child(2) .domain-title{color:#2563eb;} /* כחול */
-    .domain-card:nth-child(3) .domain-title{color:#16a34a;} /* ירוק */
-    .domain-card:nth-child(4) .domain-title{color:#db2777;} /* ורוד */
-    .domain-card:nth-child(5) .domain-title{color:#ea580c;} /* כתום */
-
-    .domain-btn{
-      display:inline-block;
-      border:2px solid #8b5cf6;
-      padding:0.4rem 1.2rem;
-      border-radius:999px;
-      color:#8b5cf6;
-      font-weight:600;
+    .cta-btn:hover{
+      transform:translateY(-2px); /* תנועה עדינה בלבד */
+      box-shadow:0 8px 18px rgba(139,92,246,.35);
     }
 
     footer{
+      position:static; /* מחזיר התנהגות רגילה */
       text-align:center;
-      padding:2rem;
-      border-top:1px solid #eee;
-      margin-top:4rem;
+      padding:1rem;
+      font-size:0.85rem;
+      color:#666;
     }
 
     @media(max-width:900px){
-      .process-grid{grid-template-columns:1fr}
-      .domains-grid{grid-template-columns:1fr}
-      .hero-brand{font-size:3.2rem}
+      body{
+        overflow:auto; /* במובייל כן לאפשר גלילה */
+      }
+      .hero{
+        padding-top:130px;
+      }
+      .hero-box{
+        flex-direction:column;
+        gap:1.8rem;
+      }
+      .hero-image{
+        width:100%;
+        max-width:300px;
+      }
+      footer{
+        position:static;
+      }
     }
   </style>
 </head>
@@ -315,108 +186,26 @@
       <img src="logo.png" alt="פורצות דרך" class="brand-logo">
       פורצות דרך
     </a>
-    <nav>
-      <a href="#home" class="nav-link" data-label="עמוד הבית">🏠</a>
-      <a href="#domains" class="nav-link" data-label="תחומים">🧭</a>
-      <a href="#how" class="nav-link" data-label="איך זה עובד">ℹ️</a>
-      <a href="#" class="nav-link" data-label="שאלון (בקרוב)">📝</a>
-    </nav>
   </div>
 </header>
 
-<section class="hero" id="home">
-  <div class="hero-brand">פורצות דרך</div>
-  <h1 class="hero-title">הדרך שלך לפרוץ קדימה</h1>
-  <p class="hero-subtitle">זהו מסע שמתחיל בך ומסתיים בשינוי המציאות.</p>
-  <p class="hero-text">
-    בתוכנית "פורצות דרך" תגלי שהשילוב בין החוזקות שלך לבין טכנולוגיה,<br>
-    הוא הכוח הכי חזק שיש לך בידיים.<br><br>
-    <span class="hero-subtitle">כאן לא רק לומדות על העתיד – כאן יוצרות אותו.</span>
-  </p>
-</section>
-
-<section class="section section-page" id="how">
-  <h2 class="section-title">איך זה עובד?</h2>
-
-  <div class="process-grid">
-
-    <div class="process-card">
-      <div class="process-number">1</div>
-      <div class="process-title">מגלות את ה-Power שלך: זהות והעצמה</div>
-      <div class="process-text">
-        לפני הטכנולוגיה מתחילות בך. בשלב הזה מחזקות ביטחון עצמי וקול אישי,
-        מזהות חוזקות, שוברות חסמים ותקרות זכוכית ונחשפות לנשים מעוררות השראה
-        מעולמות המדע והטכנולוגיה. בונות זהות של פורצת דרך שמובילה שינוי.
+<section class="hero">
+  <div class="hero-box">
+    <div class="hero-square">
+      <div class="hero-content">
+        <div class="hero-brand">פורצות דרך</div>
+        <h1 class="hero-title">הדרך שלך לפרוץ קדימה</h1>
+        <p class="hero-text">
+          זהו מסע שמתחיל בך ומסתיים בשינוי המציאות.<br>
+          כאן לא רק לומדות על העתיד – כאן יוצרות אותו.
+        </p>
+        <a href="index-old.html#how" class="cta-btn">להתחלת החקר</a>
       </div>
     </div>
 
-    <div class="process-card">
-      <div class="process-number">⭐</div>
-      <div class="process-title">שלב ביניים: חקר ובחירת תחום - אתר החקר</div>
-      <div class="process-text">
-        בשלב הזה את בוחרת תחום שמסקרן אותך באמת או תחום שבו היית רוצה להשפיע.
-        דרך חקר, שאלות וחשיבה את מדייקת כיוון אישי, מזהה נושאים משמעותיים עבורך
-        ובונה בסיס רעיוני שישמש בהמשך לבחירת בעיה ולפיתוח פתרון.
-      </div>
+    <div class="hero-square">
+      <img src="hero-image.png" alt="איור השראה – פורצות דרך" class="hero-image">
     </div>
-
-    <div class="process-card">
-      <div class="process-number">2</div>
-      <div class="process-title">הופכות רעיון לפתרון: תהליך התיכון ההנדסי</div>
-      <div class="process-text">
-        בשלב הזה את עובדת בקבוצה על בעיה אמיתית מתוך התחום שנבחר.
-        לומדות לחשוב כמו יזמיות, חוקרות פתרונות קיימים ומשתמשות בכלי AI
-        לפיתוח פתרון טכנולוגי חכם, עם דגש על חקר, חשיבה מערכתית ויצירת השפעה.
-      </div>
-    </div>
-
-    <div class="process-card">
-      <div class="process-number">3</div>
-      <div class="process-title">מציגות ומשפיעות: פוסטר חקר ופיץ' יזמי</div>
-      <div class="process-text">
-        בשלב הסיום את מסכמת את התהליך:
-        בפוסטר חקר טכנולוגי המציג בעיה, חשיבה ופתרון,
-        לצד פיץ' יזמי קצר וברור. לומדות להציג רעיון בצורה ויזואלית ומשכנעת,
-        לעמוד מול קהל ולהסביר את חשיבותו, בדיוק כמו בהייטק.
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="section section-page alt" id="domains">
-  <h2 class="section-title">התחומים</h2>
-
-  <div class="domains-grid">
-    <a href="domain-1.html" class="domain-card">
-      <div class="domain-icon">💻</div>
-      <div class="domain-title">הייטק ליבה</div>
-      <div class="domain-btn">כניסה לתחום</div>
-    </a>
-
-    <a href="domain-2.html" class="domain-card">
-      <div class="domain-icon">🧠</div>
-      <div class="domain-title">אדם וטכנולוגיה</div>
-      <div class="domain-btn">כניסה לתחום</div>
-    </a>
-
-    <a href="domain-3.html" class="domain-card">
-      <div class="domain-icon">🌱</div>
-      <div class="domain-title">סביבה וקיימות</div>
-      <div class="domain-btn">כניסה לתחום</div>
-    </a>
-
-    <a href="domain-4.html" class="domain-card">
-      <div class="domain-icon">🤝</div>
-      <div class="domain-title">חברה ודיגיטל</div>
-      <div class="domain-btn">כניסה לתחום</div>
-    </a>
-
-    <a href="domain-5.html" class="domain-card">
-      <div class="domain-icon">🚀</div>
-      <div class="domain-title">יזמות ועתיד</div>
-      <div class="domain-btn">כניסה לתחום</div>
-    </a>
   </div>
 </section>
 
