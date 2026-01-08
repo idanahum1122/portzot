@@ -57,37 +57,77 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 1rem;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem; /* רווח ברור בין הכפתורים */
+    }
+    }
+
     .back-button {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 44px;
       height: 44px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.18); /* שקיפות עדינה */
       color: #fff;
       text-decoration: none;
-      border-radius: 50%;
+      border-radius: 12px;
       font-size: 1.25rem;
       font-weight: 600;
-      transition: background 0.3s ease, transform 0.3s ease;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    }
     }
 
     .back-button:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.32);
       transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    }
+
+    /* טקסט בהובר */
+    .back-button::after {
+      content: attr(title);
+      position: absolute;
+      top: 100%; /* מתחת לאייקון */
+      margin-top: 0.35rem;
+      right: 50%;
+      transform: translateX(50%) translateY(-4px);
+      background: rgba(255,255,255,0.95);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    }
+
+    .back-button:hover::after {
+      opacity: 1;
+      transform: translateX(50%) translateY(0);
     }
 
     .brand-logo {
       height: 72px;
       max-width: 120px;
       object-fit: contain;
-      background: #fff;
-      padding: 8px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.85); /* רקע לבן עם שקיפות עדינה */
+      padding: 4px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
     }
 
     .hero {
@@ -103,10 +143,14 @@
     }
 
     .hero-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
+      font-family: 'Varela Round', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
       color: var(--domain-color);
       margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(139, 92, 246, 0.25);
+    }
     }
 
     .hero-tagline {
@@ -132,10 +176,18 @@
     }
 
     .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 1.5rem;
       color: var(--domain-color);
       margin-bottom: var(--space-xs);
       font-weight: 700;
+    }
+
+    .section-title::before {
+      content: "✨";
+      font-size: 1.2rem;
     }
 
     .section-text {
@@ -163,17 +215,15 @@
     }
 
     .question-box::before {
-      content: "";
+      content: "❓";
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--domain-color);
-      border-radius: 4px;
+      top: 0.6rem;
+      left: 0.6rem;
+      font-size: 1.1rem;
+      color: var(--domain-color);
     }
 
-    .question-box::before {
+    .question-box::after {
       content: "";
       position: absolute;
       top: 0;
@@ -187,13 +237,45 @@
     .highlight-box {
       font-size: 1.05rem;
       line-height: 1.7;
-
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(139, 92, 246, 0.04));
       padding: var(--space-md);
       border-radius: var(--radius-md);
       border: 2px solid var(--domain-border);
-      margin: var(--space-md) 0;
+      margin: var(--space-md) 0 0;
     }
+
+    .question-box {
+      margin-bottom: var(--space-md);
+    }
+
+    .highlight-box .section-text {
+      margin-bottom: 0.6rem;
+    }
+
+    .highlight-box .section-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-box .section-text {
+      margin-bottom: 0.6rem;
+    }
+
+    .highlight-box .section-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .reflection-box {
+      margin-top: 0.9rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      border: 1.5px dashed var(--domain-border);
+      color: var(--text-primary);
+      font-size: 1.02rem;
+      line-height: 1.65;
+    }
+
+    .reflection-box strong { font-weight: 700; }
 
     .custom-list {
       list-style: none;
@@ -251,6 +333,8 @@
     .sub-domains-title {
       font-size: 2rem;
       margin-bottom: 0.5rem;
+      color: var(--domain-color);
+    }
     }
 
     .sub-domains-subtitle {
@@ -264,19 +348,39 @@
     }
 
     .sub-domain-card {
-      background: #fff;
-      padding: 1rem 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ffffff;
+      padding: 1.1rem 1rem 1.25rem;
       border-radius: var(--radius-sm);
       border: 1.5px solid var(--domain-border);
       position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
       cursor: pointer;
     }
 
+    .sub-domain-card::after {
+      content: "→";
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.6rem;
+      font-size: 1rem;
+      color: var(--domain-color);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
     .sub-domain-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-sm);
       border-color: var(--domain-color);
+      background: var(--domain-light);
+    }
+
+    .sub-domain-card:hover::after {
+      transform: translateX(-4px);
+      opacity: 1;
     }
 
     .sub-domain-number {
@@ -296,10 +400,20 @@
     }
 
     .sub-domain-title {
-      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-top: 1.4rem;
-      line-height: 1.4;
+      line-height: 1.35;
+      margin: 0 0 0.35rem 0;
+      white-space: normal;
+    }
+
+    .sub-domain-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
     footer {
@@ -330,8 +444,11 @@
 
 <header>
   <div class="header-content">
-    <a href="index.html" class="back-button home-button" aria-label="דף הבית" title="דף הבית">🏠</a>
     <img src="logo.png" alt="פורצות דרך" class="brand-logo" />
+    <div class="header-actions">
+      <a href="domain-1.html" class="back-button" aria-label="עמודי התחומים" title="עמודי התחומים">🧭</a>
+      <a href="index.html" class="back-button home-button" aria-label="דף הבית" title="דף הבית">🏠</a>
+    </div>
   </div>
 </header>
 
@@ -339,28 +456,25 @@
   <div class="hero-icon">💻</div>
   <h1 class="hero-title">הייטק ליבה</h1>
   <p class="hero-tagline">להבין איך הטכנולוגיה באמת עובדת – ומה קורה כשזה משתבש.</p>
+  <p class="hero-tagline" style="font-size:1rem;margin-top:.35rem;">אם אי פעם שאלת את עצמך למה אפליקציה נתקעת או מערכת קורסת — כאן מתחילים להבין.</p>
 </section>
 
 <main>
 
   <!-- 1 -->
   <section class="content-section">
-    <h2 class="section-title">1. מהו התחום?</h2>
-    <div class="question-box">
-      מה קורה מאחורי המסך – ומי באמת שולט במערכות שאנחנו משתמשות בהן כל יום?
-    </div>
+    <h2 class="section-title">מהו התחום?</h2>
+    <div class="question-box">מה קורה מאחורי המסך – ומי באמת שולט במערכות שאנחנו משתמשות בהן כל יום?</div>
     <div class="highlight-box">
       <p class="section-text">תחום זה עוסק בקוד, מערכות מחשוב, רשתות, אבטחה, אלגוריתמים ותשתיות חכמות.</p>
-      <p class="section-text">הוא בוחן את "מאחורי הקלעים" של המערכות הדיגיטליות – איך הן עובדות, מה גורם להן להצליח או להיכשל, ואיך הן משפיעות על חיינו היומיומיים.</p>
+      <p class="section-text">הוא בוחן את "מאחורי הקלעים" של המערכות הדיגיטליות – איך הן עובדות, מה גורם להן להצליח או להיכשל ואיך הן משפיעות על חיינו היומיומיים.</p>
     </div>
   </section>
 
   <!-- 2 -->
   <section class="content-section">
-    <h2 class="section-title">2. חשיבות התחום וההקשר העכשווי</h2>
-    <div class="question-box">
-      למה זה נוגע לכל אחת מאיתנו?
-    </div>
+    <h2 class="section-title">חשיבות התחום וההקשר העכשווי</h2>
+    <div class="question-box">למה זה נוגע לכל אחת מאיתנו?</div>
     <div class="highlight-box">
       <p class="section-text">כי כל דבר דיגיטלי שאנחנו משתמשות בו – אפליקציה, אתר, מערכת בית ספרית – נשען על תשתית טכנולוגית.</p>
       <p class="section-text">יציבות, אמינות, ביטחון וחדשנות תלויים באיכות הקוד, המערכת והתשתית.</p>
@@ -370,10 +484,8 @@
 
   <!-- 3 -->
   <section class="content-section">
-    <h2 class="section-title">3. חיבור לטכנולוגיה ולהייטק</h2>
-    <div class="question-box">
-      איפה זה פוגש את ההייטק שאנחנו שומעות עליו כל הזמן?
-    </div>
+    <h2 class="section-title">חיבור לטכנולוגיה ולהייטק</h2>
+    <div class="question-box">איפה פוגשים את התחום הזה בעולם ההייטק?</div>
     <div class="highlight-box">
       <p class="section-text emphasis">זהו ליבת ההייטק – המקום שבו נוצרת הטכנולוגיה עצמה:</p>
       <ul class="custom-list">
@@ -389,11 +501,10 @@
 
   <!-- 4 -->
   <section class="content-section">
-    <h2 class="section-title">4. אתגרים ובעיות מרכזיות בתחום</h2>
-    <div class="question-box">
-      אילו קשיים ואתגרים מסתתרים מאחורי מערכות טכנולוגיות?
-    </div>
+    <h2 class="section-title">אתגרים ובעיות מרכזיות</h2>
+    <div class="question-box">איפה הדברים מסתבכים?</div>
     <div class="highlight-box">
+      <p class="section-text"><strong>כאן עולות שאלות של אחריות, מורכבות וכוח:</strong></p>
       <ul class="custom-list">
         <li><strong>מורכבות:</strong> מערכות גדולות וקשות להבנה</li>
         <li><strong>פער טכנולוגי:</strong> קצב התפתחות מהיר מול יכולת אנושית מוגבלת</li>
@@ -406,59 +517,58 @@
 
   <!-- 5 -->
   <section class="content-section">
-    <h2 class="section-title">5. הקשר יומיומי והשפעה אישית</h2>
-    <div class="question-box">
-      איך התחום הזה משפיע על החיים האישיים שלך?
-    </div>
+    <h2 class="section-title">הקשר יומיומי והשפעה אישית</h2>
+    <div class="question-box">איפה זה פוגש אותך ביום-יום?</div>
     <div class="highlight-box">
+      <p class="section-text emphasis">התחום פוגש אותך כל יום:</p>
       <ul class="custom-list">
         <li>במהירות האינטרנט ובזמינות האפליקציות</li>
         <li>בביטחון החשבונות והמידע שלך</li>
         <li>בחוויית השימוש – חלקה או מתסכלת</li>
         <li>בשאלות של פרטיות ושליטה</li>
       </ul>
+      <div class="reflection-box">
+        <strong>עצירה לחשיבה אישית:</strong><br>
+        מתי חווית תקלה טכנולוגית שהשפיעה עליך?<br>
+        מה גורם לך לסמוך על מערכת – או לא לסמוך?<br>
+        איזה חלק "מאחורי הקלעים" היית רוצה להבין יותר לעומק?
+      </div>
     </div>
   </section>
 
   <!-- 6 -->
   <section class="content-section">
-    <h2 class="section-title">6. כיווני חשיבה לפתרונות</h2>
-    <div class="question-box">
-      באילו כיוונים אפשר לחשוב כדי לשפר מערכות?
-    </div>
+    <h2 class="section-title">כיווני חשיבה לפתרונות</h2>
+    <div class="question-box">איך מתחילים לחשוב אחרת?</div>
     <div class="highlight-box">
       <ul class="custom-list">
-        <li><strong>פשטות מובנת</strong> – איך הופכים מורכבות למשהו ברור?</li>
-        <li><strong>אמינות וביטחון</strong> – איך בונים מערכות שאפשר לסמוך עליהן?</li>
-        <li><strong>שקיפות</strong> – איך מסבירים למשתמש מה קורה?</li>
-        <li><strong>איזון</strong> – איך משלבים ביצועים גבוהים עם נגישות?</li>
+        <li><strong>פשטות מובנת</strong> – להפוך מורכב לברור</li>
+        <li><strong>אמינות וביטחון</strong> – מערכות שאפשר לסמוך עליהן</li>
+        <li><strong>שקיפות</strong> – להסביר למשתמש מה קורה</li>
+        <li><strong>איזון</strong> – בין ביצועים לנגישות</li>
       </ul>
     </div>
   </section>
 
   <!-- 7 -->
   <section class="content-section">
-    <h2 class="section-title">7. שאלות חקר מנחות</h2>
-    <div class="question-box">
-      אילו שאלות יכולות להוביל לחקר משמעותי?
-    </div>
+    <h2 class="section-title">שאלות חקר מנחות</h2>
+    <div class="question-box">על מה אפשר לחקור?</div>
     <div class="highlight-box">
       <ul class="custom-list">
-        <li>מה קורה כשמערכת מרכזית קורסת?</li>
-        <li>אילו חלקים של המערכת נשארים נסתרים מהמשתמש?</li>
-        <li>איך מתכננים מערכות חזקות, יעילות והוגנות?</li>
-        <li>איך מאבטחים מידע מפני התקפות?</li>
-        <li>מה ההבדל בין קוד שעובד לבין קוד שעובד טוב?</li>
+        <li>מה קורה כשמערכת קורסת?</li>
+        <li>מה נשאר נסתר מהמשתמש?</li>
+        <li>איך בונים מערכות הוגנות?</li>
+        <li>איך מגנים על מידע?</li>
+        <li>מה ההבדל בין קוד שעובד לקוד טוב?</li>
       </ul>
     </div>
   </section>
 
   <!-- 8 -->
   <section class="content-section">
-    <h2 class="section-title">8. דוגמאות לתפקידים בעולם המדע והטכנולוגיה</h2>
-    <div class="question-box">
-      אילו תפקידים עוסקים בליבה הטכנולוגית?
-    </div>
+    <h2 class="section-title">תפקידים אפשריים</h2>
+    <div class="question-box">אילו מקצועות קשורים לתחום?</div>
     <div class="highlight-box">
       <div class="jobs-grid">
         <div class="job-card">מפתחת תוכנה</div>
@@ -467,32 +577,28 @@
         <div class="job-card">מהנדסת תשתיות ענן</div>
         <div class="job-card">חוקרת אלגוריתמים</div>
       </div>
+      <p class="section-text" style="margin-top: 1rem; font-size: 0.95rem; font-style: italic;">הדוגמאות נועדו לפתוח אופק ולהמחיש סוגי עיסוק אפשריים ולא להכוונה מקצועית.</p>
     </div>
   </section>
 
   <!-- 9 -->
   <section class="content-section">
-    <h2 class="section-title">9. דוגמאות לאתגרים ולבעיות אפשריות לחקר</h2>
-    <div class="question-box">
-      באילו בעיות אפשר לבחור כנושא חקר?
-    </div>
+    <h2 class="section-title">בעיות לחקר</h2>
+    <div class="question-box">אילו אתגרים אפשר לבדוק?</div>
     <div class="highlight-box">
       <ul class="custom-list">
-        <li>מערכות איטיות או לא יציבות</li>
-        <li>חשיפה של מידע אישי או ארגוני</li>
-        <li>תקלות שמשפיעות על משתמשים רבים</li>
-        <li>חוסר שקיפות בהחלטות אלגוריתמיות</li>
-        <li>קושי בהבנת מערכות מורכבות</li>
+        <li>מערכות לא יציבות</li>
+        <li>דליפת מידע</li>
+        <li>תקלות רחבות היקף</li>
+        <li>חוסר שקיפות אלגוריתמית</li>
       </ul>
     </div>
   </section>
 
   <!-- 10 -->
   <section class="content-section">
-    <h2 class="section-title">10. יישומים אפשריים</h2>
-    <div class="question-box">
-      איפה אפשר ליישם חקר מהתחום הזה?
-    </div>
+    <h2 class="section-title">יישומים אפשריים</h2>
+    <div class="question-box">איפה זה יכול לבוא לידי ביטוי?</div>
     <div class="highlight-box">
       <ul class="custom-list">
         <li>מערכות בית ספריות</li>
@@ -506,14 +612,13 @@
 
   <!-- 11 -->
   <section class="content-section">
-    <h2 class="section-title">11. סיכום והכוונה לבחירה</h2>
-    <div class="question-box">
-      למי התחום הזה מתאים במיוחד?
-    </div>
+    <h2 class="section-title">סיכום והכוונה לבחירה</h2>
+    <p class="section-text" style="margin-bottom:.35rem;">לא צריך לדעת קוד מראש — צריך סקרנות, רצון להבין ואומץ לשאול.</p>
+    <div class="question-box">למי התחום הזה מתאים במיוחד?</div>
     <div class="highlight-box">
       <p class="section-text"><strong>זהו תחום למי שאוהבת לפרק מערכות ולהבין מה קורה מתחת לפני השטח.</strong></p>
       <p class="section-text">למי שמסקרן אותה איך הכול עובד – וגם מה קורה כשזה לא עובד.</p>
-      <p class="section-text">אם במהלך הקריאה עלו בך שאלות על קוד, מערכות, אבטחה או תשתיות – ייתכן שזהו כיוון נכון עבורך לבחירת נושא החקר ולהמשך התהליך ההנדסי.</p>
+      <p class="section-text">אם במהלך הקריאה עלו בך שאלות על קוד, מערכות, אבטחה או תשתיות –<br><strong>ייתכן שזהו כיוון נכון עבורך לבחירת נושא החקר ולהמשך התהליך ההנדסי.</strong></p>
     </div>
   </section>
 
@@ -522,33 +627,34 @@
 <section class="sub-domains">
   <div class="sub-domains-header">
     <h2 class="sub-domains-title">תתי התחומים</h2>
-    <p class="sub-domains-subtitle">תשתיות, פיתוח ומערכות מורכבות</p>
+      <p class="section-text" style="max-width:720px;margin:0.5rem auto 0.5rem;">בחרי תת-תחום שמסקרן אותך — כל אחד מהם מוביל לעמוד המשך עם דוגמאות ואתגרי חקר.</p>
+      
   </div>
 
   <div class="sub-domains-grid">
     <div class="sub-domain-card">
-      <div class="sub-domain-number">1</div>
-      <h3 class="sub-domain-title">פיתוח תוכנה ומערכות</h3>
+      <h3 class="sub-domain-title">💻 פיתוח תוכנה ומערכות</h3>
+      <p class="sub-domain-desc">איך כותבים קוד ובונים מערכות שעובדות בקנה מידה גדול</p>
     </div>
     <div class="sub-domain-card">
-      <div class="sub-domain-number">2</div>
-      <h3 class="sub-domain-title">בינה מלאכותית, למידת מכונה ודאטה</h3>
+      <h3 class="sub-domain-title">🤖 בינה מלאכותית, למידת מכונה ודאטה</h3>
+      <p class="sub-domain-desc">איך מערכות לומדות, מנתחות מידע ומקבלות החלטות</p>
     </div>
     <div class="sub-domain-card">
-      <div class="sub-domain-number">3</div>
-      <h3 class="sub-domain-title">סייבר – הגנתי והתקפי</h3>
+      <h3 class="sub-domain-title">🛡️ סייבר – הגנתי והתקפי</h3>
+      <p class="sub-domain-desc">איך מגנים על מערכות ואיך תוקפים מנסים לפרוץ אליהן</p>
     </div>
     <div class="sub-domain-card">
-      <div class="sub-domain-number">4</div>
-      <h3 class="sub-domain-title">תשתיות ענן, רשת ואינטרנט</h3>
+      <h3 class="sub-domain-title">☁️ תשתיות ענן, רשת ואינטרנט</h3>
+      <p class="sub-domain-desc">איך שירותים דיגיטליים עובדים מכל מקום ובכל זמן</p>
     </div>
     <div class="sub-domain-card">
-      <div class="sub-domain-number">5</div>
-      <h3 class="sub-domain-title">חומרה, שבבים ומוליכים למחצה</h3>
+      <h3 class="sub-domain-title">🔧 חומרה, שבבים ומוליכים למחצה</h3>
+      <p class="sub-domain-desc">החיבור בין עולם פיזי לקוד – מחשבים מבפנים</p>
     </div>
     <div class="sub-domain-card">
-      <div class="sub-domain-number">6</div>
-      <h3 class="sub-domain-title">אלגוריתמיקה וחישוב מתקדם</h3>
+      <h3 class="sub-domain-title">🧮 אלגוריתמיקה וחישוב מתקדם</h3>
+      <p class="sub-domain-desc">החשיבה המתמטית שמאחורי פתרונות חכמים</p>
     </div>
   </div>
 </section>
