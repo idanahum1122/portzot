@@ -64,7 +64,7 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.9rem; /* רווח ברור בין הכפתורים */
+      gap: 0.9rem;
     }
     }
 
@@ -73,17 +73,78 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.18); /* שקיפות עדינה */
+      width: 46px;
+      height: 46px;
+      background: rgba(255,255,255,0.22);
       color: #fff;
       text-decoration: none;
-      border-radius: 12px;
-      font-size: 1.25rem;
+      border-radius: 14px;
+      font-size: 1.3rem;
       font-weight: 600;
-      border: 1.5px solid rgba(255,255,255,0.35);
-      backdrop-filter: blur(6px);
+      border: 1.5px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
       transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255,255,255,0.38);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+    }
+
+    .back-button::after {
+      content: attr(title);
+      position: absolute;
+      top: 100%;
+      margin-top: 0.4rem;
+      right: 50%;
+      transform: translateX(50%) translateY(-4px);
+      background: rgba(255,255,255,0.96);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-button:hover::after {
+      opacity: 1;
+      transform: translateX(50%) translateY(0);
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.32);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    }
+
+    .back-button::after {
+      content: attr(title);
+      position: absolute;
+      top: 100%;
+      margin-top: 0.35rem;
+      right: 50%;
+      transform: translateX(50%) translateY(-4px);
+      background: rgba(255,255,255,0.95);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-button:hover::after {
+      opacity: 1;
+      transform: translateX(50%) translateY(0);
     }
     }
     }
@@ -121,10 +182,11 @@
     }
 
     .brand-logo {
-      height: 72px;
-      max-width: 120px;
+      width: 72px;
+      height: auto;
+      max-height: 120px;
       object-fit: contain;
-      background: rgba(255, 255, 255, 0.85); /* רקע לבן עם שקיפות עדינה */
+      background: rgba(255, 255, 255, 0.85);
       padding: 4px;
       border-radius: 10px;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
@@ -434,7 +496,56 @@
         font-size: 1.4rem;
       }
     }
-  </style>
+      .icon-button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .icon-button:hover {
+      background: rgba(255,255,255,0.38);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+    }
+
+    .icon-button::after {
+      content: attr(title);
+      position: absolute;
+      top: 100%;
+      margin-top: 0.4rem;
+      right: 50%;
+      transform: translateX(50%) translateY(-4px);
+      background: rgba(255,255,255,0.96);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .icon-button:hover::after {
+      opacity: 1;
+      transform: translateX(50%) translateY(0);
+    }
+
+</style>
 </head>
 <body>
 
@@ -442,8 +553,8 @@
   <div class="header-content">
     <img src="logo.png" alt="פורצות דרך" class="brand-logo" />
     <div class="header-actions">
-      <a href="domain-1.html" class="back-button" aria-label="עמודי התחומים" title="עמודי התחומים">🧭</a>
-      <a href="index.html" class="back-button home-button" aria-label="דף הבית" title="דף הבית">🏠</a>
+      <a href="index.html#domains" class="icon-button" aria-label="עמודי התחומים" title="עמודי התחומים">🧭</a>
+      <a href="index.html" class="icon-button" aria-label="דף הבית" title="דף הבית">🏠</a>
     </div>
   </div>
 </header>
