@@ -172,7 +172,13 @@
 
     /* פיצוי קבוע לתוכן הראשון מתחת ל-header sticky */
     .first-section{
-      padding-top:110px;
+      padding-top:72px; /* פיצוי מדויק לגובה ההידר – ללא רווח עודף */
+    }
+
+    @media (max-width:900px){
+      .first-section{
+        padding-top:64px; /* מובייל */
+      }
     }
 
     @media (max-width:900px){
