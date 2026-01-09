@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>אדם וטכנולוגיה | פורצות דרך</title>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Rubik+Rounded:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -15,26 +16,25 @@
       --bg-secondary: #ffffff;
       --text-primary: #1a202c;
       --text-secondary: #4a5568;
-
-      /* צבע תחום 2 – כחול */
       --domain-color: #2563eb;
-      --domain-light: rgba(37, 99, 235, 0.12);
-      --domain-border: rgba(37, 99, 235, 0.35);
-
+      --domain-light: rgba(37, 99, 235, 0.1);
+      --domain-border: rgba(37, 99, 235, 0.3);
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 20px;
-
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
       --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-
       --space-xs: 0.35rem;
       --space-sm: 0.55rem;
       --space-md: 1.1rem;
       --space-lg: 1.6rem;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Varela Round', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -43,83 +43,132 @@
       line-height: 1.7;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
-      padding: 0.75rem 1rem;
-      box-shadow: var(--shadow-md);
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:linear-gradient(135deg, rgba(37,99,235,.92), rgba(96,165,250,.92));
+      padding:0.75rem 1rem;
+      backdrop-filter:saturate(110%) blur(2px);
+      width:100%;
+      box-sizing:border-box;
+      overflow-x:hidden;
     }
 
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
+    .header-content{
+      max-width:1200px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:0.75rem;
+      width:100%;
+      box-sizing:border-box;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.75rem;
+      color:white;
+      font-size:1.4rem;
+      font-weight:900;
+      font-family:'Rubik Rounded','Varela Round',sans-serif;
+      letter-spacing:0.04em;
+      text-decoration:none;
+      white-space:nowrap;
     }
 
-    .back-button {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      background: rgba(255,255,255,0.22);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 14px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      border: 1.5px solid rgba(255,255,255,0.45);
-      backdrop-filter: blur(8px);
+    .brand-logo{
+      height:72px;
+      width:54px;
+      max-width:none;
+      border-radius:16px;
+      object-fit:contain;
+      background:rgba(255,255,255,.9);
+      padding:3px;
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
+      flex:0 0 auto;
+    }
+
+    nav{display:flex;gap:0.75rem;}
+
+    .nav-link{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:46px;
+      height:46px;
+      color:white;
+      text-decoration:none;
+      border-radius:14px;
+      background:rgba(255,255,255,0.22);
+      border:1.5px solid rgba(255,255,255,0.45);
+      backdrop-filter:blur(8px);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
-      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      font-size:1.3rem;
+      font-weight:600;
+      transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
     }
 
-    .back-button:hover {
-      background: rgba(255,255,255,0.38);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+    .nav-link:hover{
+      background:rgba(255,255,255,0.38);
+      transform:translateY(-1px);
+      box-shadow:0 6px 14px rgba(0,0,0,0.22);
     }
 
-    .brand-logo {
-      height: 72px;
-      width: 54px;
-      object-fit: contain;
-      background: rgba(255,255,255,0.9);
-      padding: 3px;
-      border-radius: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.18);
+    .nav-link::after{
+      content:attr(data-label);
+      position:absolute;
+      top:100%;
+      margin-top:0.4rem;
+      right:50%;
+      transform:translateX(50%) translateY(-4px);
+      background:rgba(255,255,255,0.96);
+      color:var(--text-primary);
+      font-size:0.75rem;
+      padding:0.25rem 0.55rem;
+      border-radius:7px;
+      white-space:nowrap;
+      opacity:0;
+      pointer-events:none;
+      box-shadow:0 3px 8px rgba(0,0,0,0.18);
+      transition:opacity .2s ease, transform .2s ease;
+    }
+
+    .nav-link:hover::after{
+      opacity:1;
+      transform:translateX(50%) translateY(0);
     }
 
     .hero {
-      background: linear-gradient(135deg, var(--domain-light), rgba(255,255,255,0.6));
+      background: linear-gradient(135deg, var(--domain-light), rgba(255, 255, 255, 0.6));
       padding: 3rem 2rem;
       text-align: center;
       border-bottom: 3px solid var(--domain-color);
     }
 
+    .hero-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
     .hero-title {
+      font-family: 'Varela Round', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: clamp(2.2rem, 6vw, 3.2rem);
       font-weight: 900;
+      letter-spacing: 0.02em;
       color: var(--domain-color);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
     }
 
     .hero-tagline {
       font-size: 1.25rem;
       color: var(--text-secondary);
       max-width: 800px;
-      margin: 0.5rem auto 0;
+      margin: 0 auto;
     }
 
     main {
@@ -138,29 +187,227 @@
     }
 
     .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 1.5rem;
       color: var(--domain-color);
       margin-bottom: var(--space-xs);
       font-weight: 700;
     }
 
+    
+    .section-text {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .section-text.emphasis {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
     .question-box {
-      border: 1.5px solid var(--domain-border);
-      border-radius: var(--radius-sm);
+      position: relative;
+      background: #ffffff;
       padding: var(--space-md);
+      border-radius: var(--radius-sm);
       margin: var(--space-md) 0;
       font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      border: 1.5px solid var(--domain-border);
+    }
+
+    .question-box::before {
+      content: "❓";
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      font-size: 1.1rem;
+      color: var(--domain-color);
+    }
+
+    .question-box::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--domain-color);
+      border-radius: 4px;
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(37,99,235,0.04));
-      border: 2px solid var(--domain-border);
-      border-radius: var(--radius-md);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.04));
       padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 2px solid var(--domain-border);
+      margin: var(--space-md) 0 0;
     }
 
-    ul li::before {
+    .question-box {
+      margin-bottom: var(--space-md);
+    }
+
+    .highlight-box .section-text {
+      margin-bottom: 0.6rem;
+    }
+
+    .highlight-box .section-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-box .section-text {
+      margin-bottom: 0.6rem;
+    }
+
+    .highlight-box .section-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .reflection-box {
+      margin-top: 0.9rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      border: 1.5px dashed var(--domain-border);
+      color: var(--text-primary);
+      font-size: 1.02rem;
+      line-height: 1.65;
+    }
+
+    .reflection-box strong { font-weight: 700; }
+
+    .custom-list {
+      list-style: none;
+    }
+
+    .custom-list li {
+      position: relative;
+      padding: 0.25rem 1.5rem 0.25rem 0;
+      color: var(--text-secondary);
+    }
+
+    .custom-list li::before {
+      content: '●';
+      position: absolute;
+      right: 0;
       color: var(--domain-color);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .job-card {
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--domain-border);
+      text-align: center;
+      font-weight: 600;
+      background: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .job-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+      background: var(--domain-light);
+    }
+
+    .sub-domains {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 2rem;
+    }
+
+    .sub-domains-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .sub-domains-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--domain-color);
+    }
+
+    .sub-domains-subtitle {
+      color: var(--text-secondary);
+    }
+
+    .sub-domains-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .sub-domain-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ffffff;
+      padding: 1.1rem 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--domain-border);
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      cursor: pointer;
+    }
+
+    .sub-domain-card::after {
+      content: "→";
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.6rem;
+      font-size: 1rem;
+      color: var(--domain-color);
+      opacity: 0.6;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .sub-domain-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--domain-color);
+      background: var(--domain-light);
+    }
+
+    .sub-domain-card:hover::after {
+      transform: translateX(-4px);
+      opacity: 1;
+    }
+
+    .sub-domain-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 0.35rem 0;
+      white-space: normal;
+    }
+
+    .sub-domain-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
     footer {
@@ -170,29 +417,250 @@
       color: var(--text-secondary);
       border-top: 1px solid #e2e8f0;
     }
+
+    @media (max-width: 768px) {
+      main,
+      .sub-domains {
+        padding: 0 1rem 2rem;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+    }
   </style>
 </head>
-
 <body>
+
 <header>
   <div class="header-content">
-    <img src="logo.png" alt="פורצות דרך" class="brand-logo" />
-    <div class="header-actions">
-      <a href="index.html" class="back-button" title="דף הבית">🏠</a>
-      <a href="how.html#domains" class="back-button" title="עמוד התחומים">🧭</a>
-    </div>
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="פורצות דרך" class="brand-logo">
+      פורצות דרך
+    </a>
+    <nav>
+      <a href="index.html" class="nav-link" data-label="עמוד הבית">🏠</a>
+      <a href="how.html#domains" class="nav-link" data-label="תחומים">🧭</a>
+    </nav>
   </div>
 </header>
 
 <section class="hero">
-  <h1 class="hero-title">✨ אדם וטכנולוגיה</h1>
+  <div class="hero-icon">✨</div>
+  <h1 class="hero-title">אדם וטכנולוגיה</h1>
   <p class="hero-tagline">לבדוק איך טכנולוגיה משפיעה על תחושות, התנהגות וחוסן אישי.</p>
+  <p class="hero-tagline" style="font-size:1rem;margin-top:.35rem;">אם אי פעם חשבת איך המסך משפיע על מצב הרוח שלך — כאן מתחילים להבין.</p>
 </section>
 
-<!-- שאר ה־HTML זהה 100% לקובץ שלך -->
+<main>
+
+  <!-- 1 -->
+  <section class="content-section">
+    <h2 class="section-title">🧠 מהו התחום?</h2>
+    <div class="question-box">איך טכנולוגיה משפיעה על מי שאנחנו – ומה קורה כשהיא נמצאת בכל מקום?</div>
+    <div class="highlight-box">
+      <p class="section-text">תחום זה עוסק במפגש בין טכנולוגיה לבין האדם עצמו: תחושות, מחשבות, התנהגות וחוסן נפשי.</p>
+      <p class="section-text">הוא בוחן כיצד מסכים, אפליקציות, מוצרים פיזיים חכמים ורשתות חברתיות משפיעים על הרווחה הנפשית, הזהות האישית והיכולת שלנו לנהל את החיים היומיומיים.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="content-section">
+    <h2 class="section-title">🌍 חשיבות התחום וההקשר העכשווי</h2>
+    <div class="question-box">למה זה רלוונטי דווקא היום?</div>
+    <div class="highlight-box">
+      <p class="section-text">כי הטכנולוגיה כבר לא רק כלי – היא סביבה שבה אנחנו חיים.</p>
+      <p class="section-text">המסך הוא המקום שבו אנחנו נפגשות עם חברות, לומדות, משחקות, מתעדכנות ומעצבות את התפיסה העצמית שלנו.</p>
+      <p class="section-text">ההשפעה של השימוש בטכנולוגיה על בריאות נפשית, קשב, שינה, תחושת שייכות וחוסן אישי היא אחד האתגרים המרכזיים של הדור שלנו.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="content-section">
+    <h2 class="section-title">⚙️ חיבור לטכנולוגיה ולהייטק</h2>
+    <div class="question-box">איפה הטכנולוגיה פוגשת את האדם?</div>
+    <div class="highlight-box">
+      <p class="section-text emphasis">זהו תחום שבו טכנולוגיה פוגשת פסיכולוגיה, עיצוב חוויית משתמש וחשיבה מוסרית:</p>
+      <ul class="custom-list">
+        <li>עיצוב חוויית משתמש (UX/UI) – איך ממשקים משפיעים על התנהגות</li>
+        <li>רשתות חברתיות ואלגוריתמים – מה מופיע בפיד ולמה</li>
+        <li>בריאות דיגיטלית – כלים למדידה ושיפור רווחה</li>
+        <li>משחקיות (Gamification) – איך משחקים משפיעים על מוטיבציה והתמדה</li>
+        <li>אתיקה טכנולוגית – האם מערכות מעוצבות לטובת המשתמש או לטובת החברה?</li>
+        <li>נגישות דיגיטלית – איך מבטיחים שטכנולוגיה משרתת את כולם</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="content-section">
+    <h2 class="section-title">🚧 אתגרים ובעיות מרכזיות</h2>
+    <div class="question-box">איפה הדברים מסתבכים?</div>
+    <div class="highlight-box">
+      <p class="section-text"><strong>כאן עולות שאלות של אחריות, השפעה והכוונה:</strong></p>
+      <ul class="custom-list">
+        <li><strong>התמכרות ומשיכה:</strong> מערכות שמעוצבות לשמור אותנו מחוברות</li>
+        <li><strong>השוואה חברתית:</strong> רשתות שמציגות חיים "מושלמים" ויוצרות לחץ</li>
+        <li><strong>קשב מפוזר:</strong> קושי להתרכז כשיש התראות כל הזמן</li>
+        <li><strong>חוסר שקיפות:</strong> לא תמיד ברור מי מכוון את התוכן שאנחנו רואות</li>
+        <li><strong>פגיעה ברווחה:</strong> השפעה שלילית על שינה, מצב רוח וביטחון עצמי</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="content-section">
+    <h2 class="section-title">💬 הקשר יומיומי והשפעה אישית</h2>
+    <div class="question-box">איפה זה פוגש אותך ביום-יום?</div>
+    <div class="highlight-box">
+      <p class="section-text emphasis">התחום פוגש אותך כל יום:</p>
+      <ul class="custom-list">
+        <li>כשאת בודקת את הטלפון בבוקר לפני שקמת</li>
+        <li>כשאת גוללת ברשתות חברתיות ופתאום עבר שעה</li>
+        <li>כשאת מרגישה לחץ להעלות תמונה "מושלמת"</li>
+        <li>כשאת מנסה להירדם אבל המסך עדיין דולק</li>
+        <li>כשאת מתקשה להתרכז בשיעור או בשיחה</li>
+      </ul>
+      <div class="reflection-box">
+        <strong>עצירה לחשיבה אישית:</strong><br>
+        מתי הטכנולוגיה משפרת לך את מצב הרוח – ומתי היא מוסיפה לחץ?<br>
+        איזה הרגל דיגיטלי היית רוצה לשנות?<br>
+        מה גורם לך להרגיש שאת שולטת בטכנולוגיה – או שהיא שולטת בך?
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="content-section">
+    <h2 class="section-title">🧭 כיווני חשיבה לפתרונות</h2>
+    <div class="question-box">איך מתחילים לחשוב אחרת?</div>
+    <div class="highlight-box">
+      <ul class="custom-list">
+        <li><strong>עיצוב מכוון רווחה</strong> – להפוך טכנולוגיה לכלי שמשרת את המשתמש</li>
+        <li><strong>שקיפות ובחירה</strong> – לתת למשתמש שליטה על מה שקורה</li>
+        <li><strong>מדידה ומודעות</strong> – להבין איך שימוש משפיע על רווחה</li>
+        <li><strong>איזון דיגיטלי</strong> – לעצב מערכות שלא דורשות קשב מתמיד</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="content-section">
+    <h2 class="section-title">❓ שאלות חקר מנחות</h2>
+    <div class="question-box">על מה אפשר לחקור?</div>
+    <div class="highlight-box">
+      <ul class="custom-list">
+        <li>איך עיצוב של אפליקציה משפיע על התנהגות?</li>
+        <li>מה גורם להתמכרות לרשתות חברתיות?</li>
+        <li>איך אפשר למדוד רווחה דיגיטלית?</li>
+        <li>מהם ההבדלים בין שימוש בריא לשימוש בעייתי?</li>
+        <li>איך אפשר לעצב טכנולוגיה שמחזקת חוסן נפשי?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="content-section">
+    <h2 class="section-title">👩‍💻 תפקידים אפשריים</h2>
+    <div class="question-box">אילו מקצועות קשורים לתחום?</div>
+    <div class="highlight-box">
+      <div class="jobs-grid">
+        <div class="job-card">מעצבת חוויית משתמש (UX Designer)</div>
+        <div class="job-card">חוקרת משתמשים (UX Researcher)</div>
+        <div class="job-card">מומחית בריאות דיגיטלית</div>
+        <div class="job-card">מנהלת מוצר ברווחה טכנולוגית</div>
+        <div class="job-card">יועצת אתיקה טכנולוגית</div>
+      </div>
+      <p class="section-text" style="margin-top: 1rem; font-size: 0.95rem; font-style: italic;">הדוגמאות נועדו לפתוח אופק ולהמחיש סוגי עיסוק אפשריים ולא להכוונה מקצועית.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="content-section">
+    <h2 class="section-title">🧩 בעיות לחקר</h2>
+    <div class="question-box">אילו אתגרים אפשר לבדוק?</div>
+    <div class="highlight-box">
+      <ul class="custom-list">
+        <li>התמכרות למסכים ולרשתות חברתיות</li>
+        <li>פגיעה בשינה ובקשב</li>
+        <li>לחץ חברתי ותחושת השוואה</li>
+        <li>קושי בניהול זמן מסך</li>
+        <li>חוסר שקיפות בעיצוב אפליקציות</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="content-section">
+    <h2 class="section-title">📱 יישומים אפשריים</h2>
+    <div class="question-box">איפה זה יכול לבוא לידי ביטוי?</div>
+    <div class="highlight-box">
+      <ul class="custom-list">
+        <li>אפליקציות לניהול זמן מסך ורווחה דיגיטלית</li>
+        <li>מוצרים פיזיים חכמים למדידת ושיפור רווחה</li>
+        <li>כלים למדידת רווחה דיגיטלית</li>
+        <li>עיצוב מחדש של ממשקים שמעודדים שימוש בריא</li>
+        <li>מערכות חינוכיות שמלמדות מודעות דיגיטלית</li>
+        <li>פיילוטים לשינוי הרגלים דיגיטליים</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="content-section">
+    <h2 class="section-title">✨ סיכום והכוונה לבחירה</h2>
+    <p class="section-text" style="margin-bottom:.35rem;">לא צריך להיות פסיכולוגית מראש — צריך סקרנות, רגישות ורצון להבין.</p>
+    <div class="question-box">למי התחום הזה מתאים במיוחד?</div>
+    <div class="highlight-box">
+      <p class="section-text"><strong>זהו תחום למי שמרגישה את ההשפעה של הטכנולוגיה על עצמה.</strong></p>
+      <p class="section-text">למי שרוצה להבין למה זה קורה – ואיך אפשר לעצב אחרת.</p>
+      <p class="section-text">אם במהלך הקריאה עלו בך שאלות על רווחה, עיצוב או השפעה נפשית –<br><strong>ייתכן שזהו כיוון נכון עבורך לבחירת נושא החקר ולהמשך התהליך ההנדסי.</strong></p>
+    </div>
+  </section>
+
+</main>
+
+<section class="sub-domains">
+  <div class="sub-domains-header">
+    <h2 class="sub-domains-title">תתי התחומים</h2>
+    <p class="section-text" style="max-width:720px;margin:0.5rem auto 0.5rem;">בחרי תת-תחום שמסקרן אותך — כל אחד מהם מוביל לעמוד המשך עם דוגמאות ואתגרי חקר.</p>
+  </div>
+
+  <div class="sub-domains-grid">
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">🧠 בריאות נפשית ורווחה דיגיטלית</h3>
+      <p class="sub-domain-desc">השפעת טכנולוגיה על מצב רוח, חרדה, דיכאון וחוסן נפשי</p>
+    </div>
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">🎮 משחקיות, התמכרות ומוטיבציה</h3>
+      <p class="sub-domain-desc">איך עיצוב גיימיפיקציה משפיע על התנהגות והתמדה</p>
+    </div>
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">📱 רשתות חברתיות וזהות דיגיטלית</h3>
+      <p class="sub-domain-desc">השפעת רשתות על תפיסה עצמית, השוואה חברתית ותחושת שייכות</p>
+    </div>
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">🎨 עיצוב חוויית משתמש (UX) ונגישות</h3>
+      <p class="sub-domain-desc">איך עיצוב ממשקים משפיע על חוויה, נוחות ושוויון גישה</p>
+    </div>
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">⚖️ אתיקה וטכנולוגיה מכוונת רווחה</h3>
+      <p class="sub-domain-desc">בחינת האחריות המוסרית בעיצוב טכנולוגיה</p>
+    </div>
+    <div class="sub-domain-card">
+      <h3 class="sub-domain-title">🔍 קשב, למידה וזיכרון בעידן הדיגיטלי</h3>
+      <p class="sub-domain-desc">איך טכנולוגיה משפיעה על יכולת קשב, ריכוז ותהליכי למידה</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   <p>© 2026 קורס פורצות דרך</p>
 </footer>
+
 </body>
 </html>
