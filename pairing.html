@@ -18,122 +18,209 @@
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,"Segoe UI",Arial;background:linear-gradient(145deg,#020617,#0f172a);color:var(--text)}
-.container{max-width:760px;margin:auto;padding:24px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:22px}
+
+.container{max-width:760px;margin:auto;padding:24px;padding-top:92px}
+
+/* פס עליון למדריכה */
+#instructorBar{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:rgba(2,6,23,.92);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+  backdrop-filter: blur(10px);
+}
+#instructorBar .inner{
+  max-width:760px;
+  margin:auto;
+  padding:10px 24px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+#instructorBar label{margin:0;font-size:12px;color:var(--muted)}
+#instructorBar input{
+  padding:8px 10px;
+  font-size:14px;
+  width:120px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  outline:none;
+}
+#instructorBar button{
+  margin:0;
+  padding:8px 14px;
+  font-size:14px;
+  width:auto;
+  border:none;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+#instructorBar .status{
+  margin-right:auto;
+  font-size:12px;
+  color:rgba(248,250,252,.8);
+}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:18px}
 
 h1{margin:0 0 12px;font-size:24px;color:var(--accent)}
 h2{margin:0 0 10px;font-size:18px}
-p{color:var(--muted);line-height:1.7;margin:0 0 14px}
+p{color:var(--muted);line-height:1.75;margin:0 0 12px}
 
-button{width:100%;margin-top:18px;padding:14px;border:none;border-radius:14px;font-weight:700;cursor:pointer;color:white;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-button.secondary{background:transparent;border:1px solid var(--border)}
+button.primary{width:100%;margin-top:16px;padding:14px;border:none;border-radius:14px;font-weight:800;cursor:pointer;color:white;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+button.secondary{width:100%;margin-top:12px;padding:14px;border-radius:14px;font-weight:800;cursor:pointer;color:var(--text);background:transparent;border:1px solid var(--border)}
 
 .hidden{display:none}
-.quote{margin:18px 0;padding:16px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.18);font-weight:600;text-align:center}
+.quote{margin:16px 0;padding:14px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.18);font-weight:650;text-align:center}
 
-label{display:block;margin-top:16px;color:var(--muted)}
+label{display:block;margin-top:14px;color:var(--muted);font-weight:650}
 input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.25);color:var(--text)}
+
+.small-note{font-size:13px;color:rgba(199,210,254,.9);margin-top:10px}
+.warn{color:#fde68a}
 </style>
 </head>
 
 <body>
+<!-- פס מדריכה עליון -->
+<div id="instructorBar">
+  <div class="inner">
+    <label for="instructorCode">קוד מדריכה</label>
+    <input id="instructorCode" inputmode="numeric" placeholder="2311" autocomplete="one-time-code">
+    <button id="activateBtn" type="button">התחל פעילות</button>
+    <div class="status" id="barStatus">הפעילות עדיין לא הופעלה</div>
+  </div>
+</div>
+
 <div class="container">
 
-<!-- מסך פתיחה / המתנה -->
-<div class="card" id="introScreen">
-  <h1>בחירת שותפה לתהליך</h1>
-  <p>הפעילות הזו אינה מבחן ואין בה תשובות נכונות או לא נכונות.</p>
-  <p>המטרה היא ליצור שותפות טובה לעבודה משותפת בתהליך ההנדסי.</p>
-  <div class="quote">פורצת דרך מצליחה כשהיא צועדת קדימה עם נשים מצליחות כמוה.</div>
-  <p><strong>הפעילות תיפתח כאשר המדריכה תפעיל אותה.</strong></p>
-  <button id="startBtn" class="hidden">מתחילות</button>
-</div>
+  <!-- מסך פתיחה / המתנה -->
+  <div class="card" id="introScreen">
+    <h1>בחירת שותפה לתהליך</h1>
+    <p>הפעילות הזו אינה מבחן ואין בה תשובות נכונות או לא נכונות.</p>
+    <p>המטרה היא ליצור שותפות טובה לעבודה משותפת בתהליך התיכון ההנדסי — דרך היכרות, אמון ודיוק.</p>
+    <div class="quote">פורצת דרך מצליחה כשהיא צועדת קדימה עם נשים מצליחות כמוה.</div>
+    <p><strong>כרגע מחכות להפעלה של המדריכה.</strong></p>
+    <p class="small-note">ברגע שהמדריכה תלחץ "התחל פעילות" יופיע כאן כפתור להתחלה — לכל הכיתה.</p>
 
-<!-- מסכי שאלון -->
-<div class="card hidden" id="step1">
-  <h2>תחומי עניין</h2>
-  <label>מה התחום המרכזי שבחרת?</label>
-  <select id="mainDomain">
-    <option value="">בחרי</option>
-    <option>הייטק וליבה</option>
-    <option>אדם וטכנולוגיה</option>
-    <option>סביבה וקיימות</option>
-    <option>עתיד ויזמות</option>
-    <option>חברה ודיגיטל</option>
-  </select>
+    <button id="startBtn" class="primary hidden" type="button">מתחילות</button>
+    <p id="lockedMsg" class="small-note warn hidden">הפעילות הסתיימה וננעלה. אם צריך — המדריכה יכולה להפעיל שוב.</p>
+  </div>
 
-  <label>האם יש תחום נוסף שמעניין אותך?</label>
-  <select id="secondDomain">
-    <option value="">בחרי</option>
-    <option>הייטק וליבה</option>
-    <option>אדם וטכנולוגיה</option>
-    <option>סביבה וקיימות</option>
-    <option>עתיד ויזמות</option>
-    <option>חברה ודיגיטל</option>
-    <option>אין תחום נוסף שמעניין אותי כרגע</option>
-  </select>
-  <button onclick="next(2)">המשך</button>
-</div>
+  <!-- שלב 1 -->
+  <div class="card hidden" id="step1">
+    <h2>לפני שמתחילות</h2>
+    <label>שם פרטי / כינוי (כדי שתוכלי לזהות את עצמך במסך החיבורים)</label>
+    <input id="displayName" placeholder="לדוגמה: נועה" maxlength="24">
 
-<div class="card hidden" id="step2">
-  <h2>איך את פועלת?</h2>
-  <label>כשיש משימה חדשה ולא ברורה:</label>
-  <select id="workStyle">
-    <option value="">בחרי</option>
-    <option>מתחילה להתנסות ולומדת תוך כדי</option>
-    <option>עוצרת להבין ולתכנן</option>
-  </select>
+    <h2 style="margin-top:18px">תחומי עניין</h2>
+    <label>מה התחום המרכזי שבחרת?</label>
+    <select id="mainDomain">
+      <option value="">בחרי</option>
+      <option>הייטק וליבה</option>
+      <option>אדם וטכנולוגיה</option>
+      <option>סביבה וקיימות</option>
+      <option>עתיד ויזמות</option>
+      <option>חברה ודיגיטל</option>
+    </select>
 
-  <label>בעבודה בזוג:</label>
-  <select id="teamStyle">
-    <option value="">בחרי</option>
-    <option>חושבת בקול ומשתפת</option>
-    <option>עובדת בשקט ואז מציגה</option>
-  </select>
-  <button onclick="next(3)">המשך</button>
-</div>
+    <label>האם יש תחום נוסף שמעניין אותך?</label>
+    <select id="secondDomain">
+      <option value="">בחרי</option>
+      <option>הייטק וליבה</option>
+      <option>אדם וטכנולוגיה</option>
+      <option>סביבה וקיימות</option>
+      <option>עתיד ויזמות</option>
+      <option>חברה ודיגיטל</option>
+      <option>אין תחום נוסף שמעניין אותי כרגע</option>
+    </select>
 
-<div class="card hidden" id="step3">
-  <h2>קצת מהחיים שלך</h2>
-  <label>איזה תוכן מושך אותך באמת?</label>
-  <select id="lifeInterest">
-    <option value="">בחרי</option>
-    <option>טכנולוגיה ואפליקציות</option>
-    <option>אנשים והשפעה חברתית</option>
-    <option>סביבה וקיימות</option>
-    <option>רעיונות ועתיד</option>
-  </select>
+    <button class="primary" type="button" onclick="next(2)">המשך</button>
+  </div>
 
-  <label>מתי את מרגישה שאת מביאה ערך?</label>
-  <select id="valuePlace">
-    <option value="">בחרי</option>
-    <option>כשאני מביאה רעיון חדש</option>
-    <option>כשאני עוזרת להבין</option>
-    <option>כשאני מחברת אנשים</option>
-    <option>כשאני משנה מצב קיים</option>
-  </select>
-  <button onclick="finish()">סיימתי – מוכנה לשותפות</button>
-</div>
+  <!-- שלב 2 -->
+  <div class="card hidden" id="step2">
+    <h2>איך את פועלת?</h2>
+    <label>כשיש משימה חדשה ולא ברורה:</label>
+    <select id="workStyle">
+      <option value="">בחרי</option>
+      <option>מתחילה להתנסות ולומדת תוך כדי</option>
+      <option>עוצרת להבין ולתכנן</option>
+    </select>
 
-<!-- מסך המתנה -->
-<div class="card hidden" id="waiting">
-  <h1>מחכות יחד</h1>
-  <p>הבחירות שלך נשמרו.</p>
-  <p>כשהחיבורים ייווצרו – תראי כאן את השותפה שלך.</p>
-</div>
+    <label>בעבודה בזוג:</label>
+    <select id="teamStyle">
+      <option value="">בחרי</option>
+      <option>חושבת בקול ומשתפת</option>
+      <option>עובדת בשקט ואז מציגה</option>
+    </select>
 
-<!-- מסך חיבורים -->
-<div class="card hidden" id="pairing">
-  <h1>השותפות שלך</h1>
-  <p>שותפות טובה נבנית משילוב של תחומי עניין ודרך עבודה.</p>
-  <div id="pairingResult"></div>
-</div>
+    <button class="primary" type="button" onclick="next(3)">המשך</button>
+    <button class="secondary" type="button" onclick="next(1)">חזרה</button>
+  </div>
+
+  <!-- שלב 3 -->
+  <div class="card hidden" id="step3">
+    <h2>קצת מהחיים שלך</h2>
+
+    <label>איזה תוכן מושך אותך באמת ביום-יום?</label>
+    <select id="lifeInterest">
+      <option value="">בחרי</option>
+      <option>טכנולוגיה ואפליקציות</option>
+      <option>אנשים והשפעה חברתית</option>
+      <option>סביבה וקיימות</option>
+      <option>רעיונות ועתיד</option>
+    </select>
+
+    <label>מתי את מרגישה שאת מביאה ערך לקבוצה?</label>
+    <select id="valuePlace">
+      <option value="">בחרי</option>
+      <option>כשאני מביאה רעיון חדש</option>
+      <option>כשאני עוזרת להבין</option>
+      <option>כשאני מחברת אנשים</option>
+      <option>כשאני משנה מצב קיים</option>
+    </select>
+
+    <button class="primary" type="button" onclick="finish()">סיימתי – מוכנה לשותפות</button>
+    <button class="secondary" type="button" onclick="next(2)">חזרה</button>
+  </div>
+
+  <!-- מסך המתנה לאחר מילוי -->
+  <div class="card hidden" id="waiting">
+    <h1>מחכות יחד</h1>
+    <p>מעולה — הבחירות שלך נשמרו.</p>
+    <p>כשהמדריכה תייצר את החיבורים, תראי כאן את תוצאת השותפות.</p>
+  </div>
+
+  <!-- מסך חיבורים -->
+  <div class="card hidden" id="pairing">
+    <h1>מסך החיבורים</h1>
+    <p>שותפות טובה נבנית משילוב של <strong>תחומי עניין משותפים</strong> ודרך עבודה משלימה.</p>
+    <p class="small-note">זוהי מיומנות מרכזית בעולם ההייטק: לדעת לעבוד יחד, לחלוק אחריות, ולנוע קדימה כצוות.</p>
+    <div id="pairingResult"></div>
+    <button class="secondary" type="button" onclick="goHome()">חזרה לדף הבית</button>
+  </div>
 
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  collection,
+  getDocs,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFSq5b-HgkTxFNhBJIBdOe2ian5TZvMPE",
@@ -144,132 +231,331 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const sessionRef = doc(db, "session", "active");
+// 🔒 מסמכים/קולקציות (מותאם לרולס שהגדרת: instructors / sessions / responses)
+const SESSION_ID = "active";
+const sessionRef = doc(db, "sessions", SESSION_ID);
 const responsesRef = collection(db, "responses");
 
-const SESSION_DURATION = 20 * 60 * 1000;
-let sessionEnd = 0;
+const SESSION_DURATION_MS = 20 * 60 * 1000; // 20 דקות
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+// קאש קטן בדפדפן למניעת מילוי כפול מאותו מכשיר
+const DEVICE_ID_KEY = "pd_pairing_device_id";
+const deviceId = localStorage.getItem(DEVICE_ID_KEY) || crypto.randomUUID();
+localStorage.setItem(DEVICE_ID_KEY, deviceId);
+
+// DOM
+const introScreen = document.getElementById('introScreen');
+const startBtn = document.getElementById('startBtn');
+const lockedMsg = document.getElementById('lockedMsg');
+const activateBtn = document.getElementById('activateBtn');
+const instructorCode = document.getElementById('instructorCode');
+const barStatus = document.getElementById('barStatus');
+
+const step1 = document.getElementById('step1');
+const step2 = document.getElementById('step2');
+const step3 = document.getElementById('step3');
+const waiting = document.getElementById('waiting');
+const pairing = document.getElementById('pairing');
+
+const displayName = document.getElementById('displayName');
+const mainDomain = document.getElementById('mainDomain');
+const secondDomain = document.getElementById('secondDomain');
+const workStyle = document.getElementById('workStyle');
+const teamStyle = document.getElementById('teamStyle');
+const lifeInterest = document.getElementById('lifeInterest');
+const valuePlace = document.getElementById('valuePlace');
+const pairingResult = document.getElementById('pairingResult');
+
+function showOnly(id){
+  document.querySelectorAll('.container .card').forEach(c => c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function setStartEnabled(enabled){
+  if(enabled){
+    startBtn.classList.remove('hidden');
+    lockedMsg.classList.add('hidden');
+  }else{
+    startBtn.classList.add('hidden');
+  }
+}
+
+function setLockedMessage(on){
+  if(on) lockedMsg.classList.remove('hidden');
+  else lockedMsg.classList.add('hidden');
+}
+
+// מצב ברירת מחדל: מסך פתיחה
+showOnly('introScreen');
+setStartEnabled(false);
+setLockedMessage(false);
+
+// מאזינים לסשן
+let currentSession = null;
+let sessionEndsAt = 0;
+let sessionStartedAt = 0;
 
 onSnapshot(sessionRef, async (snap) => {
-  if (!snap.exists()) return;
+  if(!snap.exists()){
+    barStatus.textContent = "הפעילות עדיין לא הופעלה";
+    setStartEnabled(false);
+    return;
+  }
+
   const data = snap.data();
+  currentSession = data;
 
-  if (data.started && data.startTime) {
-    sessionEnd = data.startTime + SESSION_DURATION;
+  // סשן פעיל?
+  if(data.started && typeof data.startTime === 'number'){
+    sessionStartedAt = data.startTime;
+    sessionEndsAt = data.startTime + SESSION_DURATION_MS;
 
-    if (Date.now() < sessionEnd) {
-      startBtn.classList.remove('hidden');
-    } else {
-      lockAll();
+    const now = Date.now();
+    if(now < sessionEndsAt){
+      const minsLeft = Math.max(0, Math.ceil((sessionEndsAt - now)/60000));
+      barStatus.textContent = `פעיל עכשיו · נשארו בערך ${minsLeft} דק׳`;
+      setStartEnabled(true);
+    }else{
+      barStatus.textContent = "הפעילות הסתיימה";
+      setStartEnabled(false);
+      setLockedMessage(true);
+      // אם תלמידה באמצע — נחזיר לפתיחה
+      showOnly('introScreen');
     }
 
-    if (data.pairingReady) {
-      showPairing();
+    // האם החיבורים כבר מוכנים?
+    if(data.pairingReady){
+      await showPairing();
     }
+  }else{
+    barStatus.textContent = "הפעילות עדיין לא הופעלה";
+    setStartEnabled(false);
   }
 });
 
-function lockAll() {
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  introScreen.classList.remove('hidden');
-}
+// ---- הפעלת מדריכה ----
+activateBtn.addEventListener('click', async () => {
+  const code = (instructorCode.value || '').trim();
+  if(!code){
+    barStatus.textContent = "נא להזין קוד מדריכה";
+    return;
+  }
 
+  // בדיקה שקוד קיים ב־instructors
+  const instructorRef = doc(db, 'instructors', code);
+  const instSnap = await getDoc(instructorRef);
+  if(!instSnap.exists() || instSnap.data()?.active !== true){
+    barStatus.textContent = "קוד לא תקין";
+    return;
+  }
+
+  // הפעלת סשן (20 דקות)
+  const startTime = Date.now();
+  await setDoc(sessionRef, {
+    started: true,
+    startTime,
+    pairingReady: false,
+    instructorCode: code,
+    // לצורך TTL (אם תפעילי בעתיד):
+    expiresAt: new Date(startTime + DAY_MS),
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+
+  barStatus.textContent = "הפעילות הופעלה";
+});
+
+// ---- ניווט בין שלבים ----
 window.next = (n) => {
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  document.getElementById('step' + n).classList.remove('hidden');
+  if(n === 1) return showOnly('step1');
+  if(n === 2) return showOnly('step2');
+  if(n === 3) return showOnly('step3');
 };
 
+startBtn.addEventListener('click', () => {
+  // אם הסשן כבר הסתיים — לא נתחיל
+  if(sessionEndsAt && Date.now() > sessionEndsAt){
+    setStartEnabled(false);
+    setLockedMessage(true);
+    return;
+  }
+  showOnly('step1');
+});
+
+// ---- שמירת תשובות ----
 window.finish = async () => {
-  await setDoc(doc(responsesRef, crypto.randomUUID()), {
+  // ולידציה עדינה
+  if(!displayName.value.trim()){
+    alert('כתבי שם פרטי/כינוי כדי שתוכלי לזהות את עצמך במסך החיבורים.');
+    return;
+  }
+  if(!mainDomain.value || !secondDomain.value || !workStyle.value || !teamStyle.value || !lifeInterest.value || !valuePlace.value){
+    alert('רק עוד רגע — השלימי את כל הבחירות לפני סיום.');
+    return;
+  }
+
+  // אם הסשן הסתיים — לא נשמור
+  if(sessionEndsAt && Date.now() > sessionEndsAt){
+    showOnly('introScreen');
+    setLockedMessage(true);
+    return;
+  }
+
+  const payload = {
+    sessionId: SESSION_ID,
+    deviceId,
+    displayName: displayName.value.trim(),
     mainDomain: mainDomain.value,
     secondDomain: secondDomain.value,
     workStyle: workStyle.value,
     teamStyle: teamStyle.value,
     lifeInterest: lifeInterest.value,
     valuePlace: valuePlace.value,
-    time: Date.now()
-  });
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  waiting.classList.remove('hidden');
+    createdAt: Date.now(),
+    expiresAt: new Date(Date.now() + DAY_MS)
+  };
+
+  await setDoc(doc(responsesRef, crypto.randomUUID()), payload);
+  showOnly('waiting');
 };
 
-startBtn.onclick = () => {
-  introScreen.classList.add('hidden');
-  step1.classList.remove('hidden');
-};
+// ---- אלגוריתם חיבורים ----
+function score(a, b){
+  let s = 0;
 
-async function showPairing() {
-  const snap = await getDocs(responsesRef);
-  let students = snap.docs.map(d => d.data());
-  if (students.length < 2) return;
+  // 1) תחומי עניין משותפים (חזק)
+  if(a.mainDomain === b.mainDomain) s += 10;
+  if(a.mainDomain === b.secondDomain) s += 6;
+  if(b.mainDomain === a.secondDomain) s += 6;
 
-  // פונקציית ניקוד התאמה בין שתיים
-  function score(a, b) {
-    let s = 0;
+  // 2) השלמה בסגנון עבודה (חזק)
+  if(a.workStyle !== b.workStyle) s += 5;
+  if(a.teamStyle !== b.teamStyle) s += 4;
 
-    // 1️⃣ תחום עניין – המשקל הגבוה ביותר
-    if (a.mainDomain === b.mainDomain) s += 5;
-    if (a.mainDomain === b.secondDomain) s += 3;
-    if (b.mainDomain === a.secondDomain) s += 3;
+  // 3) חיים/כיוון (בינוני)
+  if(a.lifeInterest === b.lifeInterest) s += 2;
+  if(a.valuePlace === b.valuePlace) s += 2;
 
-    // 2️⃣ סגנון עבודה – השלמה עדיפה על זהות
-    if (a.workStyle !== b.workStyle) s += 3;
-    if (a.teamStyle !== b.teamStyle) s += 2;
+  // 4) שובר שוויון דטרמיניסטי (כמעט בלתי מורגש)
+  const key = (a.displayName + '|' + b.displayName).split('').reduce((acc,ch)=>acc+ch.charCodeAt(0),0);
+  s += (key % 7) * 0.01;
 
-    // 3️⃣ ערכים / חיים – כיוון דומה
-    if (a.lifeInterest === b.lifeInterest) s += 1;
-    if (a.valuePlace === b.valuePlace) s += 1;
+  return s;
+}
 
-    return s;
-  }
-
+function pickBestPairs(list){
+  // אלגוריתם חמדני: בכל פעם בוחר את הצמד הכי גבוה ואז מסיר
+  let students = [...list];
   let pairs = [];
 
-  while (students.length > 1) {
-    let bestPair = null;
-    let bestScore = -1;
-
-    for (let i = 0; i < students.length; i++) {
-      for (let j = i + 1; j < students.length; j++) {
+  while(students.length > 1){
+    let best = {i:-1,j:-1,sc:-Infinity};
+    for(let i=0;i<students.length;i++){
+      for(let j=i+1;j<students.length;j++){
         const sc = score(students[i], students[j]);
-        if (sc > bestScore) {
-          bestScore = sc;
-          bestPair = [i, j];
+        if(sc > best.sc){
+          best = {i,j,sc};
         }
       }
     }
 
-    const [i, j] = bestPair;
-    pairs.push([students[i], students[j], bestScore]);
-
-    // הסרה מהמאגר
-    students = students.filter((_, idx) => idx !== i && idx !== j);
+    const a = students[best.i];
+    const b = students[best.j];
+    pairs.push({a,b,sc:best.sc});
+    students = students.filter((_,idx)=>idx !== best.i && idx !== best.j);
   }
+
+  // אם נשארה אחת — שלשה עם הזוג הכי "קרוב" אליה
+  let trio = null;
+  if(students.length === 1){
+    const lone = students[0];
+    let bestIdx = 0;
+    let bestTrioScore = -Infinity;
+    for(let k=0;k<pairs.length;k++){
+      const t = score(lone, pairs[k].a) + score(lone, pairs[k].b);
+      if(t > bestTrioScore){
+        bestTrioScore = t;
+        bestIdx = k;
+      }
+    }
+    trio = { lone, withPairIndex: bestIdx };
+  }
+
+  return {pairs, trio};
+}
+
+async function showPairing(){
+  // סינון לפי 24 שעות והסשן הנוכחי
+  const snap = await getDocs(responsesRef);
+  const now = Date.now();
+  const all = snap.docs.map(d => d.data());
+
+  const students = all
+    .filter(x => x.sessionId === SESSION_ID)
+    .filter(x => typeof x.createdAt === 'number' && (now - x.createdAt) <= DAY_MS);
+
+  if(students.length < 2){
+    // עדיין אין מספיק
+    return;
+  }
+
+  const {pairs, trio} = pickBestPairs(students);
 
   // תצוגה
   pairingResult.innerHTML = "";
-  pairs.forEach(p => {
-    const [a, b, sc] = p;
+
+  pairs.forEach((p, idx) => {
     const div = document.createElement('div');
     div.className = 'quote';
     div.innerHTML = `
-      <strong>${a.mainDomain}</strong><br>
-      ${a.lifeInterest}<br><br>
-      <strong>השותפה שלך:</strong><br>
-      ${b.mainDomain}<br>
-      <em>החיבור נבחר לפי תחום משותף והשלמה בסגנון עבודה</em>
+      <strong>${p.a.displayName}</strong> ↔ <strong>${p.b.displayName}</strong><br>
+      <span style="opacity:.9">תחום: ${p.a.mainDomain} · ${p.b.mainDomain}</span><br>
+      <span style="opacity:.85">נבחר לפי תחומי עניין משותפים והשלמה בסגנון עבודה</span>
     `;
     pairingResult.appendChild(div);
   });
 
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  pairing.classList.remove('hidden');
-} · ${pair[1].mainDomain}</p>
-  `;
+  if(trio && pairs[trio.withPairIndex]){
+    const tDiv = document.createElement('div');
+    tDiv.className = 'quote';
+    const base = pairs[trio.withPairIndex];
+    tDiv.innerHTML = `
+      <strong>שלשה</strong><br>
+      ${base.a.displayName} · ${base.b.displayName} · ${trio.lone.displayName}<br>
+      <span style="opacity:.85">בכיתה עם מספר אי-זוגי — נוצרת שלשה אחת כדי לשמור על שותפות לכל משתתפת.</span>
+    `;
+    pairingResult.appendChild(tDiv);
+  }
 
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  pairing.classList.remove('hidden');
+  showOnly('pairing');
 }
+
+// ---- יצירת חיבורים (מדריכה) ----
+// כדי שהחיבורים יופיעו לכולן: המדריכה מפעילה סימון pairingReady.
+// (אפשר ללחוץ פעם אחת אחרי שכולן סיימו — או בסוף הזמן)
+// כאן בחרתי: לחיצה נוספת על "התחל פעילות" כשהפעילות פעילה = "ייצרי חיבורים".
+activateBtn.addEventListener('dblclick', async () => {
+  // דאבל-קליק עדין כדי לא להפעיל בטעות
+  const snap = await getDoc(sessionRef);
+  if(!snap.exists()) return;
+  const data = snap.data();
+  if(!data.started || typeof data.startTime !== 'number') return;
+
+  // אם חלף הזמן — לא מייצרים
+  if(Date.now() > (data.startTime + SESSION_DURATION_MS)) return;
+
+  await setDoc(sessionRef, {
+    pairingReady: true,
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+
+  barStatus.textContent = "החיבורים נוצרו";
+});
+
+// ניווט דף בית (התאימי את הכתובת אצלך)
+window.goHome = () => {
+  window.location.href = "../index.html";
+};
 </script>
 </body>
 </html>
