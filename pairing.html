@@ -105,8 +105,15 @@ button.secondary{width:100%;margin-top:12px;padding:14px;border-radius:14px;font
 .intro-note ul{margin:0;padding:0 18px 0 0;color:var(--muted);line-height:1.8}
 .intro-note li{margin:6px 0}
 
-label{display:block;margin-top:14px;color:var(--muted);font-weight:650}
-input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.25);color:var(--text)}
+label{display:block;margin-top:14px;color:#f1f5ff;font-weight:700}
+input{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.35);color:#ffffff;font-size:15px}
+
+/* קבוצות לחיצה במקום select */
+.choice-group{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+.choice{padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(0,0,0,.25);cursor:pointer;font-weight:600;transition:.2s}
+.choice:hover{background:rgba(255,255,255,.08)}
+.choice.active{background:linear-gradient(135deg,rgba(236,72,153,.35),rgba(99,102,241,.35));border-color:var(--accent)}
+@media (min-width:520px){.choice-group{grid-template-columns:1fr 1fr}}
 
 .small-note{font-size:13px;color:rgba(199,210,254,.9);margin-top:10px}
 .warn{color:#fde68a}
@@ -167,25 +174,23 @@ input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1p
 
     <h2 style="margin-top:18px">תחומי עניין</h2>
     <label>מה התחום המרכזי שבחרת?</label>
-    <select id="mainDomain">
-      <option value="">בחרי</option>
-      <option>הייטק וליבה</option>
-      <option>אדם וטכנולוגיה</option>
-      <option>סביבה וקיימות</option>
-      <option>עתיד ויזמות</option>
-      <option>חברה ודיגיטל</option>
-    </select>
+<div class="choice-group" data-field="mainDomain">
+  <div class="choice">הייטק וליבה</div>
+  <div class="choice">אדם וטכנולוגיה</div>
+  <div class="choice">סביבה וקיימות</div>
+  <div class="choice">עתיד ויזמות</div>
+  <div class="choice">חברה ודיגיטל</div>
+</div>
 
     <label>האם יש תחום נוסף שמעניין אותך?</label>
-    <select id="secondDomain">
-      <option value="">בחרי</option>
-      <option>הייטק וליבה</option>
-      <option>אדם וטכנולוגיה</option>
-      <option>סביבה וקיימות</option>
-      <option>עתיד ויזמות</option>
-      <option>חברה ודיגיטל</option>
-      <option>אין תחום נוסף שמעניין אותי כרגע</option>
-    </select>
+<div class="choice-group" data-field="secondDomain">
+  <div class="choice">הייטק וליבה</div>
+  <div class="choice">אדם וטכנולוגיה</div>
+  <div class="choice">סביבה וקיימות</div>
+  <div class="choice">עתיד ויזמות</div>
+  <div class="choice">חברה ודיגיטל</div>
+  <div class="choice">אין תחום נוסף שמעניין אותי כרגע</div>
+</div>
 
     <button class="primary" type="button" onclick="next(2)">המשך</button>
   </div>
@@ -194,18 +199,16 @@ input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1p
   <div class="card hidden" id="step2">
     <h2>איך את פועלת?</h2>
     <label>כשיש משימה חדשה ולא ברורה:</label>
-    <select id="workStyle">
-      <option value="">בחרי</option>
-      <option>מתחילה להתנסות ולומדת תוך כדי</option>
-      <option>עוצרת להבין ולתכנן</option>
-    </select>
+<div class="choice-group" data-field="workStyle">
+  <div class="choice">מתחילה להתנסות ולומדת תוך כדי</div>
+  <div class="choice">עוצרת להבין ולתכנן</div>
+</div>
 
     <label>בעבודה בזוג:</label>
-    <select id="teamStyle">
-      <option value="">בחרי</option>
-      <option>חושבת בקול ומשתפת</option>
-      <option>עובדת בשקט ואז מציגה</option>
-    </select>
+<div class="choice-group" data-field="teamStyle">
+  <div class="choice">חושבת בקול ומשתפת</div>
+  <div class="choice">עובדת בשקט ואז מציגה</div>
+</div>
 
     <button class="primary" type="button" onclick="next(3)">המשך</button>
     <button class="secondary" type="button" onclick="next(1)">חזרה</button>
@@ -216,36 +219,32 @@ input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1p
     <h2>קצת מהחיים שלך</h2>
 
     <label>איזה תוכן מושך אותך באמת ביום-יום?</label>
-    <select id="lifeInterest">
-      <option value="">בחרי</option>
-      <option>טכנולוגיה ואפליקציות</option>
-      <option>אנשים והשפעה חברתית</option>
-      <option>סביבה וקיימות</option>
-      <option>רעיונות ועתיד</option>
-    </select>
+<div class="choice-group" data-field="lifeInterest">
+  <div class="choice">טכנולוגיה ואפליקציות</div>
+  <div class="choice">אנשים והשפעה חברתית</div>
+  <div class="choice">סביבה וקיימות</div>
+  <div class="choice">רעיונות ועתיד</div>
+</div>
 
     <label>מתי את מרגישה שאת מביאה ערך לקבוצה?</label>
-    <select id="valuePlace">
-      <option value="">בחרי</option>
-      <option>כשאני מביאה רעיון חדש</option>
-      <option>כשאני עוזרת להבין</option>
-      <option>כשאני מחברת אנשים</option>
-      <option>כשאני משנה מצב קיים</option>
-    </select>
+<div class="choice-group" data-field="valuePlace">
+  <div class="choice">כשאני מביאה רעיון חדש</div>
+  <div class="choice">כשאני עוזרת להבין</div>
+  <div class="choice">כשאני מחברת אנשים</div>
+  <div class="choice">כשאני משנה מצב קיים</div>
+</div>
 
     <label>כשיש אי־הסכמה בעבודה משותפת, מה את נוטה לעשות?</label>
-    <select id="conflictStyle">
-      <option value="">בחרי</option>
-      <option>עוצרת ומנסה להבין את הצד השני</option>
-      <option>מציגה עמדה ברורה ומנסה לשכנע</option>
-    </select>
+<div class="choice-group" data-field="conflictStyle">
+  <div class="choice">עוצרת ומנסה להבין את הצד השני</div>
+  <div class="choice">מציגה עמדה ברורה ומנסה לשכנע</div>
+</div>
 
     <label>מה עוזר לך להתמיד בפרויקט לאורך זמן?</label>
-    <select id="motivationSource">
-      <option value="">בחרי</option>
-      <option>תחושת משמעות והשפעה</option>
-      <option>אתגר ופתרון בעיות</option>
-    </select>
+<div class="choice-group" data-field="motivationSource">
+  <div class="choice">תחושת משמעות והשפעה</div>
+  <div class="choice">אתגר ופתרון בעיות</div>
+</div>
 
     <button class="primary" type="button" onclick="finish()">סיימתי – מוכנה לשותפות</button>
     <button class="secondary" type="button" onclick="next(2)">חזרה</button>
@@ -320,14 +319,19 @@ const waiting = document.getElementById('waiting');
 const pairing = document.getElementById('pairing');
 
 const displayName = document.getElementById('displayName');
-const mainDomain = document.getElementById('mainDomain');
-const secondDomain = document.getElementById('secondDomain');
-const workStyle = document.getElementById('workStyle');
-const teamStyle = document.getElementById('teamStyle');
-const lifeInterest = document.getElementById('lifeInterest');
-const valuePlace = document.getElementById('valuePlace');
-const conflictStyle = document.getElementById('conflictStyle');
-const motivationSource = document.getElementById('motivationSource');
+// ערכים נבחרים מקבוצות לחיצה
+const selections = {};
+
+document.querySelectorAll('.choice-group').forEach(group=>{
+  const field = group.dataset.field;
+  group.querySelectorAll('.choice').forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      group.querySelectorAll('.choice').forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+      selections[field] = ch.textContent.trim();
+    });
+  });
+});
 const pairingResult = document.getElementById('pairingResult');
 
 function showOnly(id){
@@ -469,7 +473,7 @@ window.finish = async () => {
     alert('כתבי שם פרטי/כינוי כדי שתוכלי לזהות את עצמך במסך החיבורים.');
     return;
   }
-  if(!mainDomain.value || !secondDomain.value || !workStyle.value || !teamStyle.value || !lifeInterest.value || !valuePlace.value || !conflictStyle.value || !motivationSource.value){
+  if(!selections.mainDomain || !selections.secondDomain || !selections.workStyle || !selections.teamStyle || !selections.lifeInterest || !selections.valuePlace || !selections.conflictStyle || !selections.motivationSource){
     alert('רק עוד רגע — השלימי את כל הבחירות לפני סיום.');
     return;
   }
@@ -485,14 +489,14 @@ window.finish = async () => {
     sessionId: SESSION_ID,
     deviceId,
     displayName: displayName.value.trim(),
-    mainDomain: mainDomain.value,
-    secondDomain: secondDomain.value,
-    workStyle: workStyle.value,
-    teamStyle: teamStyle.value,
-    lifeInterest: lifeInterest.value,
-    valuePlace: valuePlace.value,
-    conflictStyle: conflictStyle.value,
-    motivationSource: motivationSource.value,
+    mainDomain: selections.mainDomain,
+    secondDomain: selections.secondDomain,
+    workStyle: selections.workStyle,
+    teamStyle: selections.teamStyle,
+    lifeInterest: selections.lifeInterest,
+    valuePlace: selections.valuePlace,
+    conflictStyle: selections.conflictStyle,
+    motivationSource: selections.motivationSource,
     // שמירה של קוד מדריכה לצורך תאימות לרולס / בקרה
     instructorCode: currentSession?.instructorCode || null,
     createdAt: Date.now(),
