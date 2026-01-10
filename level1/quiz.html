@@ -26,6 +26,8 @@
       padding:42px;
       box-shadow:0 24px 70px rgba(0,0,0,.28);
       animation:fade .5s ease;
+      position:relative;
+      overflow:hidden;
     }
     @keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
 
@@ -65,21 +67,78 @@
     .dots span:nth-child(3){animation-delay:.4s}
     @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 
-    .result{display:none;text-align:center}
+    .result{display:none;text-align:center;position:relative;padding:8px 0}
+
+    /* אפקט סיום מיוחד */
+    .result::before{
+      content:"";
+      position:absolute;
+      inset:-20px;
+      background:radial-gradient(circle at center,rgba(102,126,234,.15),transparent 70%);
+      opacity:0;
+      animation:resultGlow 1.2s ease forwards;
+      pointer-events:none;
+    }
+    @keyframes resultGlow{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
+    .confetti{
+      position:absolute;
+      top:-10px;
+      width:8px;height:14px;
+      opacity:.9;
+      animation:fall 1.6s linear forwards;
+      pointer-events:none;
+    }
+    @keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}
+
     .result.active{display:block;animation:fade .4s ease}
     .icon{font-size:4em;margin-bottom:14px}
-    .title{font-size:2em;margin-bottom:10px}
-    .desc{color:#666;line-height:1.6;margin-bottom:28px}
+    .title{font-size:2em;margin-bottom:10px;color:#111827}
 
-    .btn{
-      display:inline-block;padding:15px 44px;border-radius:30px;
-      background:linear-gradient(90deg,#667eea,#764ba2);
-      color:#fff;text-decoration:none;font-size:1.1em
+    .desc{color:#6b7280;line-height:1.6;margin-bottom:18px;font-size:1em}
+
+    /* הדגשת שם התחום בתוצאה */
+    .result .desc strong{
+      display:block;
+      font-size:1.8em;
+      line-height:1.25;
+      margin-bottom:6px;
     }
+
+    /* תיאור קצר מתחת לשם התחום */
+    .result .desc .domain-desc{font-size:0.95em;margin-top:2px}
+
+    /* טקסט ההבהרה – מודגש יותר */
+    #resNote{font-size:0.92em;color:#374151;margin-top:8px;line-height:1.6}
+
+    .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px;align-items:stretch}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 22px;
+      min-width:190px;
+      border-radius:22px;
+      background:var(--btn-main, linear-gradient(90deg,#667eea,#764ba2));
+      color:#fff;
+      text-decoration:none;
+      font-size:1em;
+      line-height:1;
+      transition:transform .2s ease, background .3s ease, border-color .3s ease;
+      border:2px solid transparent;
+    }
+    .btn.secondary{
+      background:#fff;
+      color:var(--btn-accent,#667eea);
+      border-color:var(--btn-accent,#667eea);
+    }
+    .btn:hover{transform:scale(1.03)}
 
     @media (max-width: 600px){
       .container{padding:26px}
       .q-text{font-size:1.15em}
+      .btn-row{flex-direction:column}
+      .btn{width:100%;text-align:center}
     }
   </style>
 </head>
@@ -91,7 +150,7 @@
     <p class="subtitle">
       התהליך מתחיל בבחירה אישית.<br>
       עני על השאלון והתוצאה תציע לך תחום חקר שמתאים לך.<br>
-      בהמשך, הבחירות האישיות נפגשות בעבודה קבוצתית
+      בהמשך, הבחירות האישיות נפגשות בעבודה קבוצתית.
     </p>
     <button class="start-btn" onclick="startQuiz()">התחילי</button>
   </div>
@@ -111,14 +170,47 @@
     <div class="icon" id="resIcon"></div>
     <div class="title" id="resTitle"></div>
     <div class="desc" id="resDesc"></div>
-    <a class="btn" id="resBtn">למעבר לעמוד התחום</a>
+    <div class="desc" id="resNote"></div>
+    <div class="btn-row">
+      <a class="btn" id="resBtn" href="#">למעבר לעמוד התחום</a>
+      <a class="btn secondary" href="domains.html">לעמוד התחומים</a>
+    </div>
   </div>
 </div>
 
 <script>
+// ---------- עזר: שינוי בהירות צבע (fix לשגיאה: shadeColor לא מוגדר) ----------
+// amount: -100..100 (שלילי = כהה יותר, חיובי = בהיר יותר)
+function shadeColor(hex, amount){
+  if(typeof hex !== 'string') return '#000000';
+  let c = hex.trim();
+  if(c.startsWith('#')) c = c.slice(1);
+  if(c.length === 3){
+    c = c.split('').map(ch => ch + ch).join('');
+  }
+  if(!/^[0-9a-fA-F]{6}$/.test(c)) return '#000000';
+
+  const num = parseInt(c, 16);
+  let r = (num >> 16) & 255;
+  let g = (num >> 8) & 255;
+  let b = num & 255;
+
+  const delta = Math.round((amount / 100) * 255);
+  r = Math.max(0, Math.min(255, r + delta));
+  g = Math.max(0, Math.min(255, g + delta));
+  b = Math.max(0, Math.min(255, b + delta));
+
+  const toHex = v => v.toString(16).padStart(2, '0');
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
 // ---------- הגדרות רקע מתחלף ----------
 // כל כמה שאלות מתחלף הרקע
 const QUESTIONS_PER_BACKGROUND = 2;
+
+// אינדקס רקע נוכחי (ללא חזרות)
+let bgOrder = [];
+let bgPointer = 0;
 
 // מאגר רקעים (לא קשור לתחומים)
 const backgroundGradients = [
@@ -129,17 +221,30 @@ const backgroundGradients = [
   'linear-gradient(135deg,#f59e0b,#ef4444)'
 ];
 
+function shuffleBackgrounds(){
+  bgOrder = [...backgroundGradients];
+  for(let i=bgOrder.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [bgOrder[i],bgOrder[j]] = [bgOrder[j],bgOrder[i]];
+  }
+  bgPointer = 0;
+}
+
 function updateBackground(questionIndex){
-  const bgIndex = Math.floor(questionIndex / QUESTIONS_PER_BACKGROUND) % backgroundGradients.length;
-  document.body.style.background = backgroundGradients[bgIndex];
+  if(questionIndex % QUESTIONS_PER_BACKGROUND === 0){
+    if(bgOrder.length === 0) shuffleBackgrounds();
+    if(bgPointer >= bgOrder.length) shuffleBackgrounds();
+    document.body.style.background = bgOrder[bgPointer];
+    bgPointer++;
+  }
 }
 
 const domains={
-  tech:{icon:"💻",title:"הייטק וליבה",desc:"פתרון בעיות, מערכות וחשיבה טכנולוגית",page:"domain-1.html"},
-  human:{icon:"💝",title:"אדם וטכנולוגיה",desc:"עיצוב חוויות ופתרונות לאנשים",page:"domain-2.html"},
-  environment:{icon:"🌱",title:"סביבה וקיימות",desc:"פתרונות ירוקים וחשיבה עתידית",page:"domain-3.html"},
-  society:{icon:"🌐",title:"חברה ודיגיטל",desc:"השפעה חברתית ותקשורת",page:"domain-4.html"},
-  entrepreneurship:{icon:"🚀",title:"יזמות ועתיד",desc:"הובלת רעיונות ושינוי מציאות",page:"domain-5.html"}
+  tech:{icon:"💻",title:"הייטק וליבה",desc:"פתרון בעיות, מערכות וחשיבה טכנולוגית",page:"domain-1.html",color:"#7c3aed"},
+  human:{icon:"💝",title:"אדם וטכנולוגיה",desc:"עיצוב חוויות ופתרונות לאנשים",page:"domain-2.html",color:"#2563eb"},
+  environment:{icon:"🌱",title:"סביבה וקיימות",desc:"פתרונות ירוקים וחשיבה עתידית",page:"domain-3.html",color:"#16a34a"},
+  society:{icon:"🌐",title:"חברה ודיגיטל",desc:"השפעה חברתית ותקשורת",page:"domain-4.html",color:"#0ea5e9"},
+  entrepreneurship:{icon:"🚀",title:"יזמות ועתיד",desc:"הובלת רעיונות ושינוי מציאות",page:"domain-5.html",color:"#f59e0b"}
 };
 
 // --- מאגר שאלות (26) ---
@@ -377,13 +482,16 @@ const questions = [
       q.options.forEach((o)=>{
         console.assert(typeof o.t === 'string' && o.t.trim().length>0, 'אופציה חייבת לכלול t');
         console.assert(o.s && typeof o.s === 'object', 'אופציה חייבת לכלול s');
-        Object.keys(scoresTemplate()).forEach(k=>{
-          console.assert(typeof (o.s[k] ?? 0) === 'number', 'ניקוד חייב להיות מספר');
-        });
       });
     });
 
     console.assert(typeof domains.tech?.page === 'string', 'domain pages חייבים להיות מחרוזות');
+
+    // בדיקת shadeColor
+    console.assert(shadeColor('#000000', 20) === '#333333', 'shadeColor: בהרה של שחור ב-20%');
+    console.assert(shadeColor('#ffffff', -20) === '#cccccc', 'shadeColor: כהיה של לבן ב-20%');
+    console.assert(/^#[0-9a-f]{6}$/i.test(shadeColor('#7c3aed', -20)), 'shadeColor מחזיר HEX תקין');
+
     console.log('✅ Tests passed');
   } catch(e){
     console.error('❌ Tests failed', e);
@@ -391,16 +499,17 @@ const questions = [
 })();
 
 // תבנית ניקוד
+function scoresTemplate(){
+  return {tech:0,human:0,environment:0,society:0,entrepreneurship:0};
+}
+
 function getQuestionIcon(index){
   const icons = ['💡','🧠','✨','🎯','🧩','🌈','⚡','🔍','🛠️','🚀'];
   return icons[index % icons.length];
 }
 
-function scoresTemplate(){
-  return {tech:0,human:0,environment:0,society:0,entrepreneurship:0};
-}
-
-let i=0,answered=false;
+let i=0;
+let answered=false;
 let scores=scoresTemplate();
 
 function startQuiz(){
@@ -451,13 +560,36 @@ function finish(){
 
 function showResult(){
   document.getElementById('loading').classList.remove('active');
+
   const top=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
   const d=domains[top] || domains.tech;
+
   document.getElementById('resIcon').textContent=d.icon;
-  document.getElementById('resTitle').textContent=d.title;
-  document.getElementById('resDesc').textContent=d.desc;
-  document.getElementById('resBtn').href=d.page;
-  document.getElementById('result').classList.add('active');
+  document.getElementById('resTitle').textContent='התחום המומלץ להתחלת החקר הוא:';
+  document.getElementById('resDesc').innerHTML=`<strong style="color:${d.color}">${d.title}</strong><div class="domain-desc">${d.desc}</div>`;
+  document.getElementById('resNote').innerHTML='זו אינה החלטה סופית.<br>בהמשך התהליך תיחשפי גם לתחומים נוספים, תוכלי לחקור, להתנסות ולדייק את הבחירה שלך.';
+
+  // צביעת כפתורים לפי צבע התחום
+  const btnRow = document.querySelector('.btn-row');
+  btnRow.style.setProperty('--btn-accent', d.color);
+  btnRow.style.setProperty('--btn-main', `linear-gradient(90deg, ${d.color}, ${shadeColor(d.color, -20)})`);
+
+  const resBtn = document.getElementById('resBtn');
+  resBtn.href=d.page;
+
+  const resultEl=document.getElementById('result');
+  resultEl.classList.add('active');
+
+  // יצירת אפקט קונפטי עדין
+  for(let k=0;k<22;k++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'%';
+    c.style.background=`hsl(${Math.random()*360},80%,65%)`;
+    c.style.animationDelay=(Math.random()*0.4)+'s';
+    resultEl.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
 }
 </script>
 </body>
