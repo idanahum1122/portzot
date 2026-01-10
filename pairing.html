@@ -74,6 +74,27 @@ h2{margin:0 0 10px;font-size:18px}
 p{color:var(--muted);line-height:1.75;margin:0 0 12px}
 
 button.primary{width:100%;margin-top:16px;padding:14px;border:none;border-radius:14px;font-weight:800;cursor:pointer;color:white;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+
+/* כפתור התחלה קטן – לפי אורך המילה */
+button.start-compact{
+  width:auto;
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:900;
+  margin:16px auto 0;
+}
+
+/* אנימציית הופעה רכה לכפתור התחלה */
+@keyframes softAppear{
+  from{opacity:0;transform:translateY(8px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.start-animate{
+  animation:softAppear .6s ease-out both;
+}
+
 button.secondary{width:100%;margin-top:12px;padding:14px;border-radius:14px;font-weight:800;cursor:pointer;color:var(--text);background:transparent;border:1px solid var(--border)}
 
 .hidden{display:none}
@@ -132,8 +153,9 @@ input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1p
     </div>
     <div class="quote">פורצת דרך מצליחה כשהיא צועדת קדימה עם נשים מצליחות כמוה.</div>
     <p class="wait-text"><strong>נא להמתין</strong></p>
+    <!-- יוסתר אוטומטית לאחר הזנת קוד מדריכה -->
 
-    <button id="startBtn" class="primary hidden" type="button">מתחילות</button>
+    <button id="startBtn" class="primary start-compact hidden" type="button">מתחילות</button>
     <p id="lockedMsg" class="small-note warn hidden">הפעילות הסתיימה וננעלה. אם צריך — המדריכה יכולה להפעיל שוב.</p>
   </div>
 
@@ -209,6 +231,20 @@ input,select{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1p
       <option>כשאני עוזרת להבין</option>
       <option>כשאני מחברת אנשים</option>
       <option>כשאני משנה מצב קיים</option>
+    </select>
+
+    <label>כשיש אי־הסכמה בעבודה משותפת, מה את נוטה לעשות?</label>
+    <select id="conflictStyle">
+      <option value="">בחרי</option>
+      <option>עוצרת ומנסה להבין את הצד השני</option>
+      <option>מציגה עמדה ברורה ומנסה לשכנע</option>
+    </select>
+
+    <label>מה עוזר לך להתמיד בפרויקט לאורך זמן?</label>
+    <select id="motivationSource">
+      <option value="">בחרי</option>
+      <option>תחושת משמעות והשפעה</option>
+      <option>אתגר ופתרון בעיות</option>
     </select>
 
     <button class="primary" type="button" onclick="finish()">סיימתי – מוכנה לשותפות</button>
@@ -290,6 +326,8 @@ const workStyle = document.getElementById('workStyle');
 const teamStyle = document.getElementById('teamStyle');
 const lifeInterest = document.getElementById('lifeInterest');
 const valuePlace = document.getElementById('valuePlace');
+const conflictStyle = document.getElementById('conflictStyle');
+const motivationSource = document.getElementById('motivationSource');
 const pairingResult = document.getElementById('pairingResult');
 
 function showOnly(id){
@@ -300,8 +338,14 @@ function showOnly(id){
 function setStartEnabled(enabled){
   if(enabled){
     startBtn.classList.remove('hidden');
+    startBtn.classList.remove('start-animate');
+    // טריגר לאנימציה רכה
+    requestAnimationFrame(() => startBtn.classList.add('start-animate'));
     lockedMsg.classList.add('hidden');
   }else{
+    startBtn.classList.add('hidden');
+  }
+}else{
     startBtn.classList.add('hidden');
   }
 }
@@ -364,6 +408,11 @@ onSnapshot(sessionRef, async (snap) => {
 
 // ---- הפעלת מדריכה ----
 activateBtn.addEventListener('click', async () => {
+  // הסתרת תיבת הקוד וההמתנה מיד לאחר הזנה
+  instructorCode.classList.add('hidden');
+  document.querySelector('.wait-text')?.classList.add('hidden');
+  openInstructorBtn.classList.add('hidden');
+
   const code = (instructorCode.value || '').trim();
   if(!code){
     barStatus.textContent = "נא להזין קוד מדריכה";
@@ -391,6 +440,9 @@ activateBtn.addEventListener('click', async () => {
   }, { merge: true });
 
   barStatus.textContent = "הפעילות הופעלה";
+  // הסתרת מסך פתיחה והצגת כפתור התחלה לתלמידות
+  setStartEnabled(true);
+
 });
 
 // ---- ניווט בין שלבים ----
@@ -417,7 +469,7 @@ window.finish = async () => {
     alert('כתבי שם פרטי/כינוי כדי שתוכלי לזהות את עצמך במסך החיבורים.');
     return;
   }
-  if(!mainDomain.value || !secondDomain.value || !workStyle.value || !teamStyle.value || !lifeInterest.value || !valuePlace.value){
+  if(!mainDomain.value || !secondDomain.value || !workStyle.value || !teamStyle.value || !lifeInterest.value || !valuePlace.value || !conflictStyle.value || !motivationSource.value){
     alert('רק עוד רגע — השלימי את כל הבחירות לפני סיום.');
     return;
   }
@@ -439,6 +491,8 @@ window.finish = async () => {
     teamStyle: teamStyle.value,
     lifeInterest: lifeInterest.value,
     valuePlace: valuePlace.value,
+    conflictStyle: conflictStyle.value,
+    motivationSource: motivationSource.value,
     // שמירה של קוד מדריכה לצורך תאימות לרולס / בקרה
     instructorCode: currentSession?.instructorCode || null,
     createdAt: Date.now(),
@@ -465,6 +519,10 @@ function score(a, b){
   // 3) חיים/כיוון (בינוני)
   if(a.lifeInterest === b.lifeInterest) s += 2;
   if(a.valuePlace === b.valuePlace) s += 2;
+
+  // 4) התנהלות בקונפליקט ומוטיבציה (משלים)
+  if(a.conflictStyle !== b.conflictStyle) s += 3;
+  if(a.motivationSource === b.motivationSource) s += 2;
 
   // 4) שובר שוויון דטרמיניסטי (כמעט בלתי מורגש)
   const key = (a.displayName + '|' + b.displayName).split('').reduce((acc,ch)=>acc+ch.charCodeAt(0),0);
