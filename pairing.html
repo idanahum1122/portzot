@@ -127,6 +127,26 @@ input{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid
   text-shadow:0 0 8px rgba(255,62,165,.8),0 0 18px rgba(255,62,165,.6);
   margin-top:18px;
 }
+
+/* מסך חשיבה */
+.thinking{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+@keyframes blink{
+  0%,100%{opacity:.3}
+  50%{opacity:1}
+}
+.thinking-dots span{
+  font-size:32px;
+  color:#ff3ea5;
+  animation:blink 1.2s infinite;
+}
+.thinking-dots span:nth-child(2){animation-delay:.2s}
+.thinking-dots span:nth-child(3){animation-delay:.4s}
 </style>
 </head>
 
@@ -136,6 +156,8 @@ input{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid
   <div class="inner">
     <label for="instructorCode">קוד מדריכה</label>
     <input id="instructorCode" inputmode="numeric" placeholder="••••" autocomplete="one-time-code">
+    <label for="expectedCount" style="margin-right:8px">מס׳ משתתפות</label>
+    <input id="expectedCount" inputmode="numeric" placeholder="18" style="width:90px">
     <button id="activateBtn" type="button">התחל פעילות</button>
     <div class="status" id="barStatus">הפעילות עדיין לא הופעלה</div>
   </div>
@@ -257,6 +279,17 @@ input{width:100%;padding:12px;margin-top:6px;border-radius:12px;border:1px solid
     <p>כשהמדריכה תייצר את החיבורים, תראי כאן את תוצאת השותפות.</p>
   </div>
 
+    <!-- מסך חשיבה לפני חיבורים -->
+  <div class="card hidden" id="thinking">
+    <div class="thinking">
+      <h1>חושבות יחד</h1>
+      <div class="thinking-dots">
+        <span>•</span><span>•</span><span>•</span>
+      </div>
+      <p class="small-note">מחפשות את השותפות המדויקת ביותר…</p>
+    </div>
+  </div>
+
   <!-- מסך חיבורים -->
   <div class="card hidden" id="pairing">
     <h1>מסך החיבורים</h1>
@@ -309,6 +342,7 @@ const introScreen = document.getElementById('introScreen');
 const startBtn = document.getElementById('startBtn');
 const lockedMsg = document.getElementById('lockedMsg');
 const activateBtn = document.getElementById('activateBtn');
+const expectedCountInput = document.getElementById('expectedCount');
 const instructorCode = document.getElementById('instructorCode');
 const barStatus = document.getElementById('barStatus');
 
@@ -346,7 +380,7 @@ function setStartEnabled(enabled){
     // טריגר לאנימציה רכה
     requestAnimationFrame(() => startBtn.classList.add('start-animate'));
     lockedMsg.classList.add('hidden');
-  }else{
+  } else {
     startBtn.classList.add('hidden');
   }
 }else{
@@ -373,6 +407,15 @@ let sessionEndsAt = 0;
 let sessionStartedAt = 0;
 
 onSnapshot(sessionRef, async (snap) => {
+  // ספירת תשובות בזמן אמת לצורך חיווי למדריכה
+  let answersCount = 0;
+  const ansSnap = await getDocs(responsesRef);
+  ansSnap.docs.forEach(d => {
+    const x = d.data();
+    if(x.sessionId === SESSION_ID && typeof x.createdAt === 'number' && (Date.now()-x.createdAt)<=DAY_MS){
+      answersCount++;
+    }
+  });
   if(!snap.exists()){
     barStatus.textContent = "הפעילות עדיין לא הופעלה";
     setStartEnabled(false);
@@ -390,7 +433,9 @@ onSnapshot(sessionRef, async (snap) => {
     const now = Date.now();
     if(now < sessionEndsAt){
       const minsLeft = Math.max(0, Math.ceil((sessionEndsAt - now)/60000));
-      barStatus.textContent = `פעיל עכשיו · נשארו בערך ${minsLeft} דק׳`;
+      const expected = data.expectedCount || 0;
+      const progress = expected ? ` · ${answersCount}/${expected} תשובות` : '';
+      barStatus.textContent = `פעיל עכשיו · נשארו בערך ${minsLeft} דק׳${progress}`;
       setStartEnabled(true);
     }else{
       barStatus.textContent = "הפעילות הסתיימה";
@@ -438,9 +483,10 @@ activateBtn.addEventListener('click', async () => {
     startTime,
     pairingReady: false,
     instructorCode: code,
-    // לצורך TTL (אם תפעילי בעתיד):
+    expectedCount: Number(expectedCountInput.value || 0),
     expiresAt: new Date(startTime + DAY_MS),
     updatedAt: serverTimestamp()
+  
   }, { merge: true });
 
   barStatus.textContent = "הפעילות הופעלה";
@@ -576,72 +622,33 @@ function pickBestPairs(list){
   return {pairs, trio};
 }
 
-async function showPairing(){
-  // סינון לפי 24 שעות והסשן הנוכחי
-  const snap = await getDocs(responsesRef);
-  const now = Date.now();
-  const all = snap.docs.map(d => d.data());
-
-  const students = all
-    .filter(x => x.sessionId === SESSION_ID)
-    .filter(x => typeof x.createdAt === 'number' && (now - x.createdAt) <= DAY_MS);
-
-  if(students.length < 2){
-    // עדיין אין מספיק
-    return;
-  }
-
-  const {pairs, trio} = pickBestPairs(students);
-
-  // תצוגה
-  pairingResult.innerHTML = "";
-
-  pairs.forEach((p, idx) => {
-    const div = document.createElement('div');
-    div.className = 'quote';
-    div.innerHTML = `
-      <strong>${p.a.displayName}</strong> ↔ <strong>${p.b.displayName}</strong><br>
-      <span style="opacity:.9">תחום: ${p.a.mainDomain} · ${p.b.mainDomain}</span><br>
-      <span style="opacity:.85">נבחר לפי תחומי עניין משותפים והשלמה בסגנון עבודה</span>
-    `;
-    pairingResult.appendChild(div);
-  });
-
-  if(trio && pairs[trio.withPairIndex]){
-    const tDiv = document.createElement('div');
-    tDiv.className = 'quote';
-    const base = pairs[trio.withPairIndex];
-    tDiv.innerHTML = `
-      <strong>שלשה</strong><br>
-      ${base.a.displayName} · ${base.b.displayName} · ${trio.lone.displayName}<br>
-      <span style="opacity:.85">בכיתה עם מספר אי-זוגי — נוצרת שלשה אחת כדי לשמור על שותפות לכל משתתפת.</span>
-    `;
-    pairingResult.appendChild(tDiv);
-  }
-
-  showOnly('pairing');
-}
-
-// ---- יצירת חיבורים (מדריכה) ----
-// כדי שהחיבורים יופיעו לכולן: המדריכה מפעילה סימון pairingReady.
+מפעילה סימון pairingReady.
 // (אפשר ללחוץ פעם אחת אחרי שכולן סיימו — או בסוף הזמן)
 // כאן בחרתי: לחיצה נוספת על "התחל פעילות" כשהפעילות פעילה = "ייצרי חיבורים".
 activateBtn.addEventListener('dblclick', async () => {
-  // דאבל-קליק עדין כדי לא להפעיל בטעות
   const snap = await getDoc(sessionRef);
   if(!snap.exists()) return;
   const data = snap.data();
-  if(!data.started || typeof data.startTime !== 'number') return;
+  const expected = data.expectedCount || 0;
 
-  // אם חלף הזמן — לא מייצרים
+  // ספירת תשובות עדכנית
+  const ansSnap = await getDocs(responsesRef);
+  const validAnswers = ansSnap.docs.filter(d => {
+    const x = d.data();
+    return x.sessionId === SESSION_ID && typeof x.createdAt === 'number' && (Date.now()-x.createdAt)<=DAY_MS;
+  });
+
+  if(expected && validAnswers.length !== expected){
+    barStatus.textContent = `ממתינה: ${validAnswers.length}/${expected} תשובות`;
+    return;
+  }
+
+  if(!data.started || typeof data.startTime !== 'number') return;
   if(Date.now() > (data.startTime + SESSION_DURATION_MS)) return;
 
-  await setDoc(sessionRef, {
-    pairingReady: true,
-    updatedAt: serverTimestamp()
-  }, { merge: true });
-
+  await setDoc(sessionRef, { pairingReady: true, updatedAt: serverTimestamp() }, { merge:true });
   barStatus.textContent = "החיבורים נוצרו";
+});
 });
 
 // ניווט דף בית (התאימי את הכתובת אצלך)
