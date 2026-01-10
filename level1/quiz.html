@@ -1,70 +1,464 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>פורצות דרך | שאלון מסכם</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>שאלון בחירת תחום חקר | פורצות דרך</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Varela Round',sans-serif;
+      background:linear-gradient(135deg,#667eea,#764ba2);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      transition: background 0.8s ease;
+    }
+    .container{
+      background:#fff;
+      border-radius:22px;
+      max-width:760px;
+      width:100%;
+      padding:42px;
+      box-shadow:0 24px 70px rgba(0,0,0,.28);
+      animation:fade .5s ease;
+    }
+    @keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+
+    h1{text-align:center;color:#667eea;margin-bottom:18px}
+    .subtitle{text-align:center;color:#555;line-height:1.7;margin-bottom:36px}
+
+    .start-screen{text-align:center}
+    .start-btn{
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:#fff;border:none;border-radius:30px;
+      padding:16px 54px;font-size:1.2em;
+      cursor:pointer;transition:.2s
+    }
+    .start-btn:hover{transform:scale(1.05)}
+
+    .progress-wrap{display:none;background:#e5e7eb;height:10px;border-radius:10px;margin-bottom:28px;overflow:hidden}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,#667eea,#764ba2);transition:.35s}
+
+    .question{display:none}
+    .question.active{display:block;animation:slide .3s ease}
+    @keyframes slide{from{opacity:0;transform:translateX(-20px)}to{opacity:1}}
+
+    .q-text{font-size:1.3em;font-weight:bold;margin-bottom:26px;color:#333}
+    .options{display:flex;flex-direction:column;gap:16px}
+    .option{
+      padding:18px;border-radius:14px;background:#f5f5f5;
+      border:2px solid #e5e7eb;cursor:pointer;transition:.2s
+    }
+    .option:hover{background:#eef2ff;border-color:#667eea}
+    .option.selected{background:#667eea;color:#fff;border-color:#667eea}
+    .option.selected::after{content:" ✓"}
+
+    .loading{display:none;text-align:center;padding:60px 0}
+    .loading.active{display:block}
+    .dots span{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ec4899;margin:0 4px;animation:blink 1.4s infinite}
+    .dots span:nth-child(2){animation-delay:.2s}
+    .dots span:nth-child(3){animation-delay:.4s}
+    @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+    .result{display:none;text-align:center}
+    .result.active{display:block;animation:fade .4s ease}
+    .icon{font-size:4em;margin-bottom:14px}
+    .title{font-size:2em;margin-bottom:10px}
+    .desc{color:#666;line-height:1.6;margin-bottom:28px}
+
+    .btn{
+      display:inline-block;padding:15px 44px;border-radius:30px;
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:#fff;text-decoration:none;font-size:1.1em
+    }
+
+    @media (max-width: 600px){
+      .container{padding:26px}
+      .q-text{font-size:1.15em}
+    }
+  </style>
 </head>
 <body>
-<a class="skip-link" href="#main">דלגי לתוכן</a>
-<header class="site-header">
-  <div class="container">
-    <div class="header-inner">
-      <a class="brand" href="index.html">
-        <div class="brand-badge" aria-hidden="true"></div>
-        <div class="brand-title">
-          <strong>פורצות דרך</strong>
-          <span>תחומי חקר והכוונה | שלב בחירה</span>
-        </div>
-      </a>
-      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mainNav">תפריט</button>
-      <nav class="main-nav" id="mainNav" data-nav>
-        <ul>
-          <li><a href="index.html">בית</a></li>
-          <li><a href="domain-1.html">תחומים</a></li>
-          <li><a href="quiz.html">שאלון מסכם</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
-  <div class="container">
-    <div class="breadcrumb"><a href="index.html">בית</a> &nbsp;›&nbsp; <span>שאלון מסכם</span></div>
-  </div>
-  <main id="main">
-<section class="section">
-  <div class="container">
-    <h1 style="margin:0 0 8px; font-size:28px">שאלון מסכם: כיוון חקר</h1>
-    <p class="muted" style="margin:0 0 14px">
-      השאלון עוזר לך לדייק כיוון. אין כאן ציון, ואין “נכון/לא נכון”.
-      פשוט עני לפי התחושה שלך כרגע.
+<div class="container">
+
+  <div class="start-screen" id="start">
+    <h1>🔍 שאלון בחירת תחום חקר</h1>
+    <p class="subtitle">
+      התהליך מתחיל בבחירה אישית.<br>
+      עני על השאלון והתוצאה תציע לך תחום חקר שמתאים לך.<br>
+      בהמשך, הבחירות האישיות נפגשות בעבודה קבוצתית
     </p>
+    <button class="start-btn" onclick="startQuiz()">התחילי</button>
+  </div>
 
-    <div class="notice" style="margin-bottom:14px">
-      <strong>הערה חשובה:</strong>
-      גם אם מתקבלת תוצאה אחת — מותר לך לבחור אחרת. המטרה היא לעזור לך לשים לב למה שמושך אותך באמת.
-    </div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress" id="progress"></div>
+  </div>
 
-    <form id="quizForm" class="quiz-wrap" autocomplete="off">
-      <div id="questions"></div>
+  <div id="questionBox"></div>
 
-      <div class="flow-nav">
-        <button type="button" class="btn primary wide" id="btnCalc">הציגי תוצאה</button>
-        <a class="btn" href="index.html">חזרה לבית</a>
+  <div class="loading" id="loading">
+    <h2>מחשב תוצאה</h2>
+    <div class="dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="icon" id="resIcon"></div>
+    <div class="title" id="resTitle"></div>
+    <div class="desc" id="resDesc"></div>
+    <a class="btn" id="resBtn">למעבר לעמוד התחום</a>
+  </div>
+</div>
+
+<script>
+// ---------- הגדרות רקע מתחלף ----------
+// כל כמה שאלות מתחלף הרקע
+const QUESTIONS_PER_BACKGROUND = 2;
+
+// מאגר רקעים (לא קשור לתחומים)
+const backgroundGradients = [
+  'linear-gradient(135deg,#667eea,#764ba2)',
+  'linear-gradient(135deg,#0f766e,#22c55e)',
+  'linear-gradient(135deg,#7c3aed,#ec4899)',
+  'linear-gradient(135deg,#0ea5e9,#38bdf8)',
+  'linear-gradient(135deg,#f59e0b,#ef4444)'
+];
+
+function updateBackground(questionIndex){
+  const bgIndex = Math.floor(questionIndex / QUESTIONS_PER_BACKGROUND) % backgroundGradients.length;
+  document.body.style.background = backgroundGradients[bgIndex];
+}
+
+const domains={
+  tech:{icon:"💻",title:"הייטק וליבה",desc:"פתרון בעיות, מערכות וחשיבה טכנולוגית",page:"domain-1.html"},
+  human:{icon:"💝",title:"אדם וטכנולוגיה",desc:"עיצוב חוויות ופתרונות לאנשים",page:"domain-2.html"},
+  environment:{icon:"🌱",title:"סביבה וקיימות",desc:"פתרונות ירוקים וחשיבה עתידית",page:"domain-3.html"},
+  society:{icon:"🌐",title:"חברה ודיגיטל",desc:"השפעה חברתית ותקשורת",page:"domain-4.html"},
+  entrepreneurship:{icon:"🚀",title:"יזמות ועתיד",desc:"הובלת רעיונות ושינוי מציאות",page:"domain-5.html"}
+};
+
+// --- מאגר שאלות (26) ---
+// 25 שאלות רגילות מסודרות ב-5 בלוקים (5 לכל תחום) + שאלה מסכמת אחת בסוף.
+// לאחר מכן נמחק "שאלה ראשונה" מכל בלוק (סה"כ 5) כדי לקבל 20.
+const rawQuestions=[
+  // ===== בלוק 1: tech (5) =====
+  {text:"כשמשהו לא עובד כמו שצריך, את:",options:[
+    {t:"מנסה להבין מה השתבש ואיך זה עובד",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"חושבת איך להפוך את זה ליותר ברור ונוח",s:{tech:1,human:2,environment:0,society:0,entrepreneurship:0}},
+    {t:"בודקת אם זה משפיע גם על אחרים",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}},
+    {t:"מחפשת דרך לשפר את זה בצורה יצירתית",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}}
+  ]},
+  {text:"את מרגישה הכי חזקה כשאת:",options:[
+    {t:"פותחת בעיה ומפרקת אותה לשלבים",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"מוצאת דרך חכמה לקצר תהליך",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}},
+    {t:"לומדת משהו חדש ומיישמת מיד",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}},
+    {t:"מתכננת רעיון עד שהוא נהיה ממש ברור",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}}
+  ]},
+  {text:"מה הכי מסקרן אותך בדברים חדשים?",options:[
+    {t:"איך זה עובד מבפנים",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"איזה דאטה/מידע זה אוסף",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"איך אפשר לשפר את זה עוד",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}},
+    {t:"מה הבאג הכי מעניין שיכול לצאת מזה",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}}
+  ]},
+  {text:"בזמן פרויקט, את הכי נהנית כשיש:",options:[
+    {t:"אתגר לוגי שצריך לפצח",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"משימה שדורשת דיוק וסדר",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"משהו שצריך לבנות/להגדיר צעד-צעד",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}},
+    {t:"הרבה ניסוי-וטעייה עד שזה עובד",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}}
+  ]},
+  {text:"אם הייתה לך שעה פנויה, את מעדיפה:",options:[
+    {t:"לפתור חידה/משחק חשיבה",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"לשחק עם כלי דיגיטלי ולגלות טריקים",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"להכין משהו שעובד (גם קטן)",s:{tech:2,human:0,environment:0,society:0,entrepreneurship:1}},
+    {t:"לשפר משהו קיים שיהיה מדויק יותר",s:{tech:3,human:0,environment:0,society:0,entrepreneurship:0}}
+  ]},
+
+  // ===== בלוק 2: human (5) =====
+  {text:"כשאת משתמשת באפליקציה/מוצר, מה הכי חשוב לך?",options:[
+    {t:"שהכול יהיה ברור ונעים",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"שזה ירגיש אישי ומותאם",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"שהשפה תהיה מכבדת ולא מבלבלת",s:{tech:0,human:2,environment:0,society:1,entrepreneurship:0}},
+    {t:"שזה יעזור לי יותר מהר",s:{tech:1,human:2,environment:0,society:0,entrepreneurship:0}}
+  ]},
+  {text:"כשחברה משתפת בקושי, את:",options:[
+    {t:"מקשיבה עד הסוף לפני שמציעה פתרון",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"שואלת שאלות כדי להבין מה היא מרגישה",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"מציעה רעיון קטן שיקל עליה",s:{tech:0,human:2,environment:0,society:0,entrepreneurship:1}},
+    {t:"מחברת אותה לעוד אנשים שיכולים לעזור",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}}
+  ]},
+  {text:"מה הכי מסקרן אותך בפרויקט?",options:[
+    {t:"איך אנשים יחוו את זה",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"איזה בעיה אמיתית זה פותר",s:{tech:0,human:2,environment:0,society:0,entrepreneurship:1}},
+    {t:"איך להפוך את זה ליפה ומובן",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"איך לגרום לזה להרגיש פשוט",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}}
+  ]},
+  {text:"כשאת לומדת משהו חדש, את מעדיפה:",options:[
+    {t:"דוגמה מהחיים ואז להבין את הכלל",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"לנסות ולעשות עם הידיים",s:{tech:1,human:2,environment:0,society:0,entrepreneurship:0}},
+    {t:"ללמוד עם מישהי ולדבר תוך כדי",s:{tech:0,human:2,environment:0,society:1,entrepreneurship:0}},
+    {t:"לראות איך זה עוזר למישהו",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}}
+  ]},
+  {text:"מה את הכי רוצה שאנשים יגידו על מוצר שיצרת?",options:[
+    {t:"זה היה לי קל ונעים להשתמש",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"הרגשתי שממש חשבו עליי",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}},
+    {t:"זה פתר לי משהו אמיתי",s:{tech:0,human:2,environment:0,society:0,entrepreneurship:1}},
+    {t:"זה נראה מדהים ומסודר",s:{tech:0,human:3,environment:0,society:0,entrepreneurship:0}}
+  ]},
+
+  // ===== בלוק 3: environment (5) =====
+  {text:"כשאת רואה בזבוז (מים/חשמל/פלסטיק), את:",options:[
+    {t:"מרגישה שצריך לעצור ולשנות",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"מחפשת פתרון פרקטי וקל ליישום",s:{tech:1,human:0,environment:2,society:0,entrepreneurship:0}},
+    {t:"חושבת איך לשכנע עוד אנשים",s:{tech:0,human:0,environment:2,society:1,entrepreneurship:0}},
+    {t:"מדמיינת מיזם שיכול להשפיע",s:{tech:0,human:0,environment:2,society:0,entrepreneurship:1}}
+  ]},
+  {text:"איזה משפט הכי מדבר אלייך?",options:[
+    {t:"לחשוב כמה צעדים קדימה",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"לעשות שינוי קטן שמצטבר לגדול",s:{tech:0,human:0,environment:2,society:0,entrepreneurship:1}},
+    {t:"לחסוך משאבים זה חכם",s:{tech:1,human:0,environment:2,society:0,entrepreneurship:0}},
+    {t:"להשאיר עולם טוב לדור הבא",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}}
+  ]},
+  {text:"מה הכי מושך אותך בפרויקט סביבתי?",options:[
+    {t:"למדוד ולהבין מה באמת קורה",s:{tech:1,human:0,environment:2,society:0,entrepreneurship:0}},
+    {t:"למצוא פתרון שמקטין פסולת",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"לשנות הרגלים בצורה חכמה",s:{tech:0,human:0,environment:2,society:1,entrepreneurship:0}},
+    {t:"לייצר רעיון שכולם יכולים לאמץ",s:{tech:0,human:0,environment:2,society:0,entrepreneurship:1}}
+  ]},
+  {text:"אם היית בוחרת נושא לחקר, זה היה:",options:[
+    {t:"אנרגיה חכמה וחיסכון",s:{tech:1,human:0,environment:2,society:0,entrepreneurship:0}},
+    {t:"זיהום פלסטיק ופתרונות",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"מים – שימוש נכון ושמירה",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"טבע ועיר – איך חיים יחד",s:{tech:0,human:0,environment:2,society:1,entrepreneurship:0}}
+  ]},
+  {text:"מה הכי חשוב לך בפתרון?",options:[
+    {t:"שיהיה בר-קיימא לאורך זמן",s:{tech:0,human:0,environment:3,society:0,entrepreneurship:0}},
+    {t:"שיהיה פשוט ליישום לכל אחת",s:{tech:0,human:1,environment:2,society:0,entrepreneurship:0}},
+    {t:"שיהיה חכם ויעיל",s:{tech:1,human:0,environment:2,society:0,entrepreneurship:0}},
+    {t:"שיעורר מודעות",s:{tech:0,human:0,environment:2,society:1,entrepreneurship:0}}
+  ]},
+
+  // ===== בלוק 4: society (5) =====
+  {text:"כשאת רואה משהו לא הוגן סביבך, את:",options:[
+    {t:"רוצה להבין למה זה קורה",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}},
+    {t:"מדברת על זה ומנסה לשנות",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}},
+    {t:"מחפשת דרך לעזור למי שנפגע",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"חושבת איך להפוך את זה לקמפיין",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}}
+  ]},
+  {text:"איזה תוכן הכי מושך אותך?",options:[
+    {t:"סיפורים על אנשים ושינוי",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"תוכן שמייצר דיון",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}},
+    {t:"סרטונים שמסבירים תופעות",s:{tech:1,human:0,environment:0,society:2,entrepreneurship:0}},
+    {t:"יוזמות חברתיות ברשת",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}}
+  ]},
+  {text:"בקבוצה, איזה תפקיד הכי מתאים לך?",options:[
+    {t:"המחברת בין כולם",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"זו שמסדרת את השיחה",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}},
+    {t:"זו שמעלה רעיונות שמדליקים אחרים",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}},
+    {t:"זו שמנסחת מסר חזק",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}}
+  ]},
+  {text:"מה הכי חשוב לך בדיגיטל?",options:[
+    {t:"שיהיה מקום לקול של כולם",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}},
+    {t:"שזה יהיה מכבד ובטוח",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"שזה יאפשר להשפיע",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}},
+    {t:"שזה יחבר אנשים",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}}
+  ]},
+  {text:"אם היית בוחרת נושא לחקר, זה היה:",options:[
+    {t:"שיימינג, לחץ חברתי ומה עושים",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"איך רשתות משפיעות על דעות",s:{tech:0,human:0,environment:0,society:3,entrepreneurship:0}},
+    {t:"איך יוצרים קהילה טובה",s:{tech:0,human:1,environment:0,society:2,entrepreneurship:0}},
+    {t:"איך מסר הופך לוויראלי",s:{tech:0,human:0,environment:0,society:2,entrepreneurship:1}}
+  ]},
+
+  // ===== בלוק 5: entrepreneurship (5) =====
+  {text:"כשיש לך רעיון, מה את עושה קודם?",options:[
+    {t:"מציירת/כותבת אותו כדי לדייק",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"בודקת אם זה באמת פותר בעיה",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"משתפת חברה כדי לקבל פידבק",s:{tech:0,human:1,environment:0,society:1,entrepreneurship:1}},
+    {t:"חושבת מה הצעד הראשון שאפשר לעשות",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}}
+  ]},
+  {text:"מה הכי מרגש אותך בפרויקט?",options:[
+    {t:"להוביל אותו מרעיון למציאות",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"להציג אותו ולהדליק אנשים",s:{tech:0,human:0,environment:0,society:1,entrepreneurship:2}},
+    {t:"לראות שהוא באמת עובד",s:{tech:1,human:0,environment:0,society:0,entrepreneurship:2}},
+    {t:"לראות שיש לו השפעה",s:{tech:0,human:0,environment:0,society:1,entrepreneurship:2}}
+  ]},
+  {text:"איזה אתגר את הכי אוהבת?",options:[
+    {t:"לבנות תכנית ולהוציא לפועל",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"לשכנע ולהסביר למה זה חשוב",s:{tech:0,human:0,environment:0,society:1,entrepreneurship:2}},
+    {t:"להתמודד עם לא-נודע",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"למצוא פתרון יצירתי תחת לחץ",s:{tech:1,human:0,environment:0,society:0,entrepreneurship:2}}
+  ]},
+  {text:"בצוות, את בדרך כלל:",options:[
+    {t:"זו שמרימה ומניעה קדימה",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"זו שמחלקת משימות ברור",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"זו שמדייקת את המטרה",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"זו שמוצאת הזדמנות מתוך בלגן",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}}
+  ]},
+  {text:"מה הכי חשוב לך בהצלחה?",options:[
+    {t:"שתהיה לזה השפעה אמיתית",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"שזה יהיה משהו חדש ומקורי",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"שזה יגדל ויתפתח",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:3}},
+    {t:"שזה יגיע לאנשים",s:{tech:0,human:0,environment:0,society:1,entrepreneurship:2}}
+  ]},
+
+  // ===== שאלה מסכמת (אחרונה) =====
+  {text:"🌟 שאלה אחרונה: אם יכולת לשנות דבר אחד בעולם, זה היה:",options:[
+    {t:"לבנות מערכות חכמות שעוזרות לכולם",s:{tech:5,human:0,environment:0,society:0,entrepreneurship:0}},
+    {t:"לעצב חוויות שמשפרות חיים של אנשים",s:{tech:0,human:5,environment:0,society:0,entrepreneurship:0}},
+    {t:"ליצור פתרונות לבעיות סביבתיות",s:{tech:0,human:0,environment:5,society:0,entrepreneurship:0}},
+    {t:"לחבר אנשים ולשנות את החברה",s:{tech:0,human:0,environment:0,society:5,entrepreneurship:0}},
+    {t:"להוביל רעיונות שמשנים את העתיד",s:{tech:0,human:0,environment:0,society:0,entrepreneurship:5}}
+  ]}
+];
+
+// --- בניית רצף שאלות חדש ---
+// מטרה: 20 שאלות רגילות + שאלה מכריעה באמצע (מס' 11) + שאלה מסכמת בסוף = 22 שאלות
+
+// שאלה מסכמת (הפריט האחרון במאגר)
+const finalDecisive = rawQuestions[rawQuestions.length-1];
+
+// כל השאלות הרגילות (בלי המסכמת)
+let base = rawQuestions.slice(0,-1);
+
+// מוחקים שאלה אחת מכל תחום (שאלת פתיחה)
+// אינדקסים מקוריים: 0,5,10,15,20
+base = base.filter((_,idx)=>![0,5,10,15,20].includes(idx));
+
+// שאלה מכריעה חדשה – מדברת לעולם של הבנות (מיקום 11)
+const midDecisive = {
+  text: "אם הייתה לך אפשרות להוביל שינוי אמיתי כבר השנה – מה הכי היה מדליק אותך?",
+  options: [
+    { t: "לפתח פתרון טכנולוגי חכם לבעיה יומיומית", s: { tech:4, human:0, environment:0, society:0, entrepreneurship:1 } },
+    { t: "לעצב חוויה או שירות שמשפרים חיים של אנשים", s: { tech:0, human:4, environment:0, society:1, entrepreneurship:0 } },
+    { t: "ליצור מיזם שעוזר לסביבה או לטבע", s: { tech:0, human:0, environment:4, society:0, entrepreneurship:1 } },
+    { t: "להוביל מהלך חברתי שמשפיע על קהילה או קבוצה", s: { tech:0, human:1, environment:0, society:4, entrepreneurship:1 } },
+    { t: "להקים רעיון חדש ולגרום לו לקרות באמת", s: { tech:1, human:0, environment:0, society:0, entrepreneurship:4 } }
+  ]
+};
+
+// ערבוב מלא של 20 השאלות הרגילות
+for(let j=base.length-1;j>0;j--){
+  const r=Math.floor(Math.random()*(j+1));
+  [base[j],base[r]]=[base[r],base[j]];
+}
+
+// בניית רצף סופי:
+// 10 שאלות → שאלה מכריעה באמצע → 10 שאלות → שאלה מסכמת
+const questions = [
+  ...base.slice(0,10),
+  midDecisive,
+  ...base.slice(10),
+  finalDecisive
+];
+
+// ---------- בדיקות בסיס (test cases) ----------
+(function runTests(){
+  try{
+    console.assert(Array.isArray(rawQuestions), 'rawQuestions חייב להיות מערך');
+    console.assert(rawQuestions.length === 26, 'rawQuestions צריך להכיל 26 שאלות (25+מסכמת)');
+
+    // בדיקת תהליך הצמצום
+    const tmp = rawQuestions.slice(0,-1).filter((_,idx)=>![0,5,10,15,20].includes(idx));
+    console.assert(tmp.length === 20, 'אחרי מחיקה של 5 שאלות צריך להישאר 20');
+
+    console.assert(Array.isArray(questions), 'questions חייב להיות מערך');
+    console.assert(questions.length === 22, 'questions צריך להכיל 22 (20+אמצעית+מסכמת)');
+    console.assert(questions[10] && questions[10].text === midDecisive.text, 'שאלה מכריעה חייבת להיות במקום 11 (אינדקס 10)');
+
+    // בדיקת תקינות מבנה
+    questions.forEach((q)=>{
+      console.assert(typeof q.text === 'string' && q.text.trim().length>0, 'שאלה חייבת לכלול text');
+      console.assert(Array.isArray(q.options) && q.options.length>=2, 'שאלה חייבת לכלול options');
+      q.options.forEach((o)=>{
+        console.assert(typeof o.t === 'string' && o.t.trim().length>0, 'אופציה חייבת לכלול t');
+        console.assert(o.s && typeof o.s === 'object', 'אופציה חייבת לכלול s');
+        Object.keys(scoresTemplate()).forEach(k=>{
+          console.assert(typeof (o.s[k] ?? 0) === 'number', 'ניקוד חייב להיות מספר');
+        });
+      });
+    });
+
+    console.assert(typeof domains.tech?.page === 'string', 'domain pages חייבים להיות מחרוזות');
+    console.log('✅ Tests passed');
+  } catch(e){
+    console.error('❌ Tests failed', e);
+  }
+})();
+
+// תבנית ניקוד
+function getQuestionIcon(index){
+  const icons = ['💡','🧠','✨','🎯','🧩','🌈','⚡','🔍','🛠️','🚀'];
+  return icons[index % icons.length];
+}
+
+function scoresTemplate(){
+  return {tech:0,human:0,environment:0,society:0,entrepreneurship:0};
+}
+
+let i=0,answered=false;
+let scores=scoresTemplate();
+
+function startQuiz(){
+  document.getElementById('start').style.display='none';
+  document.getElementById('progressWrap').style.display='block';
+  updateBackground(0);
+  showQuestion();
+}
+
+function showQuestion(){
+  updateBackground(i);
+  answered=false;
+  const q = questions[i];
+
+  document.getElementById('questionBox').innerHTML=`
+    <div class="question active">
+      <div class="q-text">${getQuestionIcon(i)} ${q.text}</div>
+      <div class="options">
+        ${q.options.map((o,idx)=>`<div class="option" onclick="answer(${idx})">${o.t}</div>`).join('')}
       </div>
-    </form>
+    </div>`;
 
-    <div id="result" style="margin-top:14px"></div>
-  </div>
-</section>
-  </main>
-<footer class="footer">
-  <div class="container">
-    <div>© 2026 פורצות דרך | אתר חקר והכוונה (שלב בחירת תחום)</div>
-  </div>
-</footer>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/quiz.js"></script>
+  document.getElementById('progress').style.width=((i+1)/questions.length*100)+'%';
+}
+
+function answer(idx){
+  if(answered) return;
+  answered=true;
+
+  const opt=document.querySelectorAll('.option')[idx];
+  if(opt) opt.classList.add('selected');
+
+  const s=questions[i].options[idx].s;
+  Object.keys(scores).forEach(k=>{ scores[k] += (s[k] || 0); });
+
+  setTimeout(()=>{
+    i++;
+    i < questions.length ? showQuestion() : finish();
+  },350);
+}
+
+function finish(){
+  document.getElementById('questionBox').style.display='none';
+  document.getElementById('progressWrap').style.display='none';
+  document.getElementById('loading').classList.add('active');
+  setTimeout(showResult,1600);
+}
+
+function showResult(){
+  document.getElementById('loading').classList.remove('active');
+  const top=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+  const d=domains[top] || domains.tech;
+  document.getElementById('resIcon').textContent=d.icon;
+  document.getElementById('resTitle').textContent=d.title;
+  document.getElementById('resDesc').textContent=d.desc;
+  document.getElementById('resBtn').href=d.page;
+  document.getElementById('result').classList.add('active');
+}
+</script>
 </body>
 </html>
