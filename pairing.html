@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>זיווג מושלם | שותפות מושלמת</title>
+  <title>שותפה לדרך | שותפות מושלמת</title>
   
   <style>
     * {
@@ -418,7 +418,7 @@
   <div class="logo-container">
     <img
       src="logo.png"
-      alt="זיווג מושלם"
+      alt="שותפה לדרך"
       class="logo"
       id="secretLogo"
     />
@@ -427,26 +427,30 @@
   <div class="container">
     <div class="card">
 
-      <h1>בחירת שותפה להתחלה</h1>
+      <h1>בחירת שותפה לדרך</h1>
 
-      <p>
-        הפעילות הזאת אינה מבחן ואין בה תשובות נכונות או לא נכונות
+      <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
+        הפעילות הזאת אינה מבחן ואין בה תשובות נכונות או לא נכונות.<br>
+        המטרה היא ליצור שותפות טובה לעבודה משותפת ולתהליך הטכנולוגי.
       </p>
 
-      <p>
-        המטרה היא ליצור שותפות טובה לעבודה משותפת ולתהליך הטכנולוגי
-      </p>
+      <div style="background: rgba(255,20,147,0.1); border-right: 4px solid #ff1493; padding: 20px; border-radius: 12px; margin: 24px 0;">
+        <p style="margin-bottom: 12px;">
+          <strong style="color: #ff69b4; font-size: 18px;">💡 היכרות</strong><br>
+          <span style="opacity: 0.9;">להבין מי את ואיך נוח לך לעבוד</span>
+        </p>
+        <p style="margin-bottom: 12px;">
+          <strong style="color: #ff69b4; font-size: 18px;">🤝 אמון</strong><br>
+          <span style="opacity: 0.9;">להתחיל יחד בתחושה טובה ובטוחה</span>
+        </p>
+        <p style="margin-bottom: 0;">
+          <strong style="color: #ff69b4; font-size: 18px;">🎯 דיוק</strong><br>
+          <span style="opacity: 0.9;">לבחור שותפה שתעזור לכן להתקדם באמת</span>
+        </p>
+      </div>
 
-      <p>
-        <strong>היכרות</strong> – להבין מי את ואיך נוח לך לעבוד
-        <br>
-        <strong>אמון</strong> - להתחיל יחד בתחושה טובה ובטוחה
-        <br>
-        <strong>דיוק</strong> - לבחור שותפה שתעזור לכן להתקדם באמת
-      </p>
-
-      <p style="margin-top:24px;font-weight:700;opacity:0.9">
-        פורצת דרך מצליחה כשהיא צועדת קדימה עם נשים מצליחות כמוה.
+      <p style="margin-top: 28px; font-weight: 700; font-size: 20px; color: #ff69b4; text-align: center; line-height: 1.6; text-shadow: 0 0 15px rgba(255,20,147,0.5);">
+        ✨ פורצת דרך מצליחה כשהיא צועדת קדימה<br>עם נשים מצליחות כמוה ✨
       </p>
 
       <button id="startActivityBtn" class="btn-start-activity">
@@ -470,9 +474,7 @@
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getFirestore, collection, query, where, getDocs, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-    db._settings.experimentalForceLongPolling = true;
-    const firebaseConfig = {
+    import { getFirestore, collection, query, where, getDocs, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';    const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_AUTH_DOMAIN",
       projectId: "YOUR_PROJECT_ID",
@@ -483,6 +485,8 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+        db._settings.experimentalForceLongPolling = true;
+        console.log("✅ Firestore connection: OK");
 
     // מציאת סשן פעיל
     async function findActiveSession() {
