@@ -165,6 +165,62 @@
       50% { transform: translateY(400px); opacity: 1; }
     }
     
+    /* כפתור התחלה */
+    .btn-start-activity {
+      display: none;
+      width: 100%;
+      padding: 20px;
+      margin-top: 32px;
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+      position: relative;
+      z-index: 1;
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% { 
+        box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 8px 35px rgba(255, 20, 147, 0.8);
+        transform: scale(1.02);
+      }
+    }
+    
+    .btn-start-activity:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(255, 20, 147, 0.7);
+    }
+    
+    .btn-start-activity:active {
+      transform: translateY(-1px);
+    }
+    
+    .btn-start-activity.show {
+      display: block;
+      animation: slideInUp 0.6s ease forwards, pulseGlow 2s ease-in-out infinite 0.6s;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     /* מודל קוד סודי */
     .modal {
       display: none;
@@ -341,6 +397,11 @@
         font-size: 16px;
       }
       
+      .btn-start-activity {
+        font-size: 18px;
+        padding: 18px;
+      }
+      
       .modal-content {
         padding: 30px 24px;
         min-width: 280px;
@@ -394,6 +455,11 @@
         פורצת דרך מצליחה כשהיא צועדת קדימה עם נשים מצליחות כמוה.
       </p>
 
+      <!-- כפתור התחלה - יופיע רק כשהפעילות פעילה -->
+      <button id="startActivityBtn" class="btn-start-activity">
+        ✨ להתחלה לחצו כאן
+      </button>
+
     </div>
   </div>
 
@@ -410,7 +476,52 @@
     </div>
   </div>
 
-  <!-- קוד סודי -->
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+    // TODO: החליפי את הקונפיגורציה הזו עם הקונפיגורציה שלך מ-Firebase Console
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // קוד פיירבייס - יש לקבל מה-URL או מהמדריכה
+    const urlParams = new URLSearchParams(window.location.search);
+    const activityCode = urlParams.get('code') || 'default_activity';
+
+    // האזנה לשינויים בסטטוס הפעילות
+    const activityRef = ref(database, `activities/${activityCode}`);
+    onValue(activityRef, (snapshot) => {
+      const data = snapshot.val();
+      const startBtn = document.getElementById('startActivityBtn');
+      
+      if (data && data.isActive && data.status === 'active') {
+        // הפעילות פעילה - הצג את הכפתור
+        startBtn.classList.add('show');
+      } else {
+        // הפעילות לא פעילה - הסתר את הכפתור
+        startBtn.classList.remove('show');
+      }
+    });
+
+    // טיפול בלחיצה על כפתור ההתחלה
+    document.getElementById('startActivityBtn').addEventListener('click', () => {
+      // מעבר לעמוד השאלון
+      window.location.href = `questionnaire.html?code=${activityCode}`;
+    });
+  </script>
+
+  <!-- קוד סודי למדריכה -->
   <script>
     const SECRET_CODE = "2311";
     const modal = document.getElementById("codeModal");
