@@ -1,56 +1,61 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>פורצות דרך | שותפה לדרך</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>פורצות דרך | שותפה לדרך</title>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="pairing.css">
+  <!-- עיצוב קיים -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- עיצוב ייעודי ל-pairing -->
+  <link rel="stylesheet" href="pairing.css">
 </head>
 
 <body class="pairing-page">
 
-<!-- לוגו סודי -->
-<div class="logo" id="secretLogo">פורצות דרך</div>
+  <!-- לוגו סודי -->
+  <img
+    src="logo.png"
+    alt="פורצות דרך"
+    class="logo"
+    id="secretLogo"
+  />
 
-<div class="container">
+  <div class="container">
+    <div class="card">
 
-  <div class="card">
+      <h1>שותפה לדרך</h1>
 
-    <h1>שותפה לדרך</h1>
+      <p>
+        פעילות זו היא נקודת פתיחה לתהליך משותף.
+        במהלך ההמשך תעבדו בזוגות, תלמדו יחד,
+        ותפתחו רעיונות וחיבורים שילוו אתכן לאורך הדרך.
+      </p>
 
-    <p>
-      בפעילות זו נצא לתהליך קצר של חיבור ודיוק,
-      שמטרתו ליצור שותפות ללמידה ולעשייה.
-      כל אחת תעבור שלב אישי, וביחד ייווצר חיבור
-      שילווה את המשך התהליך.
-    </p>
+      <p>
+        בשלב זה אין צורך לבצע פעולה.
+        <br>
+        הפעילות תתחיל בהנחיית המדריכה.
+      </p>
 
-    <p>
-      אין צורך לבצע פעולה בשלב זה.
-      <br>
-      הפעילות תתחיל בהנחיית המדריכה.
-    </p>
+      <p style="margin-top:24px;font-weight:700;opacity:0.9">
+        אנא המתינו 🙏
+      </p>
 
-    <p style="margin-top:24px;font-weight:700;opacity:.9">
-      אנא המתינו 🙏
-    </p>
-
+    </div>
   </div>
 
-</div>
+  <!-- לוגיקת לוגו סודי -->
+  <script>
+    const SECRET_CODE = "2311";
 
-<script>
-  const SECRET_CODE = "2311";
-
-  document.getElementById("secretLogo").onclick = () => {
-    const code = prompt("קוד מדריכה");
-    if (code === SECRET_CODE) {
-      window.location.href = "admin.html";
-    }
-  };
-</script>
+    document.getElementById("secretLogo").addEventListener("click", () => {
+      const code = prompt("קוד מדריכה");
+      if (code === SECRET_CODE) {
+        window.location.href = "admin.html";
+      }
+    });
+  </script>
 
 </body>
 </html>
