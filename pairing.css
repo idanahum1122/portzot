@@ -1,0 +1,117 @@
+/* =================================
+   PAIRING – DESIGN LAYER
+   לא נוגע ב-styles.css הראשי
+   ================================= */
+
+/* רקע כללי */
+body {
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a1332 50%, #0f0a1e 100%);
+  min-height: 100vh;
+}
+
+/* לוגו סודי */
+.logo {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  opacity: 0.75;
+  z-index: 100;
+  transition: opacity 0.2s ease;
+}
+.logo:hover {
+  opacity: 1;
+}
+
+/* מכולת מרכזית */
+.container {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-top: 120px;
+}
+
+/* כרטיס */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 34px 30px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+/* כותרות */
+.card h1,
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* מצב נעול */
+#lockedScreen p {
+  font-size: 17px;
+}
+
+/* שדות טופס */
+input,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* כפתור ראשי */
+.primary {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3b9a, #8b5cf6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* מסך המתנה – תחושת תהליך */
+#waitingScreen {
+  animation: softPulse 1.8s infinite;
+}
+
+@keyframes softPulse {
+  0%   { opacity: 0.85; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.85; }
+}
+
+/* תוצאה */
+#resultBox {
+  margin-top: 18px;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+
+/* עזרים */
+.hidden {
+  display: none;
+}
