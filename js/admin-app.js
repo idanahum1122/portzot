@@ -20,7 +20,6 @@ document.getElementById("generatePairs").onclick = async () => {
   const snap = await getDocs(collection(db, COLLECTIONS.responses));
   const responses = snap.docs.map(d => d.data());
   const pairs = generatePairs(responses);
-
   for(const p of pairs){
     await setDoc(doc(db, COLLECTIONS.pairs, p.id), p);
   }
