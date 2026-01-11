@@ -256,69 +256,177 @@
             }
         };
 
-        function calculateScore(p1, p2) {
-            let score = 0;
+        function calculateScore(a, b) {
+  let score = 0;
+  let reasons = [];
 
-            // תחומי עניין (30 נקודות)
-            if (p1.mainDomain === p2.mainDomain) score += 15;
-            if (p1.mainDomain === p2.secondDomain) score += 10;
-            if (p1.secondDomain === p2.mainDomain) score += 10;
-            if (p1.secondDomain && p2.secondDomain && p1.secondDomain === p2.secondDomain) score += 5;
-            if (p1.mainDomain !== p2.mainDomain && p1.mainDomain !== p2.secondDomain) score += 5;
+  // ====== תחומי עניין (30 נקודות מקס) ======
+  
+  if (a.mainDomain === b.mainDomain) {
+    score += 15;
+    reasons.push(`שתיכן בחרתן ב${a.mainDomain} כתחום עיקרי`);
+  }
+  
+  if (a.mainDomain === b.secondDomain && b.secondDomain !== "אני מעדיפה להתמקד בתחום אחד") {
+    score += 8;
+    reasons.push(`${b.displayName || 'השותפה'} מתעניינת גם ב${a.mainDomain}`);
+  }
+  if (b.mainDomain === a.secondDomain && a.secondDomain !== "אני מעדיפה להתמקד בתחום אחד") {
+    score += 8;
+    reasons.push(`${a.displayName || 'את'} מתעניינת גם ב${b.mainDomain}`);
+  }
+  
+  if (a.secondDomain === b.secondDomain && 
+      a.secondDomain !== "אני מעדיפה להתמקד בתחום אחד") {
+    score += 5;
+  }
+  
+  if (a.secondDomain === "אני מעדיפה להתמקד בתחום אחד" && 
+      b.secondDomain === "אני מעדיפה להתמקד בתחום אחד") {
+    score += 3;
+  }
 
-            // סגנון עבודה (25 נקודות)
-            if ((p1.workStyle === 'structured' && p2.workStyle === 'flexible') ||
-                (p1.workStyle === 'flexible' && p2.workStyle === 'structured')) score += 10;
-            if ((p1.workStyle === 'detail' && p2.workStyle === 'creative') ||
-                (p1.workStyle === 'creative' && p2.workStyle === 'detail')) score += 10;
-            if (p1.communicationStyle === p2.communicationStyle) score += 8;
-            if ((p1.workPace === 'fast' && p2.workPace === 'steady') ||
-                (p1.workPace === 'steady' && p2.workPace === 'fast') ||
-                (p1.workPace === 'balanced')) score += 7;
+  // ====== סגנון עבודה (25 נקודות מקס) ======
+  
+  if (a.workStyle !== b.workStyle) {
+    score += 8;
+    reasons.push('סגנונות עבודה משלימים');
+  } else {
+    score += 2;
+  }
+  
+  if (a.teamStyle !== b.teamStyle) {
+    score += 7;
+    reasons.push('אחת חושבת בקול ואחת מעבדת בשקט');
+  } else {
+    score += 3;
+  }
+  
+  if (a.workPace === b.workPace && a.workPace !== "תלוי במשימה - אני גמישה") {
+    score += 5;
+  } else if (a.workPace === "תלוי במשימה - אני גמישה" || 
+             b.workPace === "תלוי במשימה - אני גמישה") {
+    if (a.workPace === "תלוי במשימה - אני גמישה" && 
+        b.workPace === "תלוי במשימה - אני גמישה") {
+      score += 8;
+      reasons.push('שתיכן גמישות בקצב העבודה');
+    } else {
+      score += 6;
+    }
+  } else if ((a.workPace === "אני אוהבת לעבוד מהר ולסיים מוקדם" && 
+              b.workPace === "אני מעדיפה לקחת זמן ולעשות בדיוק") ||
+             (b.workPace === "אני אוהבת לעבוד מהר ולסיים מוקדם" && 
+              a.workPace === "אני מעדיפה לקחת זמן ולעשות בדיוק")) {
+    score -= 3;
+  }
 
-            // תפקיד בצוות (20 נקודות)
-            if ((p1.teamRole === 'ideas' && p2.teamRole === 'organization') ||
-                (p1.teamRole === 'organization' && p2.teamRole === 'ideas')) score += 10;
-            if ((p1.teamRole === 'implementation' && p2.teamRole === 'testing') ||
-                (p1.teamRole === 'testing' && p2.teamRole === 'implementation')) score += 10;
-            if (p1.teamRole !== p2.teamRole) score += 5;
+  // ====== תפקיד בצוות (20 נקודות מקס) ======
+  
+  if (a.teamRole !== b.teamRole) {
+    score += 7;
+    
+    if ((a.teamRole === "למצוא רעיונות מקוריים ולהתחיל דברים חדשים" && 
+         b.teamRole === "לארגן משימות ולוודא שהכל זורם בזמן") ||
+        (b.teamRole === "למצוא רעיונות מקוריים ולהתחיל דברים חדשים" && 
+         a.teamRole === "לארגן משימות ולוודא שהכל זורם בזמן")) {
+      score += 2;
+      reasons.push('קומבינציה מושלמת: רעיונות + ארגון');
+    }
+    
+    if ((a.teamRole === "לעזור לאחרות להבין ולהסביר מושגים מורכבים" && 
+         b.teamRole === "לפתור בעיות טכניות כשמשהו תקוע") ||
+        (b.teamRole === "לעזור לאחרות להבין ולהסביר מושגים מורכבים" && 
+         a.teamRole === "לפתור בעיות טכניות כשמשהו תקוע")) {
+      score += 1;
+    }
+  } else {
+    score += 2;
+  }
+  
+  if (a.motivationSource === b.motivationSource) {
+    score += 6;
+    reasons.push('אותה מוטיבציה מניעה את שתיכן');
+  } else {
+    score += 3;
+  }
 
-            // מוטיבציה ותקשורת (25 נקודות)
-            if (p1.motivationSource === p2.motivationSource) score += 8;
-            if ((p1.pressureResponse === 'thrives' && p2.pressureResponse === 'prefers_calm') ||
-                (p1.pressureResponse === 'prefers_calm' && p2.pressureResponse === 'thrives') ||
-                (p1.pressureResponse === 'handles' || p2.pressureResponse === 'handles')) score += 8;
-            if (p1.conflictStyle !== p2.conflictStyle) score += 6;
-            if (p1.communicationStyle === p2.communicationStyle) score += 3;
+  // ====== תקשורת ומתח (25 נקודות מקס) ======
+  
+  if ((a.pressureResponse === "אני פועלת הכי טוב תחת לחץ - זה מניע אותי" && 
+       b.pressureResponse === "אני צריכה לתכנן מראש כדי למנוע לחץ") ||
+      (b.pressureResponse === "אני פועלת הכי טוב תחת לחץ - זה מניע אותי" && 
+       a.pressureResponse === "אני צריכה לתכנן מראש כדי למנוע לחץ")) {
+    score += 9;
+    reasons.push('איזון מושלם בניהול לחץ');
+  } else if ((a.pressureResponse === "אני פועלת הכי טוב תחת לחץ - זה מניע אותי" && 
+              b.pressureResponse === "אני לוקחת הפסקה קצרה ואז חוזרת בכוח") ||
+             (b.pressureResponse === "אני פועלת הכי טוב תחת לחץ - זה מניע אותי" && 
+              a.pressureResponse === "אני לוקחת הפסקה קצרה ואז חוזרת בכוח")) {
+    score += 6;
+  } else {
+    score += 4;
+  }
+  
+  if ((a.conflictStyle === "עוצרת ומנסה להבין לעומק את הצד השני" && 
+       b.conflictStyle === "מציגה את העמדה שלי בבירור ומנסה לשכנע") ||
+      (b.conflictStyle === "עוצרת ומנסה להבין לעומק את הצד השני" && 
+       a.conflictStyle === "מציגה את העמדה שלי בבירור ומנסה לשכנע")) {
+    score += 8;
+    reasons.push('שילוב מעולה: אחת מקשיבה ואחת מובילה');
+  } else if (a.conflictStyle === "מחפשת פשרה שמשלבת את שני הצדדים" || 
+             b.conflictStyle === "מחפשת פשרה שמשלבת את שני הצדדים") {
+    if (a.conflictStyle === b.conflictStyle) {
+      score += 9;
+      reasons.push('שתיכן מחפשות פשרות');
+    } else {
+      score += 7;
+    }
+  } else if (a.conflictStyle === b.conflictStyle && 
+             a.conflictStyle === "מציגה את העמדה שלי בבירור ומנסה לשכנע") {
+    score += 1;
+  } else {
+    score += 5;
+  }
+  
+  if (a.communicationStyle === b.communicationStyle && 
+      a.communicationStyle !== "לא משנה לי - אני גמישה") {
+    score += 8;
+    reasons.push('אותו סגנון תקשורת מועדף');
+  } else if (a.communicationStyle === "לא משנה לי - אני גמישה" || 
+             b.communicationStyle === "לא משנה לי - אני גמישה") {
+    score += 7;
+  } else {
+    score += 2;
+  }
 
-            // תחומי עניין אישיים (10 נקודות)
-            if (p1.lifeInterest && p2.lifeInterest) {
-                const interests1 = p1.lifeInterest.toLowerCase().split(/[,،\/\s]+/);
-                const interests2 = p2.lifeInterest.toLowerCase().split(/[,،\/\s]+/);
-                const common = interests1.filter(i => interests2.includes(i)).length;
-                score += Math.min(common * 3, 10);
-            }
+  // ====== תחומי עניין אישיים (10 נקודות מקס) ======
+  
+  if (a.lifeInterest === b.lifeInterest) {
+    score += 4;
+  } else {
+    score += 1;
+  }
 
-            // כפל לפי חשיבות
-            const importance1 = getImportanceMultiplier(p1.importanceLevel);
-            const importance2 = getImportanceMultiplier(p2.importanceLevel);
-            score *= (importance1 + importance2) / 2;
+  // ====== כפל לפי חשיבות ======
+  
+  let multiplier = 1;
+  if (a.importanceLevel === "מאוד חשוב - אני רוצה התאמה הכי טובה" ||
+      b.importanceLevel === "מאוד חשוב - אני רוצה התאמה הכי טובה") {
+    multiplier = 1.3;
+  }
+  
+  score = score * multiplier;
 
-            // noise קטן למניעת שוויון
-            const noise = (p1.displayName.charCodeAt(0) + p2.displayName.charCodeAt(0)) % 100 / 1000;
-            score += noise;
+  // רעש קטן
+  const nameKey = (a.displayName + '|' + b.displayName)
+    .split('')
+    .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  score += (nameKey % 7) * 0.01;
 
-            return Math.round(score * 10) / 10;
-        }
+  return { score: Math.round(score * 100) / 100, reasons };
+}
 
-        function getImportanceMultiplier(level) {
-            switch(level) {
-                case 'very_high': return 1.2;
-                case 'high': return 1.1;
-                case 'medium': return 1.0;
-                case 'low': return 0.9;
-                default: return 1.0;
-            }
+
         }
 
         function pickBestPairs(participants) {
