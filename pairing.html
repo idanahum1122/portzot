@@ -54,9 +54,13 @@
     }
     
     .logo {
-      width: 280px;
+      width: 180px;
       height: auto;
       max-width: 90vw;
+      display: block;
+      margin: 0 auto;
+      display: block;
+      margin: 0 auto;
       cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
       filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.5));
@@ -445,7 +449,7 @@
         </p>
         <p style="margin-bottom: 0;">
           <strong style="color: #ff69b4; font-size: 18px;">🎯 דיוק</strong><br>
-          <span style="opacity: 0.9;">לבחור שותפה שתעזור לכן להתקדם באמת</span>
+          <span style="opacity: 0.9; color: #ffffff; font-weight: 500;">לבחור שותפה שתעזור לכן להתקדם באמת</span>
         </p>
       </div>
 
@@ -500,35 +504,38 @@
       return null;
     }
 
-    // האזנה לשינויים בסשן
-    async function listenToActiveSession() {
-      const sessionId = await findActiveSession();
-      
-      if (sessionId) {
+    // בדיקה אוטומטית כל 3 שניות אם יש session פעיל 🔄
+    async function checkForActiveSession() {
+      try {
         const sessionsRef = collection(db, 'sessions');
-        const q = query(sessionsRef, where('isActive', '==', true));
+        const q = query(sessionsRef, where('isActive', '==', true), where('status', '==', 'active'));
+        const querySnapshot = await getDocs(q);
         
-        onSnapshot(q, (snapshot) => {
-          const startBtn = document.getElementById('startActivityBtn');
+        const startBtn = document.getElementById('startActivityBtn');
+        
+        if (!querySnapshot.empty) {
+          const sessionDoc = querySnapshot.docs[0];
+          const sessionId = sessionDoc.id;
           
-          if (!snapshot.empty) {
-            const data = snapshot.docs[0].data();
-            if (data.isActive && data.status === 'active') {
-              startBtn.classList.add('show');
-              startBtn.onclick = () => {
-                window.location.href = `questionnaire.html?session=${snapshot.docs[0].id}`;
-              };
-            } else {
-              startBtn.classList.remove('show');
-            }
-          } else {
-            startBtn.classList.remove('show');
-          }
-        });
+          // הכפתור מופיע! ✨
+          startBtn.classList.add('show');
+          startBtn.onclick = () => {
+            window.location.href = `questionnaire.html?session=${sessionId}`;
+          };
+        } else {
+          // אין session פעיל - הסתרת הכפתור
+          startBtn.classList.remove('show');
+        }
+      } catch (error) {
+        console.error('Error checking session:', error);
       }
     }
 
-    listenToActiveSession();
+    // בדיקה ראשונית מייד
+    checkForActiveSession();
+    
+    // בדיקה אוטומטית כל 3 שניות
+    setInterval(checkForActiveSession, 3000);
   </script>
 
   <script>
