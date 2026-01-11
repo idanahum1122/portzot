@@ -304,6 +304,52 @@
             }
         }
 
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,20,147,0.2);
+            border: 2px solid #ff1493;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(255,20,147,0.3);
+        }
+
+        .home-button:hover {
+            background: rgba(255,20,147,0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255,20,147,0.6);
+        }
+
+        .home-button svg {
+            width: 28px;
+            height: 28px;
+            fill: #ff1493;
+            filter: drop-shadow(0 0 5px rgba(255,20,147,0.8));
+        }
+
+        @media (max-width: 768px) {
+            .home-button {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                left: 15px;
+            }
+            .home-button svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
         @media (max-width: 768px) {
             .card { padding: 32px 24px; }
             h1 { font-size: 24px; }
@@ -312,6 +358,13 @@
     </style>
 </head>
 <body>
+    <!-- Home Button -->
+    <a href="index.html" class="home-button" title="חזרה לדף הבית">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+
     <div class="container">
         <div class="card">
             <!-- מסך הגדרות ראשוני -->
@@ -595,7 +648,12 @@
 
                 if (currentSessionId) {
                     const sessionRef = doc(db, 'sessions', currentSessionId);
-                    await deleteDoc(sessionRef);
+                    // שינוי סטטוס במקום מחיקה ✅
+                    await updateDoc(sessionRef, {
+                        isActive: false,
+                        status: 'completed',
+                        endedAt: new Date().toISOString()
+                    });
                 }
 
                 currentSessionId = null;
