@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -55,22 +56,22 @@
             background: rgba(20, 20, 20, 0.95);
             border: 2px solid #ff1493;
             border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 24px;
+            padding: 24px;
+            margin: 0 auto 24px;
+            max-width: 500px;
             box-shadow: 0 0 30px rgba(255,20,147,0.3);
         }
 
         button {
-            max-width: 400px;
             width: 100%;
             margin: 0 auto;
             display: block;
-            padding: 14px;
+            padding: 12px 20px;
             background: linear-gradient(135deg, #ff1493, #ff69b4);
             color: #fff;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -89,6 +90,8 @@
 
         .results {
             display: none;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .results.show {
@@ -99,13 +102,14 @@
             background: rgba(255,20,147,0.1);
             border: 1px solid #ff1493;
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
         .pair h3 {
             color: #ff69b4;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            font-size: 16px;
         }
 
         .pair-info {
@@ -116,14 +120,15 @@
 
         .pair-names {
             flex: 1;
+            font-size: 15px;
         }
 
         .score {
             background: linear-gradient(135deg, #ff1493, #ff69b4);
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .loading {
@@ -199,11 +204,16 @@
 
         // הגדרת runMatching
         window.runMatching = async function() {
+            // קבלת session מה-URL בזמן לחיצה
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session');
+            
             if (!sessionId) {
-                showError('שגיאה: לא נמצא קוד פעילות');
+                showError('שגיאה: לא נמצא קוד פעילות. נא לגשת דרך admin.html');
                 return;
             }
 
+            console.log('🚀 מתחיל זיווג עבור session:', sessionId);
             document.getElementById('runButton').disabled = true;
             document.getElementById('loading').classList.add('show');
             document.getElementById('error').classList.remove('show');
@@ -417,7 +427,7 @@
 
         function displayResults(pairs) {
             const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '<div class="card"><h2>📊 תוצאות השותפויות</h2></div>';
+            resultsDiv.innerHTML = '<div class="card" style="max-width: 700px; margin: 0 auto 16px; padding: 20px;"><h2 style="font-size: 20px; margin: 0;">📊 תוצאות השותפויות</h2></div>';
 
             pairs.forEach((pair, index) => {
                 const pairDiv = document.createElement('div');
@@ -461,14 +471,18 @@
             resultsDiv.classList.add('show');
         }
 
-        // הרצה אוטומטית
-        if (!sessionId) {
-            showError('שגיאה: לא נמצא קוד פעילות. נא לגשת דרך admin.html');
-        } else {
-            console.log('🎯 Session ID:', sessionId);
+        // הרצה אוטומטית אם יש session ב-URL
+        const urlParams2 = new URLSearchParams(window.location.search);
+        const sessionFromURL = urlParams2.get('session');
+        
+        if (sessionFromURL) {
+            console.log('🎯 Session ID נמצא ב-URL:', sessionFromURL);
             setTimeout(() => {
+                console.log('▶️ מריץ זיווג אוטומטי...');
                 runMatching();
             }, 500);
+        } else {
+            console.log('⚠️ אין session ב-URL. המתנים ללחיצה על הכפתור...');
         }
     </script>
 </body>
