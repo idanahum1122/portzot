@@ -168,10 +168,10 @@
     
     .btn-start-activity {
       display: none;
-      width: 100%;
-      padding: 20px;
-      margin-top: 32px;
-      font-size: 20px;
+      max-width: 400px;
+      margin: 32px auto 0 auto;
+      padding: 16px 32px;
+      font-size: 18px;
       font-weight: 700;
       background: linear-gradient(135deg, #ff1493, #ff69b4);
       color: white;
@@ -517,17 +517,20 @@
           const sessionDoc = querySnapshot.docs[0];
           const sessionId = sessionDoc.id;
           
+          console.log('✅ נמצא session פעיל:', sessionId);
+          
           // הכפתור מופיע! ✨
           startBtn.classList.add('show');
           startBtn.onclick = () => {
             window.location.href = `questionnaire.html?session=${sessionId}`;
           };
         } else {
+          console.log('❌ אין session פעיל - הכפתור מוסתר');
           // אין session פעיל - הסתרת הכפתור
           startBtn.classList.remove('show');
         }
       } catch (error) {
-        console.error('Error checking session:', error);
+        console.error('❌ שגיאה בבדיקת session:', error);
       }
     }
 
