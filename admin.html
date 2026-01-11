@@ -234,6 +234,76 @@
             display: block;
         }
 
+        /* שעון עצר */
+        .stopwatch-container {
+            background: linear-gradient(135deg, rgba(255,20,147,0.2), rgba(255,105,180,0.1));
+            border: 2px solid #ff1493;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255,20,147,0.4),
+                        inset 0 0 30px rgba(255,20,147,0.1);
+        }
+
+        .stopwatch-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 30%,
+                rgba(255,20,147,0.15) 50%,
+                transparent 70%);
+            animation: rotate 6s linear infinite;
+        }
+
+        .stopwatch-label {
+            color: #ff69b4;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255,20,147,0.5);
+        }
+
+        .stopwatch-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff1493;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(255,20,147,0.8),
+                         0 0 40px rgba(255,20,147,0.5);
+            position: relative;
+            z-index: 2;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255,20,147,0.8),
+                             0 0 40px rgba(255,20,147,0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255,20,147,1),
+                             0 0 60px rgba(255,20,147,0.7),
+                             0 0 80px rgba(255,20,147,0.4);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stopwatch-display {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+        }
+
         @media (max-width: 768px) {
             .card { padding: 32px 24px; }
             h1 { font-size: 24px; }
@@ -265,6 +335,12 @@
             <!-- מסך מעקב -->
             <div class="tracking-screen" id="trackingScreen">
                 <h1>📊 מעקב בזמן אמת</h1>
+                
+                <!-- שעון עצר -->
+                <div class="stopwatch-container">
+                    <div class="stopwatch-label">⏱️ זמן פעילות</div>
+                    <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
+                </div>
                 
                 <div class="stats">
                     <h2 id="progressText">0 / 0</h2>
@@ -306,6 +382,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        db._settings.experimentalForceLongPolling = true;
+        console.log("✅ Firestore connection: OK");
         
         // תיקון לשגיאת offline
         try {
@@ -320,6 +398,43 @@
         let timerInterval = null;
         let nextRefreshTime = 45;
         let unsubscribe = null;
+
+        // שעון עצר
+        let stopwatchInterval = null;
+        let stopwatchStartTime = null;
+        let stopwatchElapsed = 0;
+
+        function startStopwatch() {
+            stopwatchStartTime = Date.now() - stopwatchElapsed;
+            stopwatchInterval = setInterval(updateStopwatch, 100);
+        }
+
+        function updateStopwatch() {
+            stopwatchElapsed = Date.now() - stopwatchStartTime;
+            const hours = Math.floor(stopwatchElapsed / 3600000);
+            const minutes = Math.floor((stopwatchElapsed % 3600000) / 60000);
+            const seconds = Math.floor((stopwatchElapsed % 60000) / 1000);
+            
+            const display = 
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+            
+            document.getElementById('stopwatchDisplay').textContent = display;
+        }
+
+        function stopStopwatch() {
+            if (stopwatchInterval) {
+                clearInterval(stopwatchInterval);
+                stopwatchInterval = null;
+            }
+        }
+
+        function resetStopwatch() {
+            stopStopwatch();
+            stopwatchElapsed = 0;
+            document.getElementById('stopwatchDisplay').textContent = '00:00:00';
+        }
 
         window.startActivity = async function() {
             const instructorCode = document.getElementById('instructorCode').value.trim();
@@ -357,6 +472,9 @@
                 // מעבר למסך מעקב
                 document.getElementById('setupScreen').style.display = 'none';
                 document.getElementById('trackingScreen').classList.add('active');
+
+                // התחלת שעון עצר ⚡
+                startStopwatch();
 
                 // התחלת מעקב
                 startTracking();
@@ -400,6 +518,7 @@
             if (completed >= total && total > 0) {
                 document.getElementById('successMessage').classList.add('show');
                 stopRefreshTimer();
+                stopStopwatch(); // עצירת שעון כשכולם סיימו ✅
             }
         }
 
@@ -472,6 +591,7 @@
             try {
                 if (unsubscribe) unsubscribe();
                 stopRefreshTimer();
+                resetStopwatch(); // איפוס שעון 🔄
 
                 if (currentSessionId) {
                     const sessionRef = doc(db, 'sessions', currentSessionId);
