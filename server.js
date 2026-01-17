@@ -27,7 +27,13 @@ const server = http.createServer((req, res) => {
   res.setHeader('Expires', '0');
 
   let filePath = '.' + req.url.split('?')[0];
-  if (filePath === './') {
+  
+  // Handle directory root
+  if (filePath.endsWith('/')) {
+    filePath += 'index.html';
+  } else if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+    filePath += '/index.html';
+  } else if (filePath === './') {
     filePath = './index.html';
   }
 
