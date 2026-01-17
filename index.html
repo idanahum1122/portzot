@@ -6,7 +6,6 @@
   <title>פורצות דרך | שער</title>
   <meta name="description" content="שער לקורס פורצות דרך – חקר ותהליך תיכון" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
@@ -15,137 +14,202 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      min-height: 100svh;
-      overflow-x: hidden;
+      min-height: 100vh;
       font-family: 'Varela Round', 'Segoe UI', Tahoma, sans-serif;
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(139, 92, 246, 0.4), transparent 60%),
-        radial-gradient(800px 500px at 85% 20%, rgba(20, 184, 166, 0.35), transparent 60%),
-        linear-gradient(135deg, #0f172a, #1b0f2a);
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      color: #0b1220;
+      padding: 40px 20px;
+      color: #1a2540;
     }
 
-    /* עטיפת סקייל למסך אחד */
-    .viewport-scale {
+    .magazine-frame {
       width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 880px;
-      background: rgba(255, 255, 255, 0.97);
-      border-radius: 36px;
-      padding: clamp(20px, 3vh, 40px) clamp(24px, 4vw, 40px) clamp(24px, 3vh, 44px);
+      max-width: 920px;
+      min-width: 700px;
+      background: linear-gradient(180deg, #fefefe 0%, #f8f9fc 100%);
+      border-radius: 24px;
       box-shadow:
-        0 40px 100px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(139, 92, 246, 0.1);
-      text-align: center;
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 20px 60px rgba(0, 0, 0, 0.25),
+        0 40px 100px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      overflow: hidden;
     }
 
-    .container::before {
+    .magazine-frame::before {
       content: "";
       position: absolute;
-      inset: -2px;
-      border-radius: 36px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(20, 184, 166, 0.4));
-      opacity: 0.15;
-      pointer-events: none;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6, #6366f1, #14b8a6);
+    }
+
+    .header-section {
+      padding: 40px 50px 30px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(248,250,252,0.5) 100%);
     }
 
     .logo {
-      width: clamp(90px, 12vw, 120px);
-      margin: 0 auto clamp(12px, 1.5vh, 20px);
-      display: block;
-      filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.2));
+      width: 100px;
+      height: auto;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.25));
     }
 
     h1 {
-      margin: 0 0 clamp(12px, 1.5vh, 16px);
-      font-size: clamp(22px, 3.5vw, 32px);
+      font-size: 36px;
       font-weight: 900;
-      letter-spacing: 0.3px;
-      line-height: 1.3;
-      background: linear-gradient(to right, #ff99cc 0%, #a855f7 100%);
+      background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #8b5cf6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0 4px 6px rgba(168, 85, 247, 0.2));
+      margin-bottom: 20px;
     }
 
-    .lead {
-      margin: 0 auto clamp(16px, 2.5vh, 28px);
-      max-width: 640px;
-      font-size: clamp(15px, 2vw, 18px);
-      line-height: 1.6;
-      color: #1a2540;
-      font-weight: 600;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    .intro-text {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #475569;
       text-align: right;
     }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px 10px;
-      justify-items: center;
+    .process-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      padding: 35px 50px;
+      background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      position: relative;
     }
 
-    .gate-btn {
+    .process-section::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+    }
+
+    .process-btn {
       text-decoration: none;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 130px;
-      height: 130px;
-      padding: 15px;
-      border-radius: 20px; 
+      width: 140px;
+      height: 140px;
+      padding: 18px;
+      border-radius: 22px;
       background: #ffffff;
-      box-shadow: 
-        0 6px 0 rgba(0, 0, 0, 0.08),
-        0 10px 20px rgba(0, 0, 0, 0.12);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow:
+        0 8px 0 rgba(0, 0, 0, 0.06),
+        0 12px 30px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
-      border: none;
-      overflow: hidden;
+      z-index: 1;
     }
 
-    .gate-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 0 rgba(0, 0, 0, 0.08),
-        0 14px 28px rgba(0, 0, 0, 0.15);
+    .process-btn:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 12px 0 rgba(0, 0, 0, 0.06),
+        0 18px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .gate-btn:active {
+    .process-btn:active {
       transform: translateY(2px);
-      box-shadow: 
-        0 2px 0 rgba(0, 0, 0, 0.08),
-        0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 3px 0 rgba(0, 0, 0, 0.06),
+        0 6px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .gate-title-wrapper {
+    .process-btn .icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+    }
+
+    .process-btn .label {
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .domains-section {
+      padding: 40px 50px;
+    }
+
+    .domain-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .domain-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .domain-btn {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 120px;
+      height: 120px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.05),
+        0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .domain-btn:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 10px 0 rgba(0, 0, 0, 0.05),
+        0 16px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .domain-btn:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.05),
+        0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .domain-btn .icon {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
+    }
+
+    .title-wrapper {
       position: relative;
-      height: 20px;
+      height: 18px;
       width: 100%;
-      margin-top: 6px;
     }
 
-    .gate-btn .gate-title-full,
-    .gate-btn .gate-title-short {
+    .title-short, .title-full {
       position: absolute;
       top: 0;
       left: 0;
@@ -156,240 +220,166 @@
       transition: opacity 0.2s ease;
     }
 
-    .gate-btn .gate-title-short {
-      font-size: 13px;
+    .title-short {
+      font-size: 12px;
       opacity: 1;
     }
 
-    .gate-btn .gate-title-full {
-      font-size: 11px;
+    .title-full {
+      font-size: 10px;
       opacity: 0;
     }
 
-    .gate-btn:hover .gate-title-full {
+    .domain-btn:hover .title-full,
+    .process-btn:hover .title-full {
       opacity: 1;
     }
 
-    .gate-btn:hover .gate-title-short {
+    .domain-btn:hover .title-short,
+    .process-btn:hover .title-short {
       opacity: 0;
-    }
-
-    .gate-icon {
-      font-size: 2rem;
-      margin-bottom: 2px;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
-    }
-
-    .gate-title {
-      font-weight: 900;
-      font-size: clamp(15px, 2vh, 17px);
-      background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #14b8a6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 4px;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
-    }
-
-    .gate-btn span {
-      font-size: clamp(11px, 1.4vh, 12px);
-      font-weight: 600;
-      color: #4b5a72;
-      line-height: 1.4;
-    }
-
-    /* כפתור קטן בין הכפתורים */
-    .partner-wrap {
-      margin-top: clamp(10px, 1.6vh, 14px);
-      display: flex;
-      justify-content: center;
-    }
-
-    .partner-btn {
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow:
-        0 10px 22px rgba(11, 18, 32, 0.14),
-        0 0 0 1px rgba(139, 92, 246, 0.18);
-      font-weight: 900;
-      font-size: 13px;
-      color: #1a2540;
-      line-height: 1;
-      position: relative;
-    }
-
-    .partner-btn::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(20, 184, 166, 0.22));
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .partner-btn > span {
-      position: relative;
-      z-index: 1;
     }
 
     .footer {
-      margin-top: clamp(14px, 2vh, 24px);
-      font-size: clamp(11px, 1.2vh, 12px);
-      color: rgba(255, 105, 180, 0.85);
-      font-style: italic;
+      padding: 20px 50px;
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
     }
 
-    /* SCALE דינמי – תמיד מסך אחד */
-    @media (max-height: 720px) {
-      .viewport-scale { transform: scale(0.92); }
-    }
-
-    @media (max-height: 640px) {
-      .viewport-scale { transform: scale(0.86); }
-    }
-
-    @media (max-height: 580px) {
-      .viewport-scale { transform: scale(0.8); }
-    }
-
-    /* מובייל צר */
-    @media (max-width: 600px) {
-      .buttons { grid-template-columns: 1fr; }
+    @media (max-width: 750px) {
+      .magazine-frame {
+        min-width: auto;
+        max-width: 100%;
+      }
+      .header-section, .domains-section {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      .process-section {
+        gap: 30px;
+        padding: 30px 25px;
+      }
+      .domain-group {
+        padding: 20px 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="viewport-scale">
-    <div class="container">
-      <a href="index.html" style="text-decoration: none; display: block; margin: 0 auto clamp(12px, 1.5vh, 20px); width: fit-content;">
-        <img src="logo.png" alt="פורצות דרך" title="דף הבית" class="logo" style="margin: 0;" />
+  <div class="magazine-frame">
+    <div class="header-section">
+      <a href="index.html">
+        <img src="logo.png" alt="פורצות דרך" class="logo" />
       </a>
-
-      <h1><strong>פורצות דרך</strong></h1>
-
-      <p class="lead">
+      <h1>פורצות דרך</h1>
+      <p class="intro-text">
         יש דברים שקורים לנו כל יום.<br>
         לפעמים אנחנו רגילות אליהם, לפעמים מתעייפות מהם<br>
         ולפעמים אפילו לא עוצרות לחשוב עליהם.<br>
         כאן לא צריך לבחור מהר.<br>
-        רק להיכנס, לקרוא, ולהרגיש איפה משהו נוגע בך באמת.<br>
-        אין תשובות נכונות. אין תחום “חשוב יותר"<br>
-        רק לשים לב למקום אחד שמרגיש קצת יותר קרוב עכשיו.
+        רק להיכנס, לקרוא, ולהרגיש איפה משהו נוגע בך באמת.
       </p>
+    </div>
 
-      <div class="buttons">
-        <!-- שלב 1: שאלון פתיחה -->
-        <div style="grid-column: 1 / -1; margin-top: 20px; text-align: center; font-weight: 900; color: #4b5a72; font-size: 1.1rem;">
-          מתחילות כאן:
+    <div class="process-section">
+      <a class="process-btn" href="https://portzot-derech.org/level1/quiz.html">
+        <div class="icon">📋</div>
+        <div class="title-wrapper">
+          <div class="title-short label" style="color: #db2777;">שאלון פתיחה</div>
+          <div class="title-full label" style="color: #db2777;">שאלון פתיחה</div>
         </div>
-        <div style="grid-column: 1 / -1; display: flex; justify-content: center; margin-bottom: 10px;">
-          <a class="gate-btn" href="https://portzot-derech.org/level1/quiz.html">
-            <div class="gate-icon">📋</div>
-            <div class="gate-title-wrapper">
-              <div class="gate-title-short" style="color: #db2777;">שאלון פתיחה</div>
-              <div class="gate-title-full" style="color: #db2777;">שאלון פתיחה</div>
-            </div>
-          </a>
+      </a>
+      <a class="process-btn" href="https://portzot-derech.org/pairing.html">
+        <div class="icon">🤝</div>
+        <div class="title-wrapper">
+          <div class="title-short label" style="color: #7c3aed;">מציאת שותפה</div>
+          <div class="title-full label" style="color: #7c3aed;">מציאת שותפה</div>
         </div>
+      </a>
+    </div>
 
-        <!-- שלב 2: תחומי חיים -->
-        <div style="grid-column: 1 / -1; margin-top: 20px; text-align: right; font-weight: 900; color: #4b5a72; font-size: 1.1rem;">
-          איפה זה פוגש אותי
-        </div>
-        
-        <a class="gate-btn" href="d1.html">
-          <div class="gate-icon">🧘‍♀️</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #8b5cf6;">תחושת גוף</div>
-            <div class="gate-title-full" style="color: #8b5cf6;">הגוף שלי וההרגשה שלי</div>
+    <div class="domains-section">
+      <div class="domain-group">
+        <a class="domain-btn" href="d1.html">
+          <div class="icon">🧘‍♀️</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #8b5cf6;">תחושת גוף</div>
+            <div class="title-full" style="color: #8b5cf6;">הגוף שלי וההרגשה שלי</div>
           </div>
         </a>
-        <a class="gate-btn" href="d2.html">
-          <div class="gate-icon">📱</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #0ea5e9;">חיים דיגיטליים</div>
-            <div class="gate-title-full" style="color: #0ea5e9;">המסך והעולם הדיגיטלי</div>
+        <a class="domain-btn" href="d2.html">
+          <div class="icon">📱</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #0ea5e9;">חיים דיגיטליים</div>
+            <div class="title-full" style="color: #0ea5e9;">המסך והעולם הדיגיטלי</div>
           </div>
         </a>
-        <a class="gate-btn" href="d3.html">
-          <div class="gate-icon">👩‍🏫</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #f59e0b;">למידה בלחץ</div>
-            <div class="gate-title-full" style="color: #f59e0b;">בית ספר – אבל לא כמו שמלמדים</div>
+        <a class="domain-btn" href="d3.html">
+          <div class="icon">👩‍🏫</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #f59e0b;">למידה בלחץ</div>
+            <div class="title-full" style="color: #f59e0b;">בית ספר – אבל לא כמו שמלמדים</div>
           </div>
         </a>
-        <a class="gate-btn" href="d4.html">
-          <div class="gate-icon">👩‍❤️‍👩</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #ec4899;">חיים חברתיים</div>
-            <div class="gate-title-full" style="color: #ec4899;">חברים, קשרים ומרחבים חברתיים</div>
+        <a class="domain-btn" href="d4.html">
+          <div class="icon">👩‍❤️‍👩</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #ec4899;">חיים חברתיים</div>
+            <div class="title-full" style="color: #ec4899;">חברים, קשרים ומרחבים חברתיים</div>
           </div>
         </a>
-        <a class="gate-btn" href="d5.html">
-          <div class="gate-icon">💸</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #10b981;">בחירות יומיומיות</div>
-            <div class="gate-title-full" style="color: #10b981;">כסף קטן, קניות ובחירות</div>
-          </div>
-        </a>
-        <a class="gate-btn" href="d6.html">
-          <div class="gate-icon">🏃‍♀️</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #f97316;">מרחב ותנועה</div>
-            <div class="gate-title-full" style="color: #f97316;">תנועה ומרחב</div>
-          </div>
-        </a>
-        <a class="gate-btn" href="d7.html">
-          <div class="gate-icon">🏠</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #6366f1;">מרחב אישי</div>
-            <div class="gate-title-full" style="color: #6366f1;">הבית והמרחב הקרוב</div>
-          </div>
-        </a>
-        <a class="gate-btn" href="d8.html">
-          <div class="gate-icon">🌿</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #22c55e;">סביבה חיה</div>
-            <div class="gate-title-full" style="color: #22c55e;">טבע וחיות בסביבה שלי</div>
-          </div>
-        </a>
-        <a class="gate-btn" href="d9.html">
-          <div class="gate-icon">🎨</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #f43f5e;">פנאי ויצירה</div>
-            <div class="gate-title-full" style="color: #f43f5e;">זמן פנוי ויצירה</div>
-          </div>
-        </a>
-        <a class="gate-btn" href="d10.html">
-          <div class="gate-icon">🔮</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #8b5cf6;">מבט קדימה</div>
-            <div class="gate-title-full" style="color: #8b5cf6;">מחשבות על עתיד</div>
+        <a class="domain-btn" href="d5.html">
+          <div class="icon">💸</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #10b981;">בחירות יומיומיות</div>
+            <div class="title-full" style="color: #10b981;">כסף קטן, קניות ובחירות</div>
           </div>
         </a>
       </div>
 
-      <div class="partner-wrap" style="gap: 15px; flex-wrap: wrap; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-        <div style="width: 100%; margin-bottom: 10px; font-weight: 900; color: #4b5a72;">צועדות קדימה למציאת שותפה לדרך</div>
-        <a class="gate-btn" href="https://portzot-derech.org/pairing.html">
-          <div class="gate-icon">🤝</div>
-          <div class="gate-title-wrapper">
-            <div class="gate-title-short" style="color: #7c3aed;">מציאת שותפה</div>
-            <div class="gate-title-full" style="color: #7c3aed;">מציאת שותפה</div>
+      <div class="domain-group">
+        <a class="domain-btn" href="d6.html">
+          <div class="icon">🏃‍♀️</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #f97316;">מרחב ותנועה</div>
+            <div class="title-full" style="color: #f97316;">תנועה ומרחב</div>
+          </div>
+        </a>
+        <a class="domain-btn" href="d7.html">
+          <div class="icon">🏠</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #6366f1;">מרחב אישי</div>
+            <div class="title-full" style="color: #6366f1;">הבית והמרחב הקרוב</div>
+          </div>
+        </a>
+        <a class="domain-btn" href="d8.html">
+          <div class="icon">🌿</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #22c55e;">סביבה חיה</div>
+            <div class="title-full" style="color: #22c55e;">טבע וחיות בסביבה שלי</div>
+          </div>
+        </a>
+        <a class="domain-btn" href="d9.html">
+          <div class="icon">🎨</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #f43f5e;">פנאי ויצירה</div>
+            <div class="title-full" style="color: #f43f5e;">זמן פנוי ויצירה</div>
+          </div>
+        </a>
+        <a class="domain-btn" href="d10.html">
+          <div class="icon">🔮</div>
+          <div class="title-wrapper">
+            <div class="title-short" style="color: #8b5cf6;">מבט קדימה</div>
+            <div class="title-full" style="color: #8b5cf6;">מחשבות על עתיד</div>
           </div>
         </a>
       </div>
+    </div>
 
-      <div class="footer">
-        © 2026 פורצות דרך
-      </div>
+    <div class="footer">
+      © 2026 פורצות דרך
     </div>
   </div>
 </body>
