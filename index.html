@@ -222,21 +222,23 @@
       </p>
 
       <div class="buttons">
-        <!-- כפתורי המקור שנשמרים -->
-        <a class="gate-btn" href="questionnaire.html" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(20, 184, 166, 0.1));">
+        <!-- שלב 1: שאלון פתיחה - מוצג ראשון ובולט -->
+        <a class="gate-btn" href="questionnaire.html" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 184, 166, 0.2)); border: 2px solid #8b5cf6; grid-column: 1 / -1; min-height: 120px;">
           <div class="gate-icon">📋</div>
-          <div class="gate-title">שאלון פתיחה</div>
-          <span>היכרות · תחומי עניין · התחלה</span>
+          <div class="gate-title" style="font-size: 1.4rem;">1. מתחילות כאן: שאלון פתיחה</div>
+          <span style="font-size: 1rem;">היכרות · תחומי עניין · הבנת הכיוון האישי שלך</span>
         </a>
 
-        <a class="gate-btn" href="matching.html" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(20, 184, 166, 0.1));">
-          <div class="gate-icon">🧩</div>
-          <div class="gate-title">פעילות התאמה</div>
-          <span>תרגול · זיהוי · חיבורים</span>
-        </a>
-
-        <!-- תחומי חיים לפי מסמך פורצות דרך -->
+        <!-- שלב 2: תחומי חיים -->
+        <div style="grid-column: 1 / -1; margin-top: 20px; text-align: right; font-weight: 900; color: #4b5a72; font-size: 1.1rem;">
+          2. בוחרות מרחב חקירה:
+        </div>
+        
         <a class="gate-btn" href="d1.html">
+          <div class="gate-icon">🧘‍♀️</div>
+          <div class="gate-title">הגוף שלי וההרגשה שלי</div>
+          <span>תחושות · דימוי עצמי · הקשבה פנימית</span>
+        </a>
           <div class="gate-icon">🧘‍♀️</div>
           <div class="gate-title">הגוף שלי וההרגשה שלי</div>
           <span>תחושות · דימוי עצמי · הקשבה פנימית</span>
@@ -288,12 +290,16 @@
         </a>
       </div>
 
-      <div class="partner-wrap" style="gap: 15px; flex-wrap: wrap;">
-        <a class="partner-btn" href="pairing.html">
-          <span>🤝 שותפה לדרך</span>
+      <div class="partner-wrap" style="gap: 15px; flex-wrap: wrap; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+        <div style="width: 100%; margin-bottom: 10px; font-weight: 900; color: #4b5a72;">3. מוצאות שותפות וכלים:</div>
+        <a class="partner-btn" href="pairing.html" style="background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; padding: 15px 25px;">
+          <span>🤝 מציאת זוגות (שותפה לדרך)</span>
         </a>
-        <a class="partner-btn" href="admin.html" style="background: rgba(241, 245, 249, 0.9);">
-          <span>⚙️ ניהול</span>
+        <a class="partner-btn" href="matching.html">
+          <span>🧩 פעילות התאמה</span>
+        </a>
+        <a class="partner-btn" href="admin.html" style="background: rgba(241, 245, 249, 0.9); width: 50px; height: 50px; padding: 0; border-radius: 50%;">
+          <span>⚙️</span>
         </a>
       </div>
 
