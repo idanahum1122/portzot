@@ -1,248 +1,92 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>פורצות דרך | שער</title>
-  <meta name="description" content="שער לקורס פורצות דרך – חקר ותהליך תיכון" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      min-height: 100svh;
-      overflow: hidden;
-      font-family: 'Varela Round', 'Segoe UI', Tahoma, sans-serif;
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(139, 92, 246, 0.4), transparent 60%),
-        radial-gradient(800px 500px at 85% 20%, rgba(20, 184, 166, 0.35), transparent 60%),
-        linear-gradient(135deg, #0f172a, #1b0f2a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      color: #0b1220;
-    }
-
-    /* עטיפת סקייל למסך אחד */
-    .viewport-scale {
-      transform-origin: top center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 880px;
-      background: rgba(255, 255, 255, 0.97);
-      border-radius: 36px;
-      padding: clamp(20px, 3vh, 40px) clamp(24px, 4vw, 40px) clamp(24px, 3vh, 44px);
-      box-shadow:
-        0 40px 100px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(139, 92, 246, 0.1);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .container::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 36px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(20, 184, 166, 0.4));
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    .logo {
-      width: clamp(90px, 12vw, 120px);
-      margin: 0 auto clamp(12px, 1.5vh, 20px);
-      display: block;
-      filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.2));
-    }
-
-    h1 {
-      margin: 0 0 clamp(12px, 1.5vh, 16px);
-      font-size: clamp(22px, 3.5vw, 32px);
-      font-weight: 900;
-      letter-spacing: 0.3px;
-      line-height: 1.3;
-      background: linear-gradient(135deg, #8b5cf6 0%, #14b8a6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      /* צל מתאר דק ועדין מסביב לטקסט */
-      text-shadow:
-        0 0 0.6px rgba(15, 23, 42, 0.45),
-        0 1px 1.5px rgba(15, 23, 42, 0.18);
-    }
-
-    .lead {
-      margin: 0 auto clamp(16px, 2.5vh, 28px);
-      max-width: 640px;
-      font-size: clamp(15px, 2vw, 18px);
-      line-height: 1.6;
-      color: #1a2540;
-      font-weight: 600;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(10px, 1.6vh, 16px); /* הקטנת רווחים */
-      max-width: 520px; /* הקטנת תיבת הכפתורים */
-      margin: 0 auto;
-    }
-
-    .gate-btn {
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: clamp(12px, 1.6vh, 16px) 14px; /* הקטנת padding */
-      min-height: clamp(80px, 10.5vh, 105px); /* הקטנת גובה */
-      border-radius: 18px; /* מעט פחות עגול */
-      background:
-        linear-gradient(135deg, rgba(255,182,193,0.12), rgba(255,182,193,0.06)),
-        linear-gradient(135deg, #ffffff, #f8fafc);
-      box-shadow: 0 14px 32px rgba(11, 18, 32, 0.12);
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .gate-icon {
-      font-size: clamp(1.8rem, 3vh, 2.4rem);
-      margin-bottom: 6px;
-    }
-
-    .gate-title {
-      font-weight: 900;
-      font-size: clamp(15px, 2vh, 17px);
-      background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #14b8a6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 4px;
-    }
-
-    .gate-btn span {
-      font-size: clamp(11px, 1.4vh, 12px);
-      font-weight: 600;
-      color: #4b5a72;
-      line-height: 1.4;
-    }
-
-    /* כפתור קטן בין הכפתורים */
-    .partner-wrap {
-      margin-top: clamp(10px, 1.6vh, 14px);
-      display: flex;
-      justify-content: center;
-    }
-
-    .partner-btn {
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow:
-        0 10px 22px rgba(11, 18, 32, 0.14),
-        0 0 0 1px rgba(139, 92, 246, 0.18);
-      font-weight: 900;
-      font-size: 13px;
-      color: #1a2540;
-      line-height: 1;
-      position: relative;
-    }
-
-    .partner-btn::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(20, 184, 166, 0.22));
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .partner-btn > span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer {
-      margin-top: clamp(14px, 2vh, 24px);
-      font-size: clamp(11px, 1.2vh, 12px);
-      color: rgba(255, 105, 180, 0.85);
-      font-style: italic;
-    }
-
-    /* SCALE דינמי – תמיד מסך אחד */
-    @media (max-height: 720px) {
-      .viewport-scale { transform: scale(0.92); }
-    }
-
-    @media (max-height: 640px) {
-      .viewport-scale { transform: scale(0.86); }
-    }
-
-    @media (max-height: 580px) {
-      .viewport-scale { transform: scale(0.8); }
-    }
-
-    /* מובייל צר */
-    @media (max-width: 600px) {
-      .buttons { grid-template-columns: 1fr; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>זמן פנוי ויצירה | פורצות דרך</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: 'Varela Round', sans-serif; background: #fdfcfd; color: #1a2540; line-height: 1.8; }
+        .magazine-container { max-width: 800px; margin: 40px auto; padding: 40px; background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .section { margin-bottom: 40px; }
+        h2 { color: #8b5cf6; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 20px; }
+        .stop-moment { background: #f8fafc; padding: 20px; border-right: 4px solid #14b8a6; margin-top: 60px; font-style: italic; }
+        .back-link { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #8b5cf6; font-weight: bold; }
+    </style>
 </head>
 <body>
-  <div class="viewport-scale">
-    <div class="container">
-      <img src="logo.png" alt="פורצות דרך" class="logo" />
+    <div class="magazine-container">
+        <a href="index.html" class="back-link">→ חזרה לשער</a>
+        
+        <header class="section">
+            <h1>זמן פנוי ויצירה</h1>
+        </header>
 
-      <h1>ברוכות הבאות לאתר הקורס<br>של פורצות דרך</h1>
+        <article class="section">
+            <h2>1. זה מתחיל ממך</h2>
+            <p>מה את עושה כשאף אחד לא אומר לך מה לעשות? הרגעים הלבנים האלו ביומן הם ההזדמנות שלך לגלות מה באמת גורם לך להרגיש חיה ויוצרת.</p>
+        </article>
 
-      <p class="lead">
-        שלב החקר מתחיל עכשיו.<br>
-        כאן אתן עוצרות לרגע, בודקות תחומים שונים<br>
-        ומתחילות להבין באיזה כיוון הייתן רוצות להתקדם.
-      </p>
+        <article class="section">
+            <h2>2. איך זה מרגיש מבפנים</h2>
+            <p>זו התחושה שאת מאבדת תחושת זמן כשאת מציירת, כותבת או מנגנת. זהו מצב של "זרימה" שבו כל העולם החיצון נעלם וקיים רק הרגע הזה.</p>
+        </article>
 
-      <div class="buttons">
-        <a class="gate-btn" href="level1/">
-          <div class="gate-icon">🔍</div>
-          <div class="gate-title">חקר ובחירת תחום</div>
-          <span>בדיקת עניין · סקרנות · כיוון אישי</span>
-        </a>
+        <article class="section">
+            <h2>3. מה את עושה כשזה קורה</h2>
+            <p>האם את מעזה ליצור משהו חדש, גם אם הוא לא מושלם? היצירה היא לא על התוצאה, אלא על הדרך ועל מה שאת מגלה על עצמך תוך כדי.</p>
+        </article>
 
-        <a class="gate-btn" href="level2/">
-          <div class="gate-icon">🚀</div>
-          <div class="gate-title">מרעיון למוצר</div>
-          <span>חקר בעיה · פיתוח פתרון · מוצר · פיץ'</span>
-        </a>
-      </div>
+        <article class="section">
+            <h2>4. את לא היחידה</h2>
+            <p>הצורך ליצור הוא צורך אנושי עמוק. משחר ההיסטוריה אנשים מצאו דרכים לבטא את עצמם דרך אמנות, סיפורים ומלאכת יד.</p>
+        </article>
 
-      <div class="partner-wrap">
-        <a class="partner-btn" href="pairing.html">
-          <span>🤝 שותפה לדרך</span>
-        </a>
-      </div>
+        <article class="section">
+            <h2>5. איך זה נוגע גם לאחרים</h2>
+            <p>היצירה שלך יכולה לגעת באחרים, לעורר בהם השראה או פשוט לגרום להם לחייך. אמנות היא שפה בינלאומית שמחברת בין לבבות.</p>
+        </article>
 
-      <div class="footer">
-        © 2026 פורצות דרך
-      </div>
+        <article class="section">
+            <h2>6. נגיעה קטנה לטכנולוגיה</h2>
+            <p>כלים דיגיטליים פותחים עולמות חדשים של יצירה – מעריכת וידאו ועד מוזיקה אלקטרונית. הטכנולוגיה היא רק עוד מכחול בידיים שלך.</p>
+        </article>
+
+        <article class="section">
+            <h2>7. רגע של פעולה</h2>
+            <p>קחי דף וחמישה צבעים. ציירי רק קווים ונקודות בלי לחשוב מה זה אמור להיות. איך זה מרגיש פשוט ליצור בלי מטרה?</p>
+        </article>
+
+        <article class="section">
+            <h2>8. דוגמה אמיתית למוצר פיזי</h2>
+            <p>ערכות רקמה מודרניות או כלי עבודה מעץ – חומרים שמזמינים אותך ליצור משהו מוחשי במו ידייך ולהרגיש את החומר.</p>
+        </article>
+
+        <article class="section">
+            <h2>9. דוגמה אמיתית ליישום / כלי דיגיטלי</h2>
+            <p>תוכנות לעיצוב גרפי או אפליקציות לכתיבת שירים שעוזרות לך להוציא את הרעיונות מהראש אל המציאות הדיגיטלית.</p>
+        </article>
+
+        <article class="section">
+            <h2>10. אישה פורצת דרך</h2>
+            <p>מיכל, שהפכה את המחסן הישן בביתה לסטודיו פתוח לנערות מהשכונה שרוצות ליצור יחד אמנות רחוב ומחאה.</p>
+        </article>
+
+        <article class="section">
+            <h2>11. חיבור למהות של תהליך הנדסי</h2>
+            <p>הנדסה היא יצירתיות תחת מגבלות. כשאת בונה משהו, את פותרת בעיות בצורה יצירתית. היצירה היא הלב הפועם של כל המצאה חדשה.</p>
+        </article>
+
+        <article class="section">
+            <h2>12. משפט סיום פתוח</h2>
+            <p>איזה עולם חדש תבראי היום בעזרת הדמיון שלך?</p>
+        </article>
+
+        <div class="stop-moment">
+            <h3>רגע לעצירה</h3>
+            <p>היצירה שלך היא הקול הייחודי שלך בעולם. שהי רגע עם הרעיון הבא שעולה בך. אל תמהרי לבצע, רק תרגישי אותו.</p>
+        </div>
     </div>
-  </div>
 </body>
 </html>
