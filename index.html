@@ -79,16 +79,16 @@
 
     .intro-cards {
       display: flex;
-      gap: 20px;
-      padding: 30px 50px 40px;
+      gap: 16px;
+      padding: 30px 40px 40px;
       background: linear-gradient(180deg, rgba(248,250,252,0.5) 0%, rgba(241,245,249,0.8) 100%);
     }
 
     .intro-card {
       flex: 1;
       background: #ffffff;
-      border-radius: 16px;
-      padding: 28px 24px;
+      border-radius: 14px;
+      padding: 22px 18px;
       text-align: right;
       box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.04),
@@ -96,20 +96,33 @@
     }
 
     .intro-card p {
-      font-size: 15px;
-      line-height: 1.85;
+      font-size: 14px;
+      line-height: 1.8;
       color: #475569;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .intro-card p:last-child {
       margin-bottom: 0;
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
+      .intro-cards {
+        flex-wrap: wrap;
+        padding: 20px 25px 30px;
+      }
+      .intro-card {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 200px;
+      }
+    }
+
+    @media (max-width: 550px) {
       .intro-cards {
         flex-direction: column;
-        padding: 20px 25px 30px;
+      }
+      .intro-card {
+        flex: 1 1 100%;
       }
     }
 
@@ -313,44 +326,53 @@
       <div class="intro-card">
         <p>
           יש ימים שאת קמה ומרגישה טוב,<br>
-          יש ימים שפחות.
+          יש ימים שאת קמה ומרגישה פחות טוב.
         </p>
         <p>
           יש ימים שאת עצבנית, רגישה,<br>
           או סתם ככה — בלי סיבה ברורה.
         </p>
-      </div>
-
-      <div class="intro-card">
         <p>
-          אלה דברים שקורים לנו כל יום —<br>
-          איך שאנחנו מרגישות עם הגוף שלנו,<br>
-          איך אנחנו נראות בעיני עצמנו<br>
-          ואיך זה משפיע על הביטחון,<br>
-          על המצב רוח ועל היום כולו.
-        </p>
-        <p>
-          רוב הזמן אנחנו פשוט ממשיכות.<br>
-          לא תמיד עוצרות לחשוב,<br>
-          לא תמיד נותנות לזה מקום.
+          אלה דברים שקורים לנו כל יום,<br>
+          גם כשלא תמיד מדברות על זה.
         </p>
       </div>
 
       <div class="intro-card">
         <p>
-          כתבנו את זה כדי לעצור רגע.<br>
-          להקשיב למה שקורה בפנים<br>
-          ולבדוק בשקט עם עצמך<br>
-          איפה זה פוגש אותך עכשיו.
+          זה פוגש אותנו בכל תחום —<br>
+          איך אנחנו מרגישות עם הגוף שלנו,<br>
+          איך אנחנו נראות בעיני עצמנו,<br>
+          איך זה משפיע על הביטחון שלנו.
         </p>
         <p>
-          כי כל שינוי גדול מתחיל<br>
-          ממשהו אישי.
+          על המצב רוח,<br>
+          על היום כולו.
+        </p>
+      </div>
+
+      <div class="intro-card">
+        <p>
+          רוב הזמן אנחנו פשוט ממשיכות,<br>
+          בלי לעצור רגע לשים לב.
+        </p>
+        <p>
+          כתבנו את זה כדי לעצור.<br>
+          להקשיב למה שקורה בפנים,<br>
+          לתת מקום למה שלא תמיד מקבל מקום.
+        </p>
+      </div>
+
+      <div class="intro-card">
+        <p>
+          כי כל שינוי גדול מתחיל ממשהו אישי.<br>
+          מחשבה קטנה, תחושה פנימית,<br>
+          רגע אחד שבו את שמה לב למה שקורה אצלך.
         </p>
         <p>
           מכאן אפשר להתחיל —<br>
           לאט, בדרך שלך,<br>
-          ובבחירה שנכונה לך עכשיו.
+          בבחירה שנכונה לך עכשיו.
         </p>
       </div>
     </div>
