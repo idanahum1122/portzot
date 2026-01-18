@@ -188,28 +188,46 @@
 
     .domains-result {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 28px;
     }
 
     .domain-card {
-      background: linear-gradient(135deg, #E6E4F2, #F0EEF8);
-      border-radius: 16px;
-      padding: 20px 28px;
-      min-width: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 120px;
+      height: 120px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.05),
+        0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .domain-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 10px 0 rgba(0, 0, 0, 0.05),
+        0 16px 35px rgba(0, 0, 0, 0.12);
     }
 
     .domain-card .icon {
-      font-size: 2em;
-      margin-bottom: 8px;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
     }
 
     .domain-card .name {
-      font-size: 1.15em;
-      font-weight: 600;
-      color: #2F3A5F;
+      font-size: 13px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.2;
     }
 
     .result-note {
@@ -368,16 +386,16 @@
 
   <script>
     const domains = [
-      { id: 1, name: 'תחושת גוף', icon: '🧘‍♀️' },
-      { id: 2, name: 'חיים דיגיטליים', icon: '📱' },
-      { id: 3, name: 'למידה בלחץ', icon: '👩‍🏫' },
-      { id: 4, name: 'חיים חברתיים', icon: '👩‍❤️‍👩' },
-      { id: 5, name: 'בחירות יומיומיות', icon: '💸' },
-      { id: 6, name: 'מרחב ותנועה', icon: '🏃‍♀️' },
-      { id: 7, name: 'המרחב האישי', icon: '🏠' },
-      { id: 8, name: 'סביבה חיה', icon: '🌿' },
-      { id: 9, name: 'פנאי ויצירה', icon: '🎨' },
-      { id: 10, name: 'מבט קדימה', icon: '🔮' }
+      { id: 1, name: 'תחושת גוף', icon: '🧘‍♀️', color: '#8b5cf6' },
+      { id: 2, name: 'חיים דיגיטליים', icon: '📱', color: '#0ea5e9' },
+      { id: 3, name: 'למידה בלחץ', icon: '👩‍🏫', color: '#f59e0b' },
+      { id: 4, name: 'חיים חברתיים', icon: '👩‍❤️‍👩', color: '#ec4899' },
+      { id: 5, name: 'בחירות יומיומיות', icon: '💸', color: '#10b981' },
+      { id: 6, name: 'מרחב ותנועה', icon: '🏃‍♀️', color: '#f97316' },
+      { id: 7, name: 'המרחב האישי', icon: '🏠', color: '#6366f1' },
+      { id: 8, name: 'סביבה חיה', icon: '🌿', color: '#22c55e' },
+      { id: 9, name: 'פנאי ויצירה', icon: '🎨', color: '#f43f5e' },
+      { id: 10, name: 'מבט קדימה', icon: '🔮', color: '#8b5cf6' }
     ];
 
     const questions = [
@@ -754,7 +772,7 @@
           card.className = 'domain-card';
           card.innerHTML = `
             <div class="icon">${domain.icon}</div>
-            <div class="name">${domain.name}</div>
+            <div class="name" style="color: ${domain.color};">${domain.name}</div>
           `;
           container.appendChild(card);
         }
