@@ -77,13 +77,26 @@
       filter: drop-shadow(0 2px 4px rgba(168, 85, 247, 0.15));
     }
 
-    .intro-text {
-      max-width: 600px;
+    .intro-section {
+      max-width: 580px;
       margin: 0 auto;
-      font-size: 16px;
-      line-height: 1.8;
-      color: #475569;
       text-align: right;
+    }
+
+    .intro-block {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #475569;
+      margin-bottom: 18px;
+    }
+
+    .intro-block:first-child {
+      font-size: 17px;
+      color: #374151;
+    }
+
+    .intro-block:last-child {
+      margin-bottom: 0;
     }
 
     .process-section {
@@ -280,13 +293,36 @@
         <img src="logo.png" alt="פורצות דרך" class="logo" />
       </a>
       <h1>פורצות דרך</h1>
-      <p class="intro-text">
-        יש דברים שקורים לנו כל יום.<br>
-        לפעמים אנחנו רגילות אליהם, לפעמים מתעייפות מהם<br>
-        ולפעמים אפילו לא עוצרות לחשוב עליהם.<br>
-        כאן לא צריך לבחור מהר.<br>
-        רק להיכנס, לקרוא, ולהרגיש איפה משהו נוגע בך באמת.
-      </p>
+      <div class="intro-section">
+        <p class="intro-block">
+          יש ימים שאת קמה ומרגישה טוב,<br>
+          יש ימים שפחות.<br>
+          יש ימים שאת עצבנית, רגישה,<br>
+          או סתם ככה — בלי סיבה ברורה.
+        </p>
+        <p class="intro-block">
+          אלה דברים שקורים לנו כל יום —<br>
+          איך שאנחנו מרגישות עם הגוף שלנו,<br>
+          איך אנחנו נראות בעיני עצמנו<br>
+          ואיך זה משפיע על הביטחון, על המצב רוח ועל היום כולו.
+        </p>
+        <p class="intro-block">
+          רוב הזמן אנחנו פשוט ממשיכות.<br>
+          לא תמיד עוצרות לחשוב,<br>
+          לא תמיד נותנות לזה מקום.
+        </p>
+        <p class="intro-block">
+          כתבנו את זה כדי לעצור רגע.<br>
+          להקשיב למה שקורה בפנים<br>
+          ולבדוק בשקט עם עצמך איפה זה פוגש אותך עכשיו.
+        </p>
+        <p class="intro-block">
+          כי כל שינוי גדול מתחיל ממשהו אישי.<br>
+          מכאן אפשר להתחיל —<br>
+          לאט, בדרך שלך<br>
+          ובבחירה שנכונה לך עכשיו.
+        </p>
+      </div>
     </div>
 
     <div class="process-section">
