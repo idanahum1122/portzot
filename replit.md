@@ -28,6 +28,19 @@ The server runs on port 5000 and serves all static files.
 - Responsive design with modern CSS
 
 ## Recent Changes
+- 2026-01-18: Complete redesign of opening questionnaire (level1/quiz.html)
+  - 21 questions with 4 answer options each
+  - Card-based UI with soft purple colors and off-white background
+  - One question per screen with smooth fade transitions
+  - Weighted scoring: general (1.0), action (1.5), technology (2.0)
+  - Special bonuses for broad technology perception (Q16-17)
+  - Always shows 2 recommended domains
+  - Mobile responsive design
+  - No scores/percentages shown to user
+- 2026-01-18: Homepage card-style action sections
+  - "איך מתחילים?" section with questionnaire button
+  - "בחרת תחום?" section with partner matching button
+  - Pink gradient title and deep pink accents
 - 2026-01-17: Complete magazine-style layout for all domain pages (d1-d10)
   - Hero sections with 3D drop-shadow icons
   - H1 full titles + H2 subtitles (centered)
