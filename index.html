@@ -77,26 +77,40 @@
       filter: drop-shadow(0 2px 4px rgba(168, 85, 247, 0.15));
     }
 
-    .intro-section {
-      max-width: 580px;
-      margin: 0 auto;
+    .intro-cards {
+      display: flex;
+      gap: 20px;
+      padding: 30px 50px 40px;
+      background: linear-gradient(180deg, rgba(248,250,252,0.5) 0%, rgba(241,245,249,0.8) 100%);
+    }
+
+    .intro-card {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px 24px;
       text-align: right;
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        0 4px 20px rgba(0, 0, 0, 0.06);
     }
 
-    .intro-block {
-      font-size: 16px;
-      line-height: 1.9;
+    .intro-card p {
+      font-size: 15px;
+      line-height: 1.85;
       color: #475569;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .intro-block:first-child {
-      font-size: 17px;
-      color: #374151;
-    }
-
-    .intro-block:last-child {
+    .intro-card p:last-child {
       margin-bottom: 0;
+    }
+
+    @media (max-width: 850px) {
+      .intro-cards {
+        flex-direction: column;
+        padding: 20px 25px 30px;
+      }
     }
 
     .process-section {
@@ -293,33 +307,49 @@
         <img src="logo.png" alt="פורצות דרך" class="logo" />
       </a>
       <h1>פורצות דרך</h1>
-      <div class="intro-section">
-        <p class="intro-block">
+    </div>
+
+    <div class="intro-cards">
+      <div class="intro-card">
+        <p>
           יש ימים שאת קמה ומרגישה טוב,<br>
-          יש ימים שפחות.<br>
+          יש ימים שפחות.
+        </p>
+        <p>
           יש ימים שאת עצבנית, רגישה,<br>
           או סתם ככה — בלי סיבה ברורה.
         </p>
-        <p class="intro-block">
+      </div>
+
+      <div class="intro-card">
+        <p>
           אלה דברים שקורים לנו כל יום —<br>
           איך שאנחנו מרגישות עם הגוף שלנו,<br>
           איך אנחנו נראות בעיני עצמנו<br>
-          ואיך זה משפיע על הביטחון, על המצב רוח ועל היום כולו.
+          ואיך זה משפיע על הביטחון,<br>
+          על המצב רוח ועל היום כולו.
         </p>
-        <p class="intro-block">
+        <p>
           רוב הזמן אנחנו פשוט ממשיכות.<br>
           לא תמיד עוצרות לחשוב,<br>
           לא תמיד נותנות לזה מקום.
         </p>
-        <p class="intro-block">
+      </div>
+
+      <div class="intro-card">
+        <p>
           כתבנו את זה כדי לעצור רגע.<br>
           להקשיב למה שקורה בפנים<br>
-          ולבדוק בשקט עם עצמך איפה זה פוגש אותך עכשיו.
+          ולבדוק בשקט עם עצמך<br>
+          איפה זה פוגש אותך עכשיו.
         </p>
-        <p class="intro-block">
-          כי כל שינוי גדול מתחיל ממשהו אישי.<br>
+        <p>
+          כי כל שינוי גדול מתחיל<br>
+          ממשהו אישי.
+        </p>
+        <p>
           מכאן אפשר להתחיל —<br>
-          לאט, בדרך שלך<br>
+          לאט, בדרך שלך,<br>
           ובבחירה שנכונה לך עכשיו.
         </p>
       </div>
