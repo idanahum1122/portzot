@@ -194,6 +194,73 @@
       }
     }
 
+    .four-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #ffffff 0%, #FAF0F2 100%);
+    }
+
+    .grid-card {
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: right;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .grid-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .grid-card .opening {
+      font-family: 'Heebo', 'Varela Round', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.7;
+      color: #1f1f1f;
+      margin-bottom: 12px;
+    }
+
+    .grid-card p {
+      font-family: 'Heebo', 'Varela Round', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #2B2B2B;
+      margin: 0;
+    }
+
+    .action-grid-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .action-grid-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #b45309;
+      margin: 0 0 10px 0;
+    }
+
+    .action-grid-card .action-btn {
+      align-self: flex-start;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .four-cards-grid {
+        grid-template-columns: 1fr;
+        padding: 24px 20px;
+      }
+    }
+
     .action-section {
       display: flex;
       align-items: center;
@@ -445,25 +512,23 @@
 
     <div class="section-divider"></div>
 
-    <div class="intro-cards">
-      <div class="intro-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #dbeafe 100%);">
+    <div class="four-cards-grid">
+      <div class="grid-card" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border-right: 4px solid #ec4899;">
         <div class="opening">יש ימים שאת קמה ומרגישה טוב ויש ימים שאת קמה ומרגישה פחות טוב.</div>
         <p>יש ימים שאת עצבנית, רגישה, או סתם ככה - בלי סיבה ברורה. אלה דברים שקורים לנו כל יום, גם כשלא תמיד מדברות על זה.</p>
       </div>
 
-      <div class="intro-card">
+      <div class="grid-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-right: 4px solid #3b82f6;">
         <div class="opening">זה פוגש אותנו בכל תחום בחיים.</div>
         <p>איך אנחנו מרגישות עם הגוף שלנו, איך אנחנו נראות בעיני עצמנו ואיך זה משפיע על הביטחון, על המצב רוח ועל היום כולו. רוב הזמן אנחנו פשוט ממשיכות, בלי לעצור רגע לשים לב.</p>
       </div>
 
-      <div class="intro-card" style="background: linear-gradient(135deg, #f8fbff 0%, #eff6ff 50%, #f8fbff 100%);">
+      <div class="grid-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border-right: 4px solid #a855f7;">
         <div class="opening">כתבנו את זה כדי לעצור רגע.</div>
         <p>להקשיב למה שקורה בפנים ולבדוק בשקט עם עצמך איפה זה פוגש אותך. כי כל שינוי גדול מתחיל ממשהו אישי. <strong>מכאן אפשר להתחיל לאט בדרך שלך ובבחירה שנכונה לך.</strong></p>
       </div>
-    </div>
 
-    <div class="action-section">
-      <div class="action-card">
+      <div class="grid-card action-grid-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-right: 4px solid #f59e0b;">
         <div class="action-content">
           <h3>איך מתחילים?</h3>
           <p>היכנסי לשאלון הפתיחה,<br>עני על השאלות בקפידה<br>ותגלי את נקודת ההתחלה.<br><br>זו המלצה שלנו בלבד.<br>בסוף, הבחירה היא שלך 💜</p>
