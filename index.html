@@ -440,20 +440,119 @@
     }
 
     @media (max-width: 750px) {
+      body {
+        padding: 0;
+      }
       .magazine-frame {
         min-width: auto;
         max-width: 100%;
+        border-radius: 0;
       }
-      .header-section, .domains-section {
-        padding-left: 25px;
-        padding-right: 25px;
+      .header-section {
+        padding: 30px 20px;
+        min-height: 100vh;
+      }
+      .logo {
+        width: 110px;
+      }
+      h1 {
+        font-size: 38px;
+        margin-bottom: 20px;
+      }
+      .header-subtitle {
+        font-size: 15px;
+        padding: 0 10px;
+      }
+      .header-subtitle span {
+        font-size: 18px !important;
+      }
+      .unlock-btn {
+        bottom: 25px;
+        padding: 12px 30px;
+        font-size: 15px;
+      }
+      .domains-section {
+        padding: 30px 15px;
+      }
+      .domains-title {
+        font-size: 22px;
+      }
+      .domains-subtitle {
+        font-size: 14px;
       }
       .process-section {
-        gap: 30px;
-        padding: 30px 25px;
+        gap: 20px;
+        padding: 25px 15px;
       }
       .domain-group {
-        padding: 20px 15px;
+        padding: 15px 10px;
+        gap: 12px;
+      }
+      .domain-btn {
+        width: 90px;
+        height: 90px;
+        padding: 10px;
+      }
+      .domain-btn .icon {
+        font-size: 1.5rem;
+      }
+      .title-short {
+        font-size: 10px;
+      }
+      .title-full {
+        font-size: 9px;
+      }
+      .action-section {
+        padding: 25px 15px;
+      }
+      .action-card {
+        padding: 20px;
+        gap: 16px;
+      }
+      .action-card .action-btn {
+        width: 90px;
+        height: 90px;
+      }
+      .action-card .action-btn .icon {
+        font-size: 1.6rem;
+      }
+      .action-card .action-btn .label {
+        font-size: 11px;
+      }
+      .action-content h3 {
+        font-size: 18px;
+      }
+      .action-content p {
+        font-size: 14px;
+      }
+      .bottom-button-section {
+        padding: 30px 20px;
+      }
+      .bottom-btn {
+        padding: 14px 36px;
+        font-size: 16px;
+      }
+      .footer {
+        padding: 15px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 32px;
+      }
+      .logo {
+        width: 100px;
+      }
+      .domain-btn {
+        width: 80px;
+        height: 80px;
+      }
+      .domain-btn .icon {
+        font-size: 1.3rem;
+      }
+      .title-short {
+        font-size: 9px;
       }
     }
   </style>
