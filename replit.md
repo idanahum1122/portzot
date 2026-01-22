@@ -32,6 +32,12 @@ The server runs on port 5000 and serves all static files.
 - Responsive design with modern CSS
 
 ## Recent Changes
+- 2026-01-22: Styled footers for all domain pages (d1-d10)
+  - Added "© 2026 פורצות דרך" copyright to all footers
+  - d7-d10 footers upgraded from minimal gray to colorful gradients
+  - Each domain footer matches its unique color scheme
+  - d7: indigo-violet gradient, d8: emerald-teal gradient
+  - d9: fuchsia-purple gradient, d10: indigo-purple gradient
 - 2026-01-19: Smart pairing algorithm (js/pairing-algorithm.js)
   - calculateScore() - compatibility scoring (max 110 points)
   - Domain matching (30pts): main/secondary domain alignment
