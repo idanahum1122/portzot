@@ -72,7 +72,47 @@
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
-  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: var(--bg-color);"><!-- Main Content (Article) -->
+  <!-- Navigation Header -->
+  <nav class="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-5xl z-50 bg-white/80 backdrop-blur-md border-b border-pink-100/50">
+   <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+       <span class="text-xl">💡</span>
+      </div>
+      <span class="text-xl font-bold gradient-text">מרעיון למוצר</span>
+     </div>
+     <div class="flex items-center gap-1 md:gap-3">
+      <a href="index.html" class="nav-3d-btn"><span class="nav-icon">🏠</span><span class="nav-label">לשער</span></a>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <style>
+    .nav-3d-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      background: linear-gradient(145deg, #ffffff, #f3e8ff);
+      border-radius: 12px;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.1), -2px -2px 5px rgba(255,255,255,0.8);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      min-width: 60px;
+    }
+    .nav-3d-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.15), -2px -2px 6px rgba(255,255,255,0.9);
+    }
+    .nav-icon { font-size: 1.2rem; }
+    .nav-label { font-size: 0.7rem; color: #6b7280; margin-top: 2px; }
+    @media (max-width: 768px) {
+      .nav-label { display: none; }
+    }
+  </style>
+  <div id="app-wrapper" class="w-full h-full overflow-auto pt-16" style="background: var(--bg-color);"><!-- Main Content (Article) -->
    <div id="main-content"><!-- Hero Section -->
     <section class="min-h-screen flex flex-col justify-center items-center px-6 py-16 relative overflow-hidden">
      <div class="absolute top-20 right-10 text-6xl floating-emoji opacity-30">
@@ -282,8 +322,18 @@
       </div>
      </div>
     </section><!-- Footer -->
-    <footer class="py-8 px-6 text-center" style="background: var(--surface-color);">
-     <p class="text-sm" style="color: var(--text-color); opacity: 0.6;">נבנה עבור בנות שישנו את העולם 💜</p>
+    <footer class="py-12 px-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white">
+     <div class="max-w-5xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+       <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+        <span class="text-xl">💡</span>
+       </div>
+       <span class="text-2xl font-bold">מרעיון למוצר</span>
+      </div>
+      <p class="text-white/80 text-lg mb-4">זה התחיל ממשהו קטן</p>
+      <p class="text-white/60 text-sm">תוכנית חינוכית לנערות | נבנה עבור בנות שישנו את העולם</p>
+      <p class="text-white/50 text-xs mt-4">© 2026 פורצות דרך</p>
+     </div>
     </footer>
    </div><!-- Domains Selection View -->
    <div id="domains-view" style="display: none;">
