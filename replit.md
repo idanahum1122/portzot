@@ -35,7 +35,28 @@ The server runs on port 5000 and serves all static files.
   - service-worker.js: Caches all main pages for offline navigation
   - Apple touch icon and theme-color meta tags on all pages
 
+## User Preferences
+- No commas before Hebrew letter "ו" anywhere in text
+- Mobile + PWA are critical priorities
+- Female-centered language and iconography
+- Desktop-first magazine-style design
+- Tailwind CSS for styling
+
 ## Recent Changes
+- 2026-02-08: Complete 8-step collaborative journey on idea-to-product.html
+  - Step 1: Name entry (2-3 participants)
+  - Step 2: Topic box selection (5 topics, turn-based)
+  - Step 3: Branching questions engine with personal address by name
+  - Step 4: Domain identification from accumulated choices
+  - Step 5: Sub-domain drill-down
+  - Step 6: Shared decision (3 options)
+  - Step 7: Experiential ending with inspiring text
+  - Step 8: PDF generation (6-page A4 document with jsPDF + html2canvas)
+  - Topics: בחירות יומיומיות, זהות ומי אני, מערכות יחסים, גבולות, קול פנימי
+  - Questions: provocative, funny, relatable, empowering style
+  - Smooth fade transitions between steps with step indicator dots
+  - PDF includes: cover, meeting point, journey, precision, decision, closing pages
+  - Logo (favicon.png) in PDF cover and closing pages
 - 2026-01-22: Scroll-lock mechanism for all domain pages (d1-d10)
   - js/scroll-lock.js - reusable script for hero lock/unlock
   - Hero sections locked on page load (scroll disabled)

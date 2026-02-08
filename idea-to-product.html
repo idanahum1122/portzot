@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>זה התחיל ממשהו קטן</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -128,6 +130,13 @@
       .gap-6 { gap: 1rem; }
       .floating-emoji { display: none; }
       .stem-card { margin-left: 0.5rem; margin-right: 0.5rem; }
+      .topic-box { padding: 1rem; }
+      .topic-box .text-5xl { font-size: 2rem; }
+      .answer-btn { padding: 1rem; }
+      .subdomain-btn { padding: 1rem; }
+      .step-indicator { margin-bottom: 1rem; }
+      .step-dot { width: 10px; height: 10px; }
+      .journey-input { font-size: 1rem; padding: 12px 14px; }
     }
   </style>
   <div id="app-wrapper" class="w-full h-full overflow-auto pt-16" style="background: var(--bg-color);"><!-- Main Content (Article) -->
@@ -362,52 +371,130 @@
       <p class="text-white/50 text-xs mt-4">© 2026 פורצות דרך</p>
      </div>
     </footer>
-   </div><!-- Domains Selection View -->
-   <div id="domains-view" style="display: none;">
+   </div><!-- Journey View -->
+   <div id="journey-view" style="display: none;">
     <section class="min-h-screen py-16 px-6">
-     <div class="max-w-6xl mx-auto"><!-- Header -->
-      <div class="text-center mb-12">
-       <div class="text-6xl mb-6">
-        🎯
-       </div>
-       <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">בחרי תחום שמעניין אותך</h2><!-- Pedagogical Goal Box -->
-       <div class="stem-card rounded-2xl p-8 max-w-3xl mx-auto mb-6" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)); border: 2px solid var(--primary-color);">
-        <p class="text-xl font-bold mb-4" style="color: var(--text-color);">💡 המטרה שלנו</p>
-        <p class="text-lg mb-4" style="color: var(--text-color); opacity: 0.9;">התחום שתבחרי יהיה <strong class="gradient-text">נקודת המוצא לפיתוח מוצר טכנולוגי</strong> שיפתור בעיה אמיתית בחיים שלך ושל בנות אחרות בגילך.</p>
-        <p class="text-base" style="color: var(--text-color); opacity: 0.8;">אז חשבי: באיזה תחום את הכי רוצה לראות שינוי? איזה בעיה את רוצה לפתור?</p>
-       </div>
-       <p class="text-lg" style="color: var(--text-color); opacity: 0.7;">כל תחום מכיל מצבים שונים מהחיים של נערות בגילך</p>
-      </div><!-- Domains Grid -->
-      <div id="domains-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"><!-- Domains will be rendered here by JavaScript -->
-      </div><!-- Back Button -->
-      <div class="text-center mt-12"><button onclick="showMainView()" class="text-lg font-bold px-8 py-4 rounded-full transition-all duration-300" style="background: var(--surface-color); color: var(--text-color); border: 2px solid var(--primary-color);"> ← חזרה למאמר </button>
-      </div>
-     </div>
-    </section>
-   </div><!-- Situations Selection View -->
-   <div id="situations-view" style="display: none;">
-    <section class="min-h-screen py-16 px-6">
-     <div class="max-w-5xl mx-auto"><!-- Header -->
-      <div class="text-center mb-12">
-       <div id="domain-emoji" class="text-7xl mb-4"></div>
-       <h2 id="domain-name" class="text-4xl md:text-5xl font-bold mb-6 gradient-text"></h2><!-- Pedagogical Reminder -->
-       <div class="stem-card rounded-2xl p-6 max-w-2xl mx-auto mb-6" style="background: rgba(255, 255, 255, 0.8); border: 2px solid var(--secondary-color);">
-        <p class="text-base font-semibold mb-2" style="color: var(--text-color);">💭 זכרי: את בוחרת מצבים שיובילו לפיתוח מוצר טכנולוגי</p>
-        <p class="text-sm" style="color: var(--text-color); opacity: 0.8;">המצבים שתבחרי יעזרו לך להגדיר בעיה ברורה ולמצוא לה פתרון יצירתי</p>
-       </div>
-       <p class="text-xl mb-4" style="color: var(--text-color); opacity: 0.8;">בחרי את המצבים שאת מרגישה מזוהה איתם</p>
-       <div class="inline-block bg-white/70 rounded-full px-6 py-3">
-        <p class="text-lg font-bold" style="color: var(--text-color);">נבחרו: <span id="selected-count" class="gradient-text text-2xl">0</span> מצבים</p>
-       </div>
-      </div><!-- Situations Grid -->
-      <div id="situations-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"><!-- Situations will be rendered here by JavaScript -->
-      </div><!-- Actions -->
-      <div id="situations-actions" class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12"><button id="back-to-domains-btn" onclick="showDomainsView()" class="text-lg font-bold px-8 py-4 rounded-full transition-all duration-300" style="background: var(--surface-color); color: var(--text-color); border: 2px solid var(--primary-color);"> ← חזרה לבחירת תחום </button> <button id="continue-btn" onclick="continueToProblemDefinition()" disabled class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); opacity: 0.5; cursor: not-allowed;"> המשיכי עם המצבים שנבחרו → </button>
+     <div class="max-w-3xl mx-auto">
+      <div id="journey-step-container" class="journey-fade-in"></div>
+      <div class="text-center mt-8">
+       <button id="back-to-article-btn" onclick="showMainView()" class="text-lg font-bold px-8 py-4 rounded-full transition-all duration-300" style="background: var(--surface-color); color: var(--text-color); border: 2px solid var(--primary-color);">← חזרה למאמר</button>
       </div>
      </div>
     </section>
    </div>
   </div>
+  <div id="pdf-render-area" style="position: absolute; left: -9999px; top: 0; width: 794px;"></div>
+  <style>
+    .pdf-page {
+      width: 794px;
+      min-height: 1123px;
+      padding: 60px;
+      box-sizing: border-box;
+      font-family: 'Rubik', sans-serif;
+      direction: rtl;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .pdf-page .pdf-gradient-bar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+    }
+    .pdf-page .pdf-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    }
+    .journey-fade-in {
+      animation: journeyFadeIn 0.5s ease-out;
+    }
+    @keyframes journeyFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .journey-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 2px solid rgba(236, 72, 153, 0.3);
+      background: var(--surface-color);
+      color: var(--text-color);
+      font-size: 1.1rem;
+      font-family: 'Rubik', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
+      text-align: right;
+    }
+    .journey-input:focus {
+      border-color: var(--primary-color);
+    }
+    .journey-input::placeholder {
+      color: #aaa;
+    }
+    .topic-box {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+    }
+    .topic-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+    .topic-box.selected {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+    }
+    .answer-btn {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(236, 72, 153, 0.2);
+    }
+    .answer-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-color);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 2rem;
+    }
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(236, 72, 153, 0.2);
+      transition: all 0.3s;
+    }
+    .step-dot.active {
+      background: var(--primary-color);
+      transform: scale(1.3);
+    }
+    .step-dot.completed {
+      background: var(--secondary-color);
+    }
+    .subdomain-btn {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .subdomain-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-color);
+    }
+    .subdomain-btn.selected {
+      border-color: var(--primary-color);
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)) !important;
+    }
+  </style>
   <script>
     const defaultConfig = {
       primary_color: '#ec4899',
@@ -422,163 +509,871 @@
     };
 
     let config = { ...defaultConfig };
-    let currentView = 'main';
-    let selectedDomain = null;
-    let selectedSituations = [];
 
-    // Domain data with 8 situations each
-    const domains = [
-      {
-        id: 'body-feeling',
-        name: 'תחושת גוף',
-        emoji: '💪',
-        situations: [
-          { emoji: '😴', text: 'קשה לי להירדם בלילה ואני עייפה כל הזמן' },
-          { emoji: '🪞', text: 'לא מרגישה בנוח עם איך שאני נראית' },
-          { emoji: '🍕', text: 'אוכלת הרבה אוכל לא בריא כשאני במתח' },
-          { emoji: '🏃‍♀️', text: 'אין לי מוטיבציה להתאמן או לזוז' },
-          { emoji: '💧', text: 'שוכחת לשתות מים במהלך היום' },
-          { emoji: '🤕', text: 'יש לי הרבה כאבי ראש או כאבי בטן' },
-          { emoji: '⚡', text: 'מרגישה בלחץ ולא יודעת איך להירגע' },
-          { emoji: '🩸', text: 'הווסת מפריעה לי ללמוד או לעשות דברים' }
-        ]
-      },
-      {
-        id: 'digital-life',
-        name: 'חיים דיגיטליים',
-        emoji: '📱',
-        situations: [
-          { emoji: '👁️', text: 'אני במסך שעות ארוכות ולא מצליחה להפסיק' },
-          { emoji: '💬', text: 'רואה משהו ברשת שגורם לי להרגיש רע' },
-          { emoji: '🔔', text: 'התראות מפריעות לי כל הזמן' },
-          { emoji: '🔐', text: 'חוששת שהמידע שלי לא מוגן' },
-          { emoji: '😰', text: 'פחד מפספוס - חייבת לבדוק כל הזמן מה קורה' },
-          { emoji: '🎮', text: 'משחקים או אפליקציות גונבים לי את כל הזמן' },
-          { emoji: '👤', text: 'לא בטוחה מה בטוח לשתף ברשת' },
-          { emoji: '😓', text: 'משווה את עצמי לאחרים ברשתות' }
-        ]
-      },
-      {
-        id: 'learning-pressure',
-        name: 'למידה בלחץ',
-        emoji: '📚',
-        situations: [
-          { emoji: '⏰', text: 'דוחה מטלות עד הרגע האחרון' },
-          { emoji: '😵', text: 'קשה לי להתרכז בשיעור' },
-          { emoji: '🎯', text: 'לא מצליחה לארגן את הלימודים שלי' },
-          { emoji: '😰', text: 'לחץ לפני מבחנים' },
-          { emoji: '❓', text: 'לא מבינה ונבוך לי לשאול' },
-          { emoji: '📖', text: 'החומר לא מעניין אותי בכלל' },
-          { emoji: '💤', text: 'מגיעה עייפה לבית הספר' },
-          { emoji: '🎒', text: 'התיק כבד ומלא דברים שלא צריכה' }
-        ]
-      },
-      {
-        id: 'social-life',
-        name: 'חיים חברתיים',
-        emoji: '👭',
-        situations: [
-          { emoji: '😔', text: 'קשה לי להכיר חברות חדשות' },
-          { emoji: '💔', text: 'יש קונפליקט עם חברה טובה' },
-          { emoji: '🎭', text: 'לחץ להשתייך לקבוצה מסוימת' },
-          { emoji: '🤐', text: 'קשה לי להגיד מה אני באמת חושבת' },
-          { emoji: '😞', text: 'מרגישה בודדה גם כשיש הרבה אנשים' },
-          { emoji: '😣', text: 'בושה לבקש עזרה כשאני צריכה' },
-          { emoji: '👂', text: 'חברות לא באמת מקשיבות לי' },
-          { emoji: '😠', text: 'מישהו אומר עליי דברים לא נעימים' }
-        ]
-      },
-      {
-        id: 'daily-choices',
-        name: 'בחירות יום-יומיות',
-        emoji: '🤔',
-        situations: [
-          { emoji: '👗', text: 'לא יודעת מה ללבוש בבוקר' },
-          { emoji: '🍽️', text: 'קשה לי לבחור אוכל בריא' },
-          { emoji: '💸', text: 'לא יודעת איך לנהל את הכסף שלי' },
-          { emoji: '⏱️', text: 'קשה לי לנהל את הזמן שלי' },
-          { emoji: '🎯', text: 'לא יודעת מה חשוב לי באמת' },
-          { emoji: '🛍️', text: 'קונה דברים שאני לא באמת צריכה' },
-          { emoji: '♻️', text: 'רוצה להיות ירוקה יותר אבל לא יודעת איך' },
-          { emoji: '📺', text: 'בזבוז זמן על דברים שלא מקדמים אותי' }
-        ]
-      },
-      {
-        id: 'space-movement',
-        name: 'מרחב ותנועה',
-        emoji: '🚶‍♀️',
-        situations: [
-          { emoji: '🚌', text: 'הדרך לבית הספר ארוכה ומעייפת' },
-          { emoji: '🏙️', text: 'אין מקומות נחמדים להיות בהם בשכונה' },
-          { emoji: '🌙', text: 'לא מרגישה בטוחה לצאת בחושך' },
-          { emoji: '🚲', text: 'אין איפה לרכוב על אופניים בבטחה' },
-          { emoji: '🏞️', text: 'אין פארקים או שטחים ירוקים קרובים' },
-          { emoji: '♿', text: 'המרחב לא נגיש לכולן' },
-          { emoji: '🚦', text: 'מסוכן לחצות כבישים בשכונה' },
-          { emoji: '🏃‍♀️', text: 'אין מקום לעשות פעילות גופנית בחוץ' }
-        ]
-      },
-      {
-        id: 'my-home',
-        name: 'הבית שלי',
-        emoji: '🏠',
-        situations: [
-          { emoji: '🚪', text: 'אין לי פרטיות בבית' },
-          { emoji: '🔊', text: 'יותר מדי רעש - קשה להתרכז' },
-          { emoji: '👨‍👩‍👧', text: 'ויכוחים עם ההורים על כללים' },
-          { emoji: '🌀', text: 'החדר שלי תמיד מבולגן' },
-          { emoji: '📚', text: 'אין לי מקום שקט ללמוד' },
-          { emoji: '💡', text: 'התאורה בחדר לא טובה' },
-          { emoji: '❄️', text: 'קר או חם מדי בחדר שלי' },
-          { emoji: '🪑', text: 'הריהוט לא נוח או לא מתאים לי' }
-        ]
-      },
-      {
-        id: 'living-environment',
-        name: 'סביבה חיה',
-        emoji: '🌱',
-        situations: [
-          { emoji: '🌳', text: 'מעט עצים וצמחים בסביבה שלי' },
-          { emoji: '♻️', text: 'קשה למיין פסולת - אין פחים מתאימים' },
-          { emoji: '🚗', text: 'זיהום אוויר מרכבים' },
-          { emoji: '🦜', text: 'אין חיות או ציפורים בסביבה' },
-          { emoji: '🗑️', text: 'הרבה זבל ברחובות' },
-          { emoji: '💧', text: 'בזבוז מים בבית' },
-          { emoji: '🌍', text: 'רוצה לעשות משהו למען הסביבה אבל לא יודעת מה' },
-          { emoji: '🌿', text: 'לא מרגישה קשר לטבע' }
-        ]
-      },
-      {
-        id: 'leisure-creativity',
-        name: 'פנאי ויצירה',
-        emoji: '🎨',
-        situations: [
-          { emoji: '😐', text: 'משעמם לי - אין מה לעשות' },
-          { emoji: '🎭', text: 'רוצה לנסות דברים חדשים אבל אין אפשרות' },
-          { emoji: '💰', text: 'חוגים והפעלות יקרים מדי' },
-          { emoji: '🎵', text: 'אין מקום להתאמן או להופיע' },
-          { emoji: '✏️', text: 'רוצה ליצור אבל אין לי כלים או מקום' },
-          { emoji: '📖', text: 'קשה למצוא ספרים או תכנים שמעניינים אותי' },
-          { emoji: '👥', text: 'אין עם מי לעשות פעילויות' },
-          { emoji: '⏰', text: 'אין זמן לתחביבים' }
-        ]
-      },
-      {
-        id: 'looking-forward',
-        name: 'מבט קדימה',
-        emoji: '🔮',
-        situations: [
-          { emoji: '❓', text: 'לא יודעת מה אני רוצה להיות בעתיד' },
-          { emoji: '🎓', text: 'לחץ לגבי בחירת מסלול לימודים' },
-          { emoji: '😟', text: 'חוששת שלא אצליח להגשים חלומות' },
-          { emoji: '🌟', text: 'יש לי רעיון אבל לא יודעת איך להתחיל' },
-          { emoji: '💪', text: 'רוצה לפתח כישורים חדשים' },
-          { emoji: '🗺️', text: 'לא בטוחה באיזה כיוון להתקדם' },
-          { emoji: '🚀', text: 'רוצה לעשות שינוי אבל זה מפחיד' },
-          { emoji: '🤷‍♀️', text: 'מרגישה שאני צריכה לדעת הכל עכשיו' }
-        ]
-      }
+    const journeyData = {
+      names: [],
+      topicChoices: {},
+      primaryTopic: null,
+      answers: [],
+      domain: null,
+      subDomain: null,
+      decision: null,
+      currentStep: 1,
+      currentQuestionIndex: 0,
+      questionPath: []
+    };
+
+    const topicBoxes = [
+      { id: 'daily', emoji: '🪞', title: 'בחירות יומיומיות', subtitle: 'הדברים הקטנים שמעצבנים אותנו כל יום' },
+      { id: 'identity', emoji: '💬', title: 'זהות ומי אני', subtitle: 'מי אני כשאף אחד לא מסתכל?' },
+      { id: 'relationships', emoji: '👭', title: 'מערכות יחסים', subtitle: 'למה זה תמיד מסובך עם אנשים?' },
+      { id: 'boundaries', emoji: '🚧', title: 'גבולות', subtitle: 'איפה אני נגמרת ואיפה העולם מתחיל?' },
+      { id: 'inner-voice', emoji: '🗣️', title: 'קול פנימי', subtitle: 'מה הקול בראש שלי אומר לי?' }
     ];
+
+    const questionTrees = {
+      daily: [
+        {
+          text: 'מה יותר גורם לך להשתגע - כשאת יודעת מה הבעיה ואף אחד לא עושה שום דבר או כשאת מרגישה שמשהו לא בסדר אבל לא יכולה לשים את האצבע על מה?',
+          options: [
+            { text: 'יודעת ולא עושים', value: 'A', next: 'q2a' },
+            { text: 'מרגישה אבל לא מדייקת', value: 'B', next: 'q2b' }
+          ]
+        },
+        {
+          id: 'q2a',
+          text: 'את שמה לב שמשהו שבור - ואף אחד מסביב לא קולט. מה את עושה?',
+          options: [
+            { text: 'מנסה לתקן לבד', value: 'A' },
+            { text: 'מחפשת מישהי שתקלוט איתי', value: 'B' }
+          ]
+        },
+        {
+          id: 'q2b',
+          text: 'מתי זה הכי תופס אותך - בבוקר כשהכל מתחיל באמצע היום כשכבר אין כוח או בלילה כשהמחשבות לא עוזבות?',
+          options: [
+            { text: 'בבוקר', value: 'A' },
+            { text: 'באמצע היום', value: 'B' },
+            { text: 'בלילה', value: 'C' }
+          ]
+        },
+        {
+          text: 'תדמייני שיש לך כוח-על אחד: לראות בעיות שאף אחד לא רואה או להמציא פתרונות שאף אחד לא חשב עליהם?',
+          options: [
+            { text: 'לראות בעיות', value: 'A' },
+            { text: 'להמציא פתרונות', value: 'B' }
+          ]
+        },
+        {
+          text: 'מה יותר חשוב לך - שהפתרון יעבוד מושלם לאדם אחד או שיעבוד בסבירות לכולם?',
+          options: [
+            { text: 'מושלם לאחת', value: 'A' },
+            { text: 'בסבירות לכולם', value: 'B' }
+          ]
+        }
+      ],
+      identity: [
+        {
+          text: 'מתי הרגשת הכי חזקה - כשעשית משהו שאף אחד לא ציפה ממך או כשעשית בדיוק מה שרצית למרות שאמרו לך לא?',
+          options: [
+            { text: 'הפתעתי את כולם', value: 'A', next: 'q2a' },
+            { text: 'עשיתי למרות ה\'לא\'', value: 'B', next: 'q2b' }
+          ]
+        },
+        {
+          id: 'q2a',
+          text: 'את יותר מהסוג שמשנה חוקים או מהסוג שממציא משחק חדש לגמרי?',
+          options: [
+            { text: 'משנה חוקים', value: 'A' },
+            { text: 'ממציאה משחק חדש', value: 'B' }
+          ]
+        },
+        {
+          id: 'q2b',
+          text: 'הה\'לא\' שאמרו לך - הוא הגיע ממישהו שחשוב לך או ממישהו שבכלל לא מכיר אותך?',
+          options: [
+            { text: 'ממישהו חשוב', value: 'A' },
+            { text: 'ממישהו שלא מכיר אותי', value: 'B' }
+          ]
+        },
+        {
+          text: 'אם היית צריכה לבחור סופר-פאוור: להבין מה אנשים באמת מרגישים או לדעת לתרגם רגשות למילים מדויקות?',
+          options: [
+            { text: 'להבין רגשות', value: 'A' },
+            { text: 'לתרגם למילים', value: 'B' }
+          ]
+        },
+        {
+          text: 'מה מרגישה לך יותר כמו \'את\' - לעמוד מול כולם ולהוביל או לפעול מאחורי הקלעים ולהזיז את העולם בשקט?',
+          options: [
+            { text: 'להוביל מלפנים', value: 'A' },
+            { text: 'להזיז מאחורה', value: 'B' }
+          ]
+        }
+      ],
+      relationships: [
+        {
+          text: 'מה יותר קשה - כשחברה טובה לא מבינה אותך בכלל או כשמישהי זרה מבינה אותך יותר מדי?',
+          options: [
+            { text: 'חברה לא מבינה', value: 'A', next: 'q2a' },
+            { text: 'זרה מבינה יותר מדי', value: 'B', next: 'q2b' }
+          ]
+        },
+        {
+          id: 'q2a',
+          text: 'את מאלה שמדברות על מה שכואב או מאלה שמראות שהכל בסדר עד שמתפוצצות?',
+          options: [
+            { text: 'מדברת על זה', value: 'A' },
+            { text: 'מראה שהכל בסדר', value: 'B' }
+          ]
+        },
+        {
+          id: 'q2b',
+          text: 'למה זה מרגיש מוזר כשמישהי \'רואה\' אותך - כי את לא רגילה או כי את לא בטוחה שמה שהיא רואה זה באמת את?',
+          options: [
+            { text: 'לא רגילה', value: 'A' },
+            { text: 'לא בטוחה שזו אני', value: 'B' }
+          ]
+        },
+        {
+          text: 'מה יותר חשוב לך בחברות - שתהיה כיף או שתהיה אמיתית?',
+          options: [
+            { text: 'כיף', value: 'A' },
+            { text: 'אמיתית', value: 'B' }
+          ]
+        },
+        {
+          text: 'את יותר מאלה שנותנות ומחכות שיחזירו או מאלה שנותנות ושוכחות שגם מגיע להן?',
+          options: [
+            { text: 'נותנת ומחכה', value: 'A' },
+            { text: 'נותנת ושוכחת', value: 'B' }
+          ]
+        }
+      ],
+      boundaries: [
+        {
+          text: 'מתי הגבול שלך הכי נבדק - כשמישהו מבקש ממך משהו שלא בא לך או כשאת בעצמך לא יודעת מה הגבולות שלך?',
+          options: [
+            { text: 'מבקשים ממני', value: 'A', next: 'q2a' },
+            { text: 'לא יודעת מה הגבולות שלי', value: 'B', next: 'q2b' }
+          ]
+        },
+        {
+          id: 'q2a',
+          text: 'את מהסוג שאומר \'כן\' ואז מתחרטת או מהסוג שאומר \'לא\' ואז מרגישה אשמה?',
+          options: [
+            { text: 'אומרת כן ומתחרטת', value: 'A' },
+            { text: 'אומרת לא ומרגישה אשמה', value: 'B' }
+          ]
+        },
+        {
+          id: 'q2b',
+          text: 'את חושבת שגבולות הם דבר שמגלים לבד או דבר שמישהו צריך ללמד אותך?',
+          options: [
+            { text: 'מגלים לבד', value: 'A' },
+            { text: 'מישהו צריך ללמד', value: 'B' }
+          ]
+        },
+        {
+          text: 'הגבול הכי קשה לך לשמור - מול חברות מול הורים או מול עצמך?',
+          options: [
+            { text: 'מול חברות', value: 'A' },
+            { text: 'מול הורים', value: 'B' },
+            { text: 'מול עצמי', value: 'C' }
+          ]
+        },
+        {
+          text: 'מה מרגיש יותר חזק - לגלות גבול חדש שלא ידעת שיש לך או להצליח לשמור על גבול שתמיד נכשלת בו?',
+          options: [
+            { text: 'לגלות גבול חדש', value: 'A' },
+            { text: 'להצליח לשמור', value: 'B' }
+          ]
+        }
+      ],
+      'inner-voice': [
+        {
+          text: 'הקול בראש שלך - הוא יותר ביקורתי (\'למה עשית ככה?\') או יותר מפחיד (\'מה אם זה ייכשל?\')?',
+          options: [
+            { text: 'ביקורתי', value: 'A', next: 'q2a' },
+            { text: 'מפחיד', value: 'B', next: 'q2b' }
+          ]
+        },
+        {
+          id: 'q2a',
+          text: 'הביקורת הפנימית שלך - היא בקול של מישהו שאת מכירה או היא סתם קול שלך?',
+          options: [
+            { text: 'בקול של מישהו', value: 'A' },
+            { text: 'הקול שלי', value: 'B' }
+          ]
+        },
+        {
+          id: 'q2b',
+          text: 'את יותר מפחדת ממה שיגידו עליך או ממה שאת תגידי לעצמך?',
+          options: [
+            { text: 'ממה שיגידו', value: 'A' },
+            { text: 'ממה שאגיד לעצמי', value: 'B' }
+          ]
+        },
+        {
+          text: 'תדמייני שהקול הפנימי שלך הוא דמות - היא יותר דומה לעורכת דין שמחפשת טעויות או לאמא דואגנית שמנסה להגן עליך?',
+          options: [
+            { text: 'עורכת דין', value: 'A' },
+            { text: 'אמא דואגנית', value: 'B' }
+          ]
+        },
+        {
+          text: 'מה היית רוצה שהקול הפנימי שלך יגיד לך יותר - \'את מספיק טובה\' או \'את יכולה להרשות לעצמך לטעות\'?',
+          options: [
+            { text: 'את מספיק טובה', value: 'A' },
+            { text: 'מותר לך לטעות', value: 'B' }
+          ]
+        }
+      ]
+    };
+
+    const domainData = {
+      'body-feeling': { name: 'תחושת גוף', emoji: '💪', subs: ['שינה ואנרגיה', 'תזונה ולחץ', 'תנועה ומוטיבציה', 'תדמית גוף'] },
+      'digital-life': { name: 'חיים דיגיטליים', emoji: '📱', subs: ['זמן מסך', 'בטיחות ברשת', 'השוואה חברתית', 'פרטיות'] },
+      'learning-pressure': { name: 'למידה בלחץ', emoji: '📚', subs: ['ניהול זמן', 'מוטיבציה', 'לחץ מבחנים', 'קשיי ריכוז'] },
+      'social-life': { name: 'חיים חברתיים', emoji: '👭', subs: ['חברויות חדשות', 'קונפליקטים', 'שייכות', 'תקשורת'] },
+      'daily-choices': { name: 'בחירות יום-יומיות', emoji: '🤔', subs: ['ניהול כסף', 'ניהול זמן', 'צריכה מודעת', 'סדר עדיפויות'] },
+      'space-movement': { name: 'מרחב ותנועה', emoji: '🚶‍♀️', subs: ['בטיחות', 'נגישות', 'מרחבים ירוקים', 'תחבורה'] },
+      'my-home': { name: 'הבית שלי', emoji: '🏠', subs: ['פרטיות', 'סביבת למידה', 'יחסים בבית', 'סדר ואווירה'] },
+      'living-environment': { name: 'סביבה חיה', emoji: '🌱', subs: ['מיחזור', 'חיבור לטבע', 'זיהום', 'צריכת משאבים'] },
+      'leisure-creativity': { name: 'פנאי ויצירה', emoji: '🎨', subs: ['גישה לתחביבים', 'זמן פנוי', 'יצירה', 'פעילויות חברתיות'] },
+      'looking-forward': { name: 'מבט קדימה', emoji: '🔮', subs: ['בחירת מסלול', 'חששות', 'כישורים חדשים', 'יזמות'] }
+    };
+
+    function getStepIndicator(current, total) {
+      let dots = '';
+      for (let i = 1; i <= total; i++) {
+        let cls = 'step-dot';
+        if (i === current) cls += ' active';
+        else if (i < current) cls += ' completed';
+        dots += `<div class="${cls}"></div>`;
+      }
+      return `<div class="step-indicator">${dots}</div>`;
+    }
+
+    function transitionStep(html) {
+      const container = document.getElementById('journey-step-container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        container.innerHTML = html;
+        container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
+
+    function getParticipantForQuestion(qIndex) {
+      const names = journeyData.names;
+      return names[qIndex % names.length];
+    }
+
+    function showMainView() {
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('journey-view').style.display = 'none';
+    }
+
+    function showJourneyStep1() {
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('journey-view').style.display = 'block';
+      journeyData.currentStep = 1;
+      renderStep1();
+    }
+
+    function renderStep1() {
+      const html = `
+        ${getStepIndicator(1, 8)}
+        <div class="text-center mb-8">
+          <div class="text-6xl mb-4">👋</div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">מי יוצאת למסע?</h2>
+          <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">הכניסו את השמות של המשתתפות</p>
+        </div>
+        <div class="space-y-4 max-w-md mx-auto mb-8">
+          <div>
+            <label class="block text-sm font-bold mb-2" style="color: var(--text-color);">משתתפת 1 *</label>
+            <input type="text" id="name1" class="journey-input" placeholder="השם של משתתפת 1" required>
+          </div>
+          <div>
+            <label class="block text-sm font-bold mb-2" style="color: var(--text-color);">משתתפת 2 *</label>
+            <input type="text" id="name2" class="journey-input" placeholder="השם של משתתפת 2" required>
+          </div>
+          <div>
+            <label class="block text-sm font-bold mb-2" style="color: var(--text-color);">משתתפת 3 (לא חובה)</label>
+            <input type="text" id="name3" class="journey-input" placeholder="השם של משתתפת 3">
+          </div>
+        </div>
+        <div class="text-center">
+          <button onclick="submitNames()" class="pulse-btn text-white text-xl font-bold px-10 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+            יוצאות לדרך! 🚀
+          </button>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function submitNames() {
+      const n1 = document.getElementById('name1').value.trim();
+      const n2 = document.getElementById('name2').value.trim();
+      const n3 = document.getElementById('name3').value.trim();
+      if (!n1 || !n2) {
+        alert('חובה להכניס שמות לשתי משתתפות לפחות');
+        return;
+      }
+      journeyData.names = [n1, n2];
+      if (n3) journeyData.names.push(n3);
+
+      const namesStr = journeyData.names.join(' ו');
+      const html = `
+        ${getStepIndicator(1, 8)}
+        <div class="text-center">
+          <div class="text-6xl mb-6">✨</div>
+          <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
+            <h2 class="text-2xl font-bold mb-4 gradient-text">${namesStr}</h2>
+            <p class="text-lg mb-6" style="color: var(--text-color);">יצאתן למסע משותף. במהלך הדרך נצעד יחד ובכל שלב השאלה תפנה למישהי אחרת.</p>
+            <button onclick="renderStep2()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+              המשיכו →
+            </button>
+          </div>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function renderStep2() {
+      journeyData.currentStep = 2;
+      journeyData.topicChoices = {};
+      let currentPickerIndex = 0;
+
+      function renderPicker() {
+        const name = journeyData.names[currentPickerIndex];
+        const boxesHtml = topicBoxes.map(box => {
+          const alreadyChosen = Object.values(journeyData.topicChoices).includes(box.id);
+          const dimClass = alreadyChosen ? 'opacity-40 pointer-events-none' : '';
+          return `
+            <div class="topic-box stem-card rounded-2xl p-6 text-center ${dimClass}" style="background: var(--surface-color);" onclick="pickTopic('${box.id}')">
+              <div class="text-5xl mb-3">${box.emoji}</div>
+              <h3 class="text-lg font-bold mb-2" style="color: var(--text-color);">${box.title}</h3>
+              <p class="text-sm" style="color: var(--text-color); opacity: 0.7;">"${box.subtitle}"</p>
+            </div>
+          `;
+        }).join('');
+
+        const html = `
+          ${getStepIndicator(2, 8)}
+          <div class="text-center mb-6">
+            <div class="text-5xl mb-4">📦</div>
+            <h2 class="text-3xl font-bold mb-3 gradient-text">בחירת תיבת נושא</h2>
+            <p class="text-base mb-4" style="color: var(--text-color); opacity: 0.8;">כל אחת בתורה בוחרת תיבה שמסקרנת אותה. לא מה שצריך – אלא מה שמושך עכשיו.</p>
+            <div class="stem-card rounded-full px-6 py-3 inline-block" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));">
+              <p class="text-lg font-bold gradient-text">תור של ${name}</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            ${boxesHtml}
+          </div>
+        `;
+        transitionStep(html);
+      }
+
+      window.pickTopic = function(topicId) {
+        journeyData.topicChoices[journeyData.names[currentPickerIndex]] = topicId;
+        currentPickerIndex++;
+        if (currentPickerIndex < journeyData.names.length) {
+          renderPicker();
+        } else {
+          const counts = {};
+          Object.values(journeyData.topicChoices).forEach(t => { counts[t] = (counts[t] || 0) + 1; });
+          let maxCount = 0; let primary = null;
+          for (const [t, c] of Object.entries(counts)) { if (c > maxCount) { maxCount = c; primary = t; } }
+          if (!primary) primary = Object.values(journeyData.topicChoices)[0];
+          journeyData.primaryTopic = primary;
+
+          const topicObj = topicBoxes.find(b => b.id === primary);
+          const html = `
+            ${getStepIndicator(2, 8)}
+            <div class="text-center">
+              <div class="text-6xl mb-6">${topicObj.emoji}</div>
+              <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">${topicObj.title}</h2>
+                <p class="text-lg mb-6" style="color: var(--text-color);">מהנקודה הזו נתחיל להתפצל בשאלות כדי להגיע לדיוק משותף.</p>
+                <button onclick="startQuestions()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+                  בואו נתחיל! 🎯
+                </button>
+              </div>
+            </div>
+          `;
+          transitionStep(html);
+        }
+      };
+
+      renderPicker();
+    }
+
+    function startQuestions() {
+      journeyData.currentStep = 3;
+      journeyData.answers = [];
+      journeyData.currentQuestionIndex = 0;
+      journeyData.questionPath = [];
+
+      const tree = questionTrees[journeyData.primaryTopic];
+      journeyData.questionPath.push(0);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const tree = questionTrees[journeyData.primaryTopic];
+      const qIdx = journeyData.questionPath[journeyData.questionPath.length - 1];
+      const question = tree[qIdx];
+      const name = getParticipantForQuestion(journeyData.currentQuestionIndex);
+
+      const optionsHtml = question.options.map((opt, i) => `
+        <div class="answer-btn stem-card rounded-2xl p-5 text-center" style="background: var(--surface-color);" onclick="answerQuestion(${i})">
+          <p class="text-lg font-semibold" style="color: var(--text-color);">${opt.text}</p>
+        </div>
+      `).join('');
+
+      const html = `
+        ${getStepIndicator(3, 8)}
+        <div class="text-center mb-6">
+          <div class="text-5xl mb-4">💭</div>
+          <div class="stem-card rounded-full px-6 py-3 inline-block mb-4" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));">
+            <p class="text-lg font-bold gradient-text">שאלה ל-${name}</p>
+          </div>
+          <div class="stem-card rounded-2xl p-8 mb-6" style="background: var(--surface-color);">
+            <p class="text-xl leading-relaxed" style="color: var(--text-color);">${question.text}</p>
+          </div>
+        </div>
+        <div class="space-y-4 max-w-lg mx-auto">
+          ${optionsHtml}
+        </div>
+        <div class="text-center mt-6">
+          <p class="text-sm" style="color: var(--text-color); opacity: 0.5;">שאלה ${journeyData.currentQuestionIndex + 1}</p>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function answerQuestion(optionIndex) {
+      const tree = questionTrees[journeyData.primaryTopic];
+      const qIdx = journeyData.questionPath[journeyData.questionPath.length - 1];
+      const question = tree[qIdx];
+      const chosen = question.options[optionIndex];
+
+      journeyData.answers.push({ question: question.text, answer: chosen.text, value: chosen.value });
+      journeyData.currentQuestionIndex++;
+
+      if (chosen.next) {
+        const nextIdx = tree.findIndex(q => q.id === chosen.next);
+        if (nextIdx !== -1) {
+          journeyData.questionPath.push(nextIdx);
+          renderQuestion();
+          return;
+        }
+      }
+
+      const lastLinearIdx = journeyData.questionPath[journeyData.questionPath.length - 1];
+      let nextLinearIdx = -1;
+      for (let i = lastLinearIdx + 1; i < tree.length; i++) {
+        if (!tree[i].id) { nextLinearIdx = i; break; }
+      }
+
+      if (nextLinearIdx !== -1 && journeyData.currentQuestionIndex < 4) {
+        journeyData.questionPath.push(nextLinearIdx);
+        renderQuestion();
+      } else {
+        renderStep4();
+      }
+    }
+
+    function determineDomain() {
+      const topic = journeyData.primaryTopic;
+      const answers = journeyData.answers.map(a => a.value);
+
+      const mapping = {
+        daily: () => {
+          if (answers.includes('C') || (answers[0] === 'B' && answers.length > 1 && answers[1] === 'C')) return 'body-feeling';
+          if (answers.includes('B') && answers[answers.length - 1] === 'B') return 'living-environment';
+          return 'daily-choices';
+        },
+        identity: () => {
+          if (answers[answers.length - 1] === 'B') return 'leisure-creativity';
+          return 'looking-forward';
+        },
+        relationships: () => {
+          if (answers[0] === 'A' && answers.some(a => a === 'B')) return 'my-home';
+          return 'social-life';
+        },
+        boundaries: () => {
+          if (answers.includes('C')) return 'space-movement';
+          if (answers[0] === 'B') return 'learning-pressure';
+          return 'social-life';
+        },
+        'inner-voice': () => {
+          if (answers[0] === 'A' && answers.some(a => a === 'A')) return 'digital-life';
+          if (answers[0] === 'B') return 'learning-pressure';
+          return 'looking-forward';
+        }
+      };
+
+      return mapping[topic] ? mapping[topic]() : 'daily-choices';
+    }
+
+    function renderStep4() {
+      journeyData.currentStep = 4;
+      const domainId = determineDomain();
+      journeyData.domain = domainId;
+      const domain = domainData[domainId];
+
+      const html = `
+        ${getStepIndicator(4, 8)}
+        <div class="text-center">
+          <div class="text-7xl mb-6">${domain.emoji}</div>
+          <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
+            <p class="text-lg mb-4" style="color: var(--text-color);">כשמחברים את כל הבחירות שלכן עולה כאן נושא מרכזי:</p>
+            <h2 class="text-3xl font-bold mb-4 gradient-text">${domain.name} ${domain.emoji}</h2>
+            <p class="text-base mb-6" style="color: var(--text-color); opacity: 0.7;">זהו מיקוד קבוצתי לא תיוג אישי.</p>
+            <button onclick="renderStep5()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+              בואו נדייק עוד 🔍
+            </button>
+          </div>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function renderStep5() {
+      journeyData.currentStep = 5;
+      const domain = domainData[journeyData.domain];
+      const name = journeyData.names[journeyData.names.length - 1];
+
+      const subsHtml = domain.subs.map((sub, i) => `
+        <div class="subdomain-btn stem-card rounded-2xl p-5 text-center" style="background: var(--surface-color);" onclick="pickSubdomain(${i})">
+          <p class="text-lg font-semibold" style="color: var(--text-color);">${sub}</p>
+        </div>
+      `).join('');
+
+      const html = `
+        ${getStepIndicator(5, 8)}
+        <div class="text-center mb-6">
+          <div class="text-5xl mb-4">${domain.emoji}</div>
+          <h2 class="text-2xl font-bold mb-3 gradient-text">${domain.name}</h2>
+          <div class="stem-card rounded-full px-6 py-3 inline-block mb-4" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));">
+            <p class="text-lg font-bold gradient-text">שאלה ל-${name}</p>
+          </div>
+          <p class="text-lg mb-6" style="color: var(--text-color);">בתוך התחום הזה מה הכי מדויק למקום שאתן נמצאות בו עכשיו?</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+          ${subsHtml}
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function pickSubdomain(index) {
+      const domain = domainData[journeyData.domain];
+      journeyData.subDomain = domain.subs[index];
+
+      const cards = document.querySelectorAll('.subdomain-btn');
+      cards.forEach((c, i) => {
+        if (i === index) c.classList.add('selected');
+        else c.classList.remove('selected');
+      });
+
+      setTimeout(() => renderStep6(), 600);
+    }
+
+    function renderStep6() {
+      journeyData.currentStep = 6;
+      const options = [
+        { emoji: '👀', text: 'לשים לב למשהו', value: 'notice' },
+        { emoji: '💬', text: 'לדבר עליו יותר', value: 'talk' },
+        { emoji: '👣', text: 'לנסות צעד קטן', value: 'step' }
+      ];
+
+      const optionsHtml = options.map(opt => `
+        <div class="answer-btn stem-card rounded-2xl p-6 text-center" style="background: var(--surface-color);" onclick="pickDecision('${opt.value}', '${opt.emoji} ${opt.text}')">
+          <div class="text-4xl mb-3">${opt.emoji}</div>
+          <p class="text-lg font-semibold" style="color: var(--text-color);">${opt.text}</p>
+        </div>
+      `).join('');
+
+      const html = `
+        ${getStepIndicator(6, 8)}
+        <div class="text-center mb-6">
+          <div class="text-5xl mb-4">🤝</div>
+          <h2 class="text-2xl font-bold mb-4 gradient-text">החלטה משותפת</h2>
+          <p class="text-lg mb-6" style="color: var(--text-color);">מתוך כל מה שעלה כאן מה נבחר לקחת איתנו הלאה?</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+          ${optionsHtml}
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function pickDecision(value, label) {
+      journeyData.decision = label;
+
+      const html = `
+        ${getStepIndicator(6, 8)}
+        <div class="text-center">
+          <div class="text-6xl mb-6">💫</div>
+          <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
+            <h2 class="text-2xl font-bold mb-4 gradient-text">ההחלטה המשותפת שלכן</h2>
+            <p class="text-xl mb-6" style="color: var(--text-color);">${label}</p>
+            <button onclick="renderStep7()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+              המשיכו →
+            </button>
+          </div>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function renderStep7() {
+      journeyData.currentStep = 7;
+      const html = `
+        ${getStepIndicator(7, 8)}
+        <div class="text-center">
+          <div class="text-6xl mb-6">🌟</div>
+          <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+            <div class="text-white">
+              <p class="text-xl mb-6 leading-relaxed">לא פתרתן הכול. אבל בחרתן לצעוד יחד לדייק ולקבל החלטה.</p>
+              <button onclick="renderStep8()" class="bg-white text-lg font-bold px-10 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="color: var(--primary-color);">
+                הדרך שלנו – יחד 💜
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function renderStep8() {
+      journeyData.currentStep = 8;
+      const domain = domainData[journeyData.domain];
+      const topicObj = topicBoxes.find(b => b.id === journeyData.primaryTopic);
+      const namesStr = journeyData.names.join(' ו');
+
+      const html = `
+        ${getStepIndicator(8, 8)}
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4">📄</div>
+          <h2 class="text-3xl font-bold mb-2 gradient-text">הדרך שלנו – יחד</h2>
+          <p class="text-base mb-6" style="color: var(--text-color); opacity: 0.7;">הסיכום שלכן מוכן!</p>
+        </div>
+        <div class="stem-card rounded-3xl p-8 mb-6" style="background: var(--surface-color);">
+          <div class="space-y-4 text-center">
+            <p class="text-lg" style="color: var(--text-color);"><strong>משתתפות:</strong> ${namesStr}</p>
+            <p class="text-lg" style="color: var(--text-color);"><strong>תיבת נושא:</strong> ${topicObj.emoji} ${topicObj.title}</p>
+            <p class="text-lg" style="color: var(--text-color);"><strong>תחום:</strong> ${domain.emoji} ${domain.name}</p>
+            <p class="text-lg" style="color: var(--text-color);"><strong>תת-תחום:</strong> ${journeyData.subDomain}</p>
+            <p class="text-lg" style="color: var(--text-color);"><strong>החלטה:</strong> ${journeyData.decision}</p>
+          </div>
+        </div>
+        <div class="text-center">
+          <button id="generate-pdf-btn" onclick="generatePDF()" class="pulse-btn text-white text-xl font-bold px-10 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+            הורידו את ה-PDF 📥
+          </button>
+          <p id="pdf-loading" class="mt-4 text-base hidden" style="color: var(--text-color); opacity: 0.7;">⏳ מכינות את ה-PDF שלכן...</p>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    let logoDataUrl = null;
+    (function preloadLogo() {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        const c = document.createElement('canvas');
+        c.width = img.width; c.height = img.height;
+        c.getContext('2d').drawImage(img, 0, 0);
+        try { logoDataUrl = c.toDataURL('image/png'); } catch(e) {}
+      };
+      img.src = '/favicon.png';
+    })();
+
+    async function generatePDF() {
+      const btn = document.getElementById('generate-pdf-btn');
+      const loading = document.getElementById('pdf-loading');
+      btn.style.display = 'none';
+      loading.classList.remove('hidden');
+
+      const domain = domainData[journeyData.domain];
+      const topicObj = topicBoxes.find(b => b.id === journeyData.primaryTopic);
+      const namesStr = journeyData.names.join(' ו');
+      const renderArea = document.getElementById('pdf-render-area');
+      const logoSrc = logoDataUrl || '/favicon.png';
+
+      const pages = [];
+
+      pages.push(`
+        <div class="pdf-page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+          <div class="pdf-gradient-bar"></div>
+          <div style="margin-bottom: 40px;">
+            <img src="${logoSrc}" style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px;" onerror="this.style.display='none'">
+          </div>
+          <h1 style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;">הדרך שלנו – יחד</h1>
+          <p style="font-size: 22px; color: #6b7280; margin-bottom: 60px;">מסע משותף של נשים פורצות דרך</p>
+          <div style="background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(139,92,246,0.1)); border-radius: 20px; padding: 30px 50px; margin-bottom: 40px;">
+            <p style="font-size: 28px; font-weight: 600; color: #1f2937;">${namesStr}</p>
+          </div>
+          <p style="font-size: 16px; color: #9ca3af; margin-top: auto; padding-top: 40px;">תוכנית פורצות דרך © 2026</p>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      pages.push(`
+        <div class="pdf-page">
+          <div class="pdf-gradient-bar"></div>
+          <div style="padding-top: 40px;">
+            <div style="text-align: center; margin-bottom: 50px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">🤝</div>
+              <h2 style="font-size: 32px; font-weight: 700; color: #ec4899; margin-bottom: 8px;">נקודת המפגש</h2>
+              <div style="width: 80px; height: 3px; background: linear-gradient(90deg, #ec4899, #8b5cf6); margin: 0 auto;"></div>
+            </div>
+            <div style="background: #fdf4ff; border-radius: 16px; padding: 30px; margin-bottom: 30px;">
+              <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 16px;">למה יצאנו למסע משותף?</h3>
+              <p style="font-size: 18px; color: #4b5563; line-height: 1.8;">כי יש דברים שאי אפשר לגלות לבד. כי כשצועדות יחד רואים יותר רחוק. כי השיח בין נשים הוא כוח שמשנה עולמות.</p>
+            </div>
+            <div style="background: white; border: 2px solid #ec4899; border-radius: 16px; padding: 30px; text-align: center;">
+              <p style="font-size: 16px; color: #9ca3af; margin-bottom: 8px;">התיבה שנבחרה</p>
+              <p style="font-size: 26px; font-weight: 700; color: #1f2937;">${topicObj.emoji} ${topicObj.title}</p>
+              <p style="font-size: 18px; color: #6b7280; margin-top: 8px;">"${topicObj.subtitle}"</p>
+            </div>
+          </div>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      const answersHtml = journeyData.answers.map((a, i) => `
+        <div style="background: ${i % 2 === 0 ? '#fdf4ff' : '#f5f3ff'}; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;">
+          <p style="font-size: 15px; color: #9ca3af; margin-bottom: 4px;">שאלה ${i + 1}</p>
+          <p style="font-size: 17px; color: #1f2937; margin-bottom: 6px;">${a.question}</p>
+          <p style="font-size: 17px; font-weight: 600; color: #ec4899;">← ${a.answer}</p>
+        </div>
+      `).join('');
+
+      pages.push(`
+        <div class="pdf-page">
+          <div class="pdf-gradient-bar"></div>
+          <div style="padding-top: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">🛤️</div>
+              <h2 style="font-size: 32px; font-weight: 700; color: #8b5cf6; margin-bottom: 8px;">הדרך שעברנו</h2>
+              <div style="width: 80px; height: 3px; background: linear-gradient(90deg, #8b5cf6, #ec4899); margin: 0 auto;"></div>
+            </div>
+            <p style="font-size: 18px; color: #4b5563; text-align: center; margin-bottom: 30px; line-height: 1.6;">צעדנו יחד דרך שאלות שגרמו לנו לחשוב להזדהות ולדייק. הקשבנו אחת לשנייה ומצאנו את המקום שבו כולנו נפגשות.</p>
+            ${answersHtml}
+          </div>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      pages.push(`
+        <div class="pdf-page" style="display: flex; flex-direction: column;">
+          <div class="pdf-gradient-bar"></div>
+          <div style="padding-top: 60px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <div style="text-align: center; margin-bottom: 50px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+              <h2 style="font-size: 32px; font-weight: 700; color: #ec4899; margin-bottom: 8px;">הדיוק שהגענו אליו</h2>
+              <div style="width: 80px; height: 3px; background: linear-gradient(90deg, #ec4899, #8b5cf6); margin: 0 auto;"></div>
+            </div>
+            <div style="background: linear-gradient(135deg, rgba(236,72,153,0.08), rgba(139,92,246,0.08)); border-radius: 24px; padding: 50px; text-align: center; margin-bottom: 30px;">
+              <div style="font-size: 64px; margin-bottom: 20px;">${domain.emoji}</div>
+              <p style="font-size: 16px; color: #9ca3af; margin-bottom: 8px;">התחום המרכזי</p>
+              <p style="font-size: 30px; font-weight: 700; color: #1f2937; margin-bottom: 24px;">${domain.name}</p>
+              <div style="width: 60px; height: 2px; background: #ec4899; margin: 0 auto 24px;"></div>
+              <p style="font-size: 16px; color: #9ca3af; margin-bottom: 8px;">תת-תחום</p>
+              <p style="font-size: 24px; font-weight: 600; color: #8b5cf6;">${journeyData.subDomain}</p>
+            </div>
+            <p style="font-size: 18px; color: #6b7280; text-align: center; line-height: 1.6;">זהו מיקוד קבוצתי שנולד מתוך שיח והקשבה הדדית. לא תיוג אישי אלא נקודת מוצא משותפת להמשך הדרך.</p>
+          </div>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      pages.push(`
+        <div class="pdf-page" style="display: flex; flex-direction: column;">
+          <div class="pdf-gradient-bar"></div>
+          <div style="padding-top: 60px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <div style="text-align: center; margin-bottom: 50px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">💫</div>
+              <h2 style="font-size: 32px; font-weight: 700; color: #8b5cf6; margin-bottom: 8px;">ההחלטה</h2>
+              <div style="width: 80px; height: 3px; background: linear-gradient(90deg, #8b5cf6, #ec4899); margin: 0 auto;"></div>
+            </div>
+            <div style="background: white; border: 3px solid #ec4899; border-radius: 24px; padding: 50px; text-align: center; margin-bottom: 40px;">
+              <p style="font-size: 18px; color: #9ca3af; margin-bottom: 16px;">ההחלטה המשותפת שלנו</p>
+              <p style="font-size: 28px; font-weight: 700; color: #1f2937;">${journeyData.decision}</p>
+            </div>
+            <div style="background: #fdf4ff; border-radius: 16px; padding: 30px; text-align: center;">
+              <p style="font-size: 18px; color: #4b5563; line-height: 1.8;">לפעמים ההחלטה הכי חשובה היא לא מה עושים אלא מה בוחרים לשים לב אליו. זה השלב שבו מתחיל שינוי אמיתי – לא בתכנון מושלם אלא בצעד ראשון יחד.</p>
+            </div>
+          </div>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      pages.push(`
+        <div class="pdf-page" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+          <div class="pdf-gradient-bar"></div>
+          <div style="max-width: 500px;">
+            <div style="font-size: 48px; margin-bottom: 30px;">✨</div>
+            <h2 style="font-size: 32px; font-weight: 700; background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 30px;">המסע הוא ההתחלה</h2>
+            <p style="font-size: 20px; color: #4b5563; line-height: 1.8; margin-bottom: 40px;">מנהיגות אמיתית לא מתחילה מלדעת הכל. היא מתחילה מהרגע שבו בוחרים לצעוד יחד לשאול שאלות אמיצות ולהקשיב באמת.</p>
+            <p style="font-size: 20px; color: #4b5563; line-height: 1.8; margin-bottom: 40px;">עשיתן את הצעד הזה היום. ביחד.</p>
+            <div style="background: linear-gradient(135deg, #ec4899, #8b5cf6); border-radius: 16px; padding: 24px 40px; margin-bottom: 50px;">
+              <p style="font-size: 22px; font-weight: 600; color: white;">המשיכו לפרוץ דרך 💜</p>
+            </div>
+            <img src="${logoSrc}" style="width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 12px;" onerror="this.style.display='none'">
+            <p style="font-size: 14px; color: #9ca3af;">תוכנית פורצות דרך © 2026</p>
+          </div>
+          <div class="pdf-bottom-bar"></div>
+        </div>
+      `);
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = 210;
+        const pdfHeight = 297;
+
+        for (let i = 0; i < pages.length; i++) {
+          renderArea.innerHTML = pages[i];
+          const pageEl = renderArea.firstElementChild;
+
+          await new Promise(r => setTimeout(r, 200));
+
+          const canvas = await html2canvas(pageEl, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            width: 794,
+            height: 1123
+          });
+
+          const imgData = canvas.toDataURL('image/jpeg', 0.95);
+          if (i > 0) pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        }
+
+        renderArea.innerHTML = '';
+        pdf.save('הדרך-שלנו-יחד.pdf');
+      } catch (err) {
+        console.error('PDF generation error:', err);
+        alert('אירעה שגיאה ביצירת ה-PDF. נסו שוב.');
+      }
+
+      btn.style.display = 'inline-block';
+      loading.classList.add('hidden');
+    }
 
     function updateCSSVariables(cfg) {
       document.documentElement.style.setProperty('--primary-color', cfg.primary_color || defaultConfig.primary_color);
@@ -588,261 +1383,40 @@
       document.documentElement.style.setProperty('--surface-color', cfg.surface_color || defaultConfig.surface_color);
     }
 
-    function showMainView() {
-      currentView = 'main';
-      document.getElementById('main-content').style.display = 'block';
-      document.getElementById('domains-view').style.display = 'none';
-      document.getElementById('situations-view').style.display = 'none';
-    }
-
-    function showDomainsView() {
-      currentView = 'domains';
-      document.getElementById('main-content').style.display = 'none';
-      document.getElementById('domains-view').style.display = 'block';
-      document.getElementById('situations-view').style.display = 'none';
-      
-      // Render domains
-      const container = document.getElementById('domains-container');
-      container.innerHTML = domains.map(domain => `
-        <div class="stem-card rounded-2xl p-6 cursor-pointer transform hover:scale-105 transition-all duration-300" 
-             style="background: var(--surface-color);"
-             onclick="showSituationsView('${domain.id}')">
-          <div class="text-6xl mb-4 text-center">${domain.emoji}</div>
-          <h3 class="text-xl font-bold text-center gradient-text">${domain.name}</h3>
-          <p class="text-center text-sm mt-2 opacity-70" style="color: var(--text-color);">
-            לחצי לבחירת מצבים
-          </p>
-        </div>
-      `).join('');
-    }
-
-    function showSituationsView(domainId) {
-      currentView = 'situations';
-      selectedDomain = domains.find(d => d.id === domainId);
-      selectedSituations = [];
-      
-      document.getElementById('main-content').style.display = 'none';
-      document.getElementById('domains-view').style.display = 'none';
-      document.getElementById('situations-view').style.display = 'block';
-      
-      // Update header
-      document.getElementById('domain-emoji').textContent = selectedDomain.emoji;
-      document.getElementById('domain-name').textContent = selectedDomain.name;
-      
-      // Render situations
-      const container = document.getElementById('situations-container');
-      container.innerHTML = selectedDomain.situations.map((situation, index) => `
-        <div class="situation-card stem-card rounded-2xl p-6 cursor-pointer transition-all duration-300" 
-             style="background: var(--surface-color);"
-             data-index="${index}"
-             onclick="toggleSituation(${index})">
-          <div class="flex items-center gap-4">
-            <div class="text-4xl">${situation.emoji}</div>
-            <p class="text-base flex-1" style="color: var(--text-color);">${situation.text}</p>
-            <div class="checkmark hidden">✓</div>
-          </div>
-        </div>
-      `).join('');
-      
-      // Reset continue button
-      document.getElementById('continue-btn').style.display = 'inline-block';
-      document.getElementById('back-to-domains-btn').textContent = '← חזרה לבחירת תחום';
-      
-      // Remove any extra buttons
-      const actionsDiv = document.getElementById('situations-actions');
-      while (actionsDiv.children.length > 2) {
-        actionsDiv.removeChild(actionsDiv.lastChild);
-      }
-      
-      updateContinueButton();
-    }
-
-    function toggleSituation(index) {
-      const situationIndex = selectedSituations.indexOf(index);
-      const card = document.querySelector(`[data-index="${index}"]`);
-      const checkmark = card.querySelector('.checkmark');
-      
-      if (situationIndex === -1) {
-        selectedSituations.push(index);
-        card.style.borderColor = config.primary_color || defaultConfig.primary_color;
-        card.style.borderWidth = '3px';
-        card.style.borderStyle = 'solid';
-        checkmark.classList.remove('hidden');
-        checkmark.style.color = config.primary_color || defaultConfig.primary_color;
-        checkmark.style.fontSize = '2rem';
-        checkmark.style.fontWeight = 'bold';
-      } else {
-        selectedSituations.splice(situationIndex, 1);
-        card.style.border = 'none';
-        checkmark.classList.add('hidden');
-      }
-      
-      updateContinueButton();
-    }
-
-    function updateContinueButton() {
-      const btn = document.getElementById('continue-btn');
-      const count = document.getElementById('selected-count');
-      
-      count.textContent = selectedSituations.length;
-      
-      if (selectedSituations.length > 0) {
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        btn.style.cursor = 'pointer';
-      } else {
-        btn.disabled = true;
-        btn.style.opacity = '0.5';
-        btn.style.cursor = 'not-allowed';
-      }
-    }
-
-    function continueToProblemDefinition() {
-      if (selectedSituations.length === 0) return;
-      
-      const selectedSituationTexts = selectedSituations.map(i => selectedDomain.situations[i]);
-      
-      // Create summary message
-      const summaryContainer = document.getElementById('situations-container');
-      summaryContainer.innerHTML = `
-        <div class="stem-card rounded-2xl p-8 text-center col-span-2" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15)); border: 3px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
-          <div class="text-6xl mb-6">🎯</div>
-          <h3 class="text-2xl font-bold mb-4 gradient-text">מעולה! בחרת ${selectedSituations.length} מצבים</h3>
-          <p class="text-lg mb-6" style="color: var(--text-color);">
-            עכשיו את מוכנה להתחיל את התהליך התכנוני שיוביל לפיתוח מוצר טכנולוגי
-          </p>
-          <div class="space-y-3 mb-6">
-            ${selectedSituationTexts.map(s => `
-              <div class="bg-white/50 rounded-xl p-4 flex items-center gap-3">
-                <span class="text-2xl">${s.emoji}</span>
-                <span style="color: var(--text-color);">${s.text}</span>
-              </div>
-            `).join('')}
-          </div>
-          <div class="stem-card rounded-xl p-6 mb-6" style="background: rgba(255, 255, 255, 0.7); border: 2px solid var(--primary-color);">
-            <p class="text-lg font-bold mb-2" style="color: var(--text-color);">
-              🚀 השלב הבא
-            </p>
-            <p class="text-base" style="color: var(--text-color); opacity: 0.9;">
-              בחרי אחד מהמצבים האלה והפכי אותו לבעיה מוגדרת שאפשר לפתור באמצעות טכנולוגיה 💡
-            </p>
-          </div>
-        </div>
-      `;
-      
-      document.getElementById('continue-btn').style.display = 'none';
-      document.getElementById('back-to-domains-btn').textContent = 'בחרי מצבים נוספים';
-      
-      // Add new action button
-      const actionsDiv = document.getElementById('situations-actions');
-      const newBtn = document.createElement('button');
-      newBtn.textContent = 'התחילי להגדיר בעיה';
-      newBtn.className = 'pulse-btn text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300';
-      newBtn.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
-      newBtn.onclick = () => {
-        // This is a placeholder for future functionality
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'mt-6 p-6 rounded-2xl text-center';
-        messageDiv.style.background = 'var(--surface-color)';
-        messageDiv.style.border = '2px solid var(--primary-color)';
-        messageDiv.innerHTML = `
-          <p class="text-xl font-bold gradient-text mb-3">🚀 השלב הבא בפיתוח!</p>
-          <p class="mt-2" style="color: var(--text-color);">
-            כאן תתחיל עבודה על הגדרת הבעיה והתהליך התכנוני שיוביל לפיתוח המוצר הטכנולוגי שלך
-          </p>
-        `;
-        summaryContainer.appendChild(messageDiv);
-        newBtn.style.display = 'none';
-      };
-      actionsDiv.appendChild(newBtn);
-    }
-
     async function onConfigChange(cfg) {
       config = { ...defaultConfig, ...cfg };
-      
       updateCSSVariables(config);
-      
+
       const fontFamily = config.font_family || defaultConfig.font_family;
       document.querySelectorAll('*').forEach(el => {
-        if (el.style) {
-          el.style.fontFamily = `'${fontFamily}', sans-serif`;
-        }
+        if (el.style) el.style.fontFamily = `'${fontFamily}', sans-serif`;
       });
-      
+
       const baseSize = config.font_size || defaultConfig.font_size;
       document.documentElement.style.fontSize = `${baseSize}px`;
-      
+
       const mainTitle = document.getElementById('main-title');
-      if (mainTitle) {
-        mainTitle.textContent = config.main_title || defaultConfig.main_title;
-      }
-      
+      if (mainTitle) mainTitle.textContent = config.main_title || defaultConfig.main_title;
+
       const ctaButton = document.getElementById('cta-button');
       if (ctaButton) {
         ctaButton.textContent = config.button_text || defaultConfig.button_text;
         ctaButton.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
-      }
-      
-      const continueBtn = document.getElementById('continue-btn');
-      if (continueBtn && !continueBtn.disabled) {
-        continueBtn.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
       }
     }
 
     function mapToCapabilities(cfg) {
       return {
         recolorables: [
-          {
-            get: () => cfg.background_color || defaultConfig.background_color,
-            set: (value) => {
-              config.background_color = value;
-              window.elementSdk.setConfig({ background_color: value });
-            }
-          },
-          {
-            get: () => cfg.surface_color || defaultConfig.surface_color,
-            set: (value) => {
-              config.surface_color = value;
-              window.elementSdk.setConfig({ surface_color: value });
-            }
-          },
-          {
-            get: () => cfg.text_color || defaultConfig.text_color,
-            set: (value) => {
-              config.text_color = value;
-              window.elementSdk.setConfig({ text_color: value });
-            }
-          },
-          {
-            get: () => cfg.primary_color || defaultConfig.primary_color,
-            set: (value) => {
-              config.primary_color = value;
-              window.elementSdk.setConfig({ primary_color: value });
-            }
-          },
-          {
-            get: () => cfg.secondary_color || defaultConfig.secondary_color,
-            set: (value) => {
-              config.secondary_color = value;
-              window.elementSdk.setConfig({ secondary_color: value });
-            }
-          }
+          { get: () => cfg.background_color || defaultConfig.background_color, set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+          { get: () => cfg.surface_color || defaultConfig.surface_color, set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); } },
+          { get: () => cfg.text_color || defaultConfig.text_color, set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); } },
+          { get: () => cfg.primary_color || defaultConfig.primary_color, set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); } },
+          { get: () => cfg.secondary_color || defaultConfig.secondary_color, set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); } }
         ],
         borderables: [],
-        fontEditable: {
-          get: () => cfg.font_family || defaultConfig.font_family,
-          set: (value) => {
-            config.font_family = value;
-            window.elementSdk.setConfig({ font_family: value });
-          }
-        },
-        fontSizeable: {
-          get: () => cfg.font_size || defaultConfig.font_size,
-          set: (value) => {
-            config.font_size = value;
-            window.elementSdk.setConfig({ font_size: value });
-          }
-        }
+        fontEditable: { get: () => cfg.font_family || defaultConfig.font_family, set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); } },
+        fontSizeable: { get: () => cfg.font_size || defaultConfig.font_size, set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); } }
       };
     }
 
@@ -854,18 +1428,13 @@
     }
 
     if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities,
-        mapToEditPanelValues
-      });
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
     }
 
     document.getElementById('cta-button').addEventListener('click', () => {
-      showDomainsView();
+      showJourneyStep1();
       document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c3e3de5962fc22f',t:'MTc2OTQxMTk2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ </body>
 </html>
