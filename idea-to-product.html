@@ -1203,7 +1203,7 @@
     function renderStep5() {
       journeyData.currentStep = 5;
       const domain = domainData[journeyData.domain];
-      const name = journeyData.names[journeyData.names.length - 1];
+      const namesStr = journeyData.names.join(' ו');
 
       const subsHtml = domain.subs.map((sub, i) => `
         <div class="subdomain-btn stem-card rounded-2xl p-5 text-center" style="background: var(--surface-color);" onclick="pickSubdomain(${i})">
@@ -1217,9 +1217,9 @@
           <div class="text-5xl mb-4">${domain.emoji}</div>
           <h2 class="text-2xl font-bold mb-3 gradient-text">${domain.name}</h2>
           <div class="stem-card rounded-full px-6 py-3 inline-block mb-4" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));">
-            <p class="text-lg font-bold gradient-text">שאלה ל-${name}</p>
+            <p class="text-lg font-bold gradient-text">🤝 החלטה משותפת של ${namesStr}</p>
           </div>
-          <p class="text-lg mb-6" style="color: var(--text-color);">בתוך התחום הזה מה הכי מדויק למקום שאתן נמצאות בו עכשיו?</p>
+          <p class="text-lg mb-6" style="color: var(--text-color);">דברו ביניכן — בתוך התחום הזה מה הכי מדויק למקום שאתן נמצאות בו עכשיו?</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
           ${subsHtml}
