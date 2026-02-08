@@ -1081,33 +1081,100 @@
       const topic = journeyData.primaryTopic;
       const answers = journeyData.answers.map(a => a.value);
 
-      const mapping = {
-        daily: () => {
-          if (answers.includes('C') || (answers[0] === 'B' && answers.length > 1 && answers[1] === 'C')) return 'body-feeling';
-          if (answers.includes('B') && answers[answers.length - 1] === 'B') return 'living-environment';
-          return 'daily-choices';
-        },
-        identity: () => {
-          if (answers[answers.length - 1] === 'B') return 'leisure-creativity';
-          return 'looking-forward';
-        },
-        relationships: () => {
-          if (answers[0] === 'A' && answers.some(a => a === 'B')) return 'my-home';
-          return 'social-life';
-        },
-        boundaries: () => {
-          if (answers.includes('C')) return 'space-movement';
-          if (answers[0] === 'B') return 'learning-pressure';
-          return 'social-life';
-        },
-        'inner-voice': () => {
-          if (answers[0] === 'A' && answers.some(a => a === 'A')) return 'digital-life';
-          if (answers[0] === 'B') return 'learning-pressure';
-          return 'looking-forward';
-        }
+      const scores = {
+        'body-feeling': 0,
+        'digital-life': 0,
+        'learning-pressure': 0,
+        'social-life': 0,
+        'daily-choices': 0,
+        'space-movement': 0,
+        'my-home': 0,
+        'living-environment': 0,
+        'leisure-creativity': 0,
+        'looking-forward': 0
       };
 
-      return mapping[topic] ? mapping[topic]() : 'daily-choices';
+      const topicBase = {
+        daily:          { 'daily-choices': 3, 'body-feeling': 1, 'living-environment': 1 },
+        identity:       { 'looking-forward': 3, 'leisure-creativity': 1, 'digital-life': 1 },
+        relationships:  { 'social-life': 3, 'my-home': 1, 'learning-pressure': 1 },
+        boundaries:     { 'space-movement': 2, 'social-life': 2, 'my-home': 1 },
+        'inner-voice':  { 'digital-life': 2, 'learning-pressure': 2, 'looking-forward': 1 }
+      };
+
+      const base = topicBase[topic] || {};
+      for (const [d, pts] of Object.entries(base)) scores[d] += pts;
+
+      const answerWeights = {
+        daily: [
+          { A: { 'daily-choices': 3, 'space-movement': 1, 'learning-pressure': 1 },
+            B: { 'body-feeling': 3, 'my-home': 1, 'digital-life': 1 } },
+          { A: { 'daily-choices': 2, 'looking-forward': 2, 'space-movement': 1 },
+            B: { 'social-life': 2, 'my-home': 2, 'leisure-creativity': 1 },
+            C: { 'body-feeling': 3, 'digital-life': 2 } },
+          { A: { 'looking-forward': 3, 'space-movement': 1, 'learning-pressure': 1 },
+            B: { 'leisure-creativity': 3, 'living-environment': 1, 'digital-life': 1 } },
+          { A: { 'body-feeling': 2, 'my-home': 2, 'learning-pressure': 1 },
+            B: { 'living-environment': 2, 'social-life': 2, 'space-movement': 1 } }
+        ],
+        identity: [
+          { A: { 'looking-forward': 2, 'leisure-creativity': 2, 'daily-choices': 1 },
+            B: { 'space-movement': 2, 'social-life': 2, 'body-feeling': 1 } },
+          { A: { 'daily-choices': 2, 'looking-forward': 2, 'learning-pressure': 1 },
+            B: { 'leisure-creativity': 3, 'digital-life': 1, 'living-environment': 1 } },
+          { A: { 'my-home': 2, 'social-life': 2, 'body-feeling': 1 },
+            B: { 'digital-life': 2, 'space-movement': 2, 'living-environment': 1 } },
+          { A: { 'social-life': 2, 'looking-forward': 2, 'space-movement': 1 },
+            B: { 'leisure-creativity': 2, 'my-home': 2, 'living-environment': 1 } }
+        ],
+        relationships: [
+          { A: { 'social-life': 2, 'my-home': 2, 'body-feeling': 1 },
+            B: { 'digital-life': 2, 'looking-forward': 2, 'leisure-creativity': 1 } },
+          { A: { 'social-life': 2, 'space-movement': 2, 'looking-forward': 1 },
+            B: { 'body-feeling': 2, 'my-home': 2, 'learning-pressure': 1 } },
+          { A: { 'leisure-creativity': 2, 'daily-choices': 2, 'living-environment': 1 },
+            B: { 'learning-pressure': 2, 'digital-life': 2, 'looking-forward': 1 } },
+          { A: { 'my-home': 2, 'living-environment': 2, 'space-movement': 1 },
+            B: { 'daily-choices': 2, 'leisure-creativity': 2, 'body-feeling': 1 } }
+        ],
+        boundaries: [
+          { A: { 'social-life': 2, 'daily-choices': 2, 'body-feeling': 1 },
+            B: { 'looking-forward': 2, 'learning-pressure': 2, 'digital-life': 1 } },
+          { A: { 'daily-choices': 2, 'body-feeling': 2, 'living-environment': 1 },
+            B: { 'social-life': 2, 'my-home': 2, 'leisure-creativity': 1 } },
+          { A: { 'space-movement': 2, 'body-feeling': 2, 'living-environment': 1 },
+            B: { 'my-home': 2, 'learning-pressure': 2, 'digital-life': 1 },
+            C: { 'looking-forward': 2, 'leisure-creativity': 2, 'daily-choices': 1 } },
+          { A: { 'space-movement': 2, 'living-environment': 2, 'leisure-creativity': 1 },
+            B: { 'learning-pressure': 2, 'digital-life': 2, 'looking-forward': 1 } }
+        ],
+        'inner-voice': [
+          { A: { 'learning-pressure': 2, 'digital-life': 2, 'daily-choices': 1 },
+            B: { 'body-feeling': 2, 'looking-forward': 2, 'social-life': 1 } },
+          { A: { 'my-home': 2, 'social-life': 2, 'body-feeling': 1 },
+            B: { 'digital-life': 2, 'leisure-creativity': 2, 'living-environment': 1 } },
+          { A: { 'learning-pressure': 2, 'space-movement': 2, 'daily-choices': 1 },
+            B: { 'my-home': 2, 'leisure-creativity': 2, 'living-environment': 1 } },
+          { A: { 'looking-forward': 2, 'space-movement': 2, 'body-feeling': 1 },
+            B: { 'living-environment': 2, 'leisure-creativity': 2, 'daily-choices': 1 } }
+        ]
+      };
+
+      const weights = answerWeights[topic] || [];
+      answers.forEach((ans, i) => {
+        if (i < weights.length && weights[i][ans]) {
+          for (const [d, pts] of Object.entries(weights[i][ans])) {
+            scores[d] += pts;
+          }
+        }
+      });
+
+      let best = 'daily-choices';
+      let bestScore = -1;
+      for (const [d, s] of Object.entries(scores)) {
+        if (s > bestScore) { bestScore = s; best = d; }
+      }
+      return best;
     }
 
     function renderStep4() {
