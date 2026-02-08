@@ -45,14 +45,14 @@ The server runs on port 5000 and serves all static files.
 ## Recent Changes
 - 2026-02-08: Complete 8-step collaborative journey on idea-to-product.html
   - Step 1: Name entry (2-3 participants)
-  - Step 2: Topic box selection (5 topics, turn-based)
+  - Step 2: Topic box selection (6 topics, turn-based)
   - Step 3: Branching questions engine with personal address by name
   - Step 4: Domain identification from accumulated choices
   - Step 5: Sub-domain drill-down
   - Step 6: Shared decision (3 options)
   - Step 7: Experiential ending with inspiring text
   - Step 8: PDF generation (6-page A4 document with jsPDF + html2canvas)
-  - Topics: בחירות יומיומיות, זהות ומי אני, מערכות יחסים, גבולות, קול פנימי
+  - Topics: בחירות יומיומיות, זהות ומי אני, מערכות יחסים, גבולות, קול פנימי, העולם סביבי
   - Questions: provocative, funny, relatable, empowering style
   - Smooth fade transitions between steps with step indicator dots
   - PDF: single A4 page with header (logo + title + names), 3 info cards (topic, domain, sub-domain), journey answers, decision box, closing quote
