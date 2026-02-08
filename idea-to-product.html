@@ -142,190 +142,269 @@
   <div id="app-wrapper" class="w-full h-full overflow-auto pt-16" style="background: var(--bg-color);"><!-- Main Content (Article) -->
    <div id="main-content"><!-- Hero Section -->
     <section class="min-h-screen flex flex-col justify-center items-center px-6 py-16 relative overflow-hidden">
-     <div class="absolute top-20 right-10 text-6xl floating-emoji opacity-30">
-      💡
-     </div>
-     <div class="absolute bottom-32 left-10 text-5xl floating-emoji opacity-30" style="animation-delay: 1s;">
-      🚀
-     </div>
-     <div class="absolute top-40 left-20 text-4xl floating-emoji opacity-20" style="animation-delay: 0.5s;">
-      ✨
-     </div>
+     <div class="absolute top-20 right-10 text-6xl floating-emoji opacity-30">💡</div>
+     <div class="absolute bottom-32 left-10 text-5xl floating-emoji opacity-30" style="animation-delay: 1s;">🚀</div>
+     <div class="absolute top-40 left-20 text-4xl floating-emoji opacity-20" style="animation-delay: 0.5s;">✨</div>
+     <div class="absolute bottom-48 right-20 text-4xl floating-emoji opacity-20" style="animation-delay: 1.5s;">🎯</div>
      <div class="max-w-3xl text-center relative z-10">
       <h1 id="main-title" class="text-4xl md:text-6xl font-bold mb-6 gradient-text leading-tight">זה התחיל ממשהו קטן</h1>
       <p class="text-xl md:text-2xl mb-8 font-light" style="color: var(--text-color); opacity: 0.8;">(וככה מתחילים לשנות את העולם)</p>
       <div class="stem-card rounded-2xl p-8 max-w-xl mx-auto mb-12" style="background: var(--surface-color);">
-       <p class="text-lg leading-relaxed" style="color: var(--text-color);">יש רגעים קטנים ביום-יום שגורמים לך לעצור.<br><br><span class="text-2xl">🔊</span> שריטה על לוח.<br><span class="text-2xl">🔋</span> אחוז אחד בסוללה.<br><span class="text-2xl">🚽</span> מכסה אסלה פתוח (כן, זה כן סוף העולם).</p>
+       <p class="text-lg leading-relaxed" style="color: var(--text-color);">יש רגעים קטנים ביום-יום שגורמים לך לעצור.<br><br>
+        <span class="text-2xl">📱</span> ההודעה שהגיעה בזמן הכי לא מתאים.<br>
+        <span class="text-2xl">🔋</span> אחוז אחד בסוללה ואת באמצע סטורי.<br>
+        <span class="text-2xl">🎧</span> האוזנייה השמאלית שמתה עלייך שוב.<br>
+        <span class="text-2xl">😤</span> כשמישהו לוקח את המקום שלך בקפיטריה.</p>
       </div>
       <p class="text-lg" style="color: var(--text-color); opacity: 0.7;">לא דרמה גדולה. לא "בעיה גלובלית".<br>
         רק תחושה קטנה ש: <strong class="gradient-text text-2xl">למה זה ככה בעצם?</strong></p>
      </div>
      <div class="absolute bottom-8 animate-bounce">
-      <svg class="w-8 h-8" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-      </svg>
+      <svg class="w-8 h-8" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
      </div>
-    </section><!-- The Spark Section -->
+    </section>
+
+    <!-- Did You Know Ticker -->
+    <section class="py-6 px-6 overflow-hidden" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+     <div class="max-w-4xl mx-auto">
+      <div class="flex flex-wrap justify-center gap-4 text-white text-center">
+       <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 flex-shrink-0">
+        <p class="text-sm font-bold">🤯 ידעת ש-?</p>
+        <p class="text-xs opacity-90">אינסטגרם התחיל כאפליקציה לוויסקי</p>
+       </div>
+       <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 flex-shrink-0">
+        <p class="text-sm font-bold">💡 ידעת ש-?</p>
+        <p class="text-xs opacity-90">את Canva הקימה בת 19 שנדחתה 100 פעם</p>
+       </div>
+       <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 flex-shrink-0">
+        <p class="text-sm font-bold">🔥 ידעת ש-?</p>
+        <p class="text-xs opacity-90">TikTok הומצא כי מישהו שאל "למה וידאו חייב להיות ארוך?"</p>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- The Spark Section -->
     <section class="py-12 px-6">
      <div class="max-w-4xl mx-auto">
       <div class="section-divider mb-10"></div>
       <div class="text-center mb-8"><span class="text-5xl mb-4 block">🌱</span>
        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">רוב האנשים ממשיכים הלאה</h2>
-       <p class="text-2xl gradient-text font-bold bg-white/50 rounded-xl px-6 py-4 inline-block">אבל יזמות טכנולוגיה ו-STEM מתחילים דווקא שם.</p>
+       <p class="text-2xl gradient-text font-bold bg-white/50 rounded-xl px-6 py-4 inline-block">אבל את? את עוצרת ושואלת למה.</p>
       </div>
       <div class="stem-card rounded-3xl p-10 text-center" style="background: var(--surface-color); border: 3px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
-       <h3 class="text-2xl font-bold mb-6" style="color: var(--text-color);">החיים הם לא הפסקה מהלמידה</h3>
-       <p class="text-4xl gradient-text font-bold">הם הלמידה</p>
+       <h3 class="text-2xl font-bold mb-4" style="color: var(--text-color);">הבנות שיזמו את Bumble, Spanx ו-23andMe</h3>
+       <p class="text-lg mb-6" style="color: var(--text-color); opacity: 0.8;">לא התחילו עם תואר או עם כסף. הן התחילו עם רגע של "זה מעצבן אותי ואני הולכת לשנות את זה".</p>
+       <p class="text-3xl gradient-text font-bold">וזה בדיוק מה שאנחנו עושות פה.</p>
       </div>
      </div>
-    </section><!-- What is STEM Section -->
+    </section>
+
+    <!-- Real Talk Section -->
     <section class="py-12 px-6" style="background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.05));">
      <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10"><span class="text-5xl mb-4 block">💬</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">רגע של אמת</h2>
+       <p class="text-xl" style="color: var(--text-color); opacity: 0.8;">דברים שבנות אומרות לעצמן (ולמה הן טועות)</p>
+      </div>
+      <div class="space-y-4 mb-8">
+       <div class="stem-card rounded-2xl p-6 flex items-start gap-4" style="background: var(--surface-color);">
+        <span class="text-3xl flex-shrink-0">🙄</span>
+        <div>
+         <p class="font-bold text-lg mb-1" style="color: var(--text-color);">"אני לא טכנולוגית"</p>
+         <p style="color: var(--text-color); opacity: 0.8;">את משתמשת בטלפון 6 שעות ביום, עורכת סרטונים, מנהלת קבוצות ויודעת לגרום לפילטר לעבוד בצורה מושלמת. את טכנולוגית. פשוט אף אחד לא קרא לזה ככה.</p>
+        </div>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex items-start gap-4" style="background: var(--surface-color);">
+        <span class="text-3xl flex-shrink-0">😬</span>
+        <div>
+         <p class="font-bold text-lg mb-1" style="color: var(--text-color);">"יזמות זה לא בשבילי, זה לאנשים עם רעיונות גאוניים"</p>
+         <p style="color: var(--text-color); opacity: 0.8;">YouTube התחיל כאתר הכרויות. הרעיון הראשון כמעט אף פעם לא נשאר. מה שנשאר זה הבת שלא ויתרה.</p>
+        </div>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex items-start gap-4" style="background: var(--surface-color);">
+        <span class="text-3xl flex-shrink-0">😅</span>
+        <div>
+         <p class="font-bold text-lg mb-1" style="color: var(--text-color);">"אני לא יודעת מספיק"</p>
+         <p style="color: var(--text-color); opacity: 0.8;">מעולה. כי מי שחושבת שהיא יודעת הכל — לא שואלת שאלות. ומי שלא שואלת שאלות — לא ממציאה כלום.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- What is STEM Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-10"><span class="text-5xl mb-4 block">🔬</span>
-       <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">STEM לא מתחיל בכיתה</h2>
-       <p class="text-xl" style="color: var(--text-color); opacity: 0.8;">הוא מתחיל בחיים עצמם.</p>
+       <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">STEM? זה לא מה שאת חושבת</h2>
+       <p class="text-xl" style="color: var(--text-color); opacity: 0.8;">תשכחי מהמעבדה. זה מתחיל בחיים שלך.</p>
       </div>
       <div class="grid md:grid-cols-2 gap-6 mb-8">
        <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
-        <div class="text-3xl mb-3">
-         🧪
-        </div>
+        <div class="text-3xl mb-3">🧪</div>
         <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">מדע</h3>
-        <p style="color: var(--text-color); opacity: 0.7;">עוזר להבין את הבעיה</p>
+        <p style="color: var(--text-color); opacity: 0.7;">כשאת שואלת "למה הקרם הזה עובד ככה על העור שלי?" — זה מדע.</p>
        </div>
        <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
-        <div class="text-3xl mb-3">
-         💻
-        </div>
+        <div class="text-3xl mb-3">💻</div>
         <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">טכנולוגיה</h3>
-        <p style="color: var(--text-color); opacity: 0.7;">מאפשרת לשינוי לקרות בפועל</p>
+        <p style="color: var(--text-color); opacity: 0.7;">כשאת בונה עולם ב-Minecraft או עורכת סרטון ב-CapCut — זו טכנולוגיה.</p>
        </div>
        <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
-        <div class="text-3xl mb-3">
-         ⚙️
-        </div>
+        <div class="text-3xl mb-3">⚙️</div>
         <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">הנדסה</h3>
-        <p style="color: var(--text-color); opacity: 0.7;">מתכננת, בודקת ומשפרת</p>
+        <p style="color: var(--text-color); opacity: 0.7;">כשאת מארגנת את הארון שלך כדי שהכל ייכנס — זו הנדסה.</p>
        </div>
        <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
-        <div class="text-3xl mb-3">
-         📐
-        </div>
+        <div class="text-3xl mb-3">📐</div>
         <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">מתמטיקה</h3>
-        <p style="color: var(--text-color); opacity: 0.7;">עוזרת למדוד, להשוות ולהחליט</p>
+        <p style="color: var(--text-color); opacity: 0.7;">כשאת מחשבת כמה זמן יש לך לפני שאמא שולחת הודעה שנייה — זו מתמטיקה.</p>
        </div>
       </div>
       <div class="text-center">
-       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">התהליך התכנוני הוא המקום שבו הכול נפגש.<br><strong class="text-xl gradient-text">לא ברגע אחד. לא בקסם. אלא שלב אחרי שלב.</strong></p>
+       <div class="stem-card rounded-2xl p-6 inline-block" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));">
+        <p class="text-lg font-bold gradient-text">את כבר עושה STEM כל יום. עכשיו נלמד להשתמש בזה כדי לבנות משהו אמיתי.</p>
+       </div>
       </div>
      </div>
-    </section><!-- Stop & Ask Section -->
+    </section>
+
+    <!-- Stop & Ask Section -->
     <section class="py-12 px-6">
      <div class="max-w-4xl mx-auto">
       <div class="stem-card rounded-3xl p-10 md:p-16" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
        <div class="text-center text-white"><span class="text-5xl mb-6 block">✋</span>
         <h2 class="text-3xl md:text-4xl font-bold mb-6">רגע. עוצרים. לא פותרים.</h2>
-        <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">יש לנו נטייה בעייתית לרוץ קדימה: להציע רעיון, לחשוב על אפליקציה, להמציא מוצר. <br><br>
-          אבל בתהליך תכנוני אמיתי עושים משהו אחר לגמרי.</p>
-        <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm max-w-md mx-auto">
-         <p class="font-bold text-xl mb-4">ושואלים שאלות:</p>
-         <p class="text-lg">📍 איפה זה קורה?<br>
-           👤 למי זה קורה?<br>
-           🚫 מה זה מונע?</p>
+        <p class="text-lg opacity-90 mb-4 max-w-2xl mx-auto">אנחנו יודעות — את כבר רוצה להגיד "בואו נעשה אפליקציה!"</p>
+        <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">אבל הסוד של כל מוצר מטורף שאת מכירה? הוא לא התחיל מפתרון. הוא התחיל משאלה.</p>
+        <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm max-w-md mx-auto mb-6">
+         <p class="font-bold text-xl mb-4">השאלות שפותחות הכל:</p>
+         <p class="text-lg text-right">📍 איפה זה קורה? (בבית? בבית ספר? באינסטגרם?)<br>
+           👤 למי זה הכי מפריע?<br>
+           🚫 מה זה מונע ממנה לעשות?</p>
         </div>
+        <p class="text-base opacity-80 italic">הבנות שמצליחות — הן לא הכי חכמות. הן הכי סקרניות.</p>
        </div>
       </div>
      </div>
-    </section><!-- The Magic Section -->
+    </section>
+
+    <!-- The Magic Section -->
     <section class="py-12 px-6" style="background: var(--surface-color);">
      <div class="max-w-4xl mx-auto text-center"><span class="text-5xl mb-6 block">✨</span>
-      <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">ברגע הזה קורה קסם שקט</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">הרגע שבו הכל משתנה</h2>
+      <p class="text-lg mb-8" style="color: var(--text-color); opacity: 0.8;">יש רגע אחד שבו עוברים מלהתלונן — לעשות משהו עם זה:</p>
       <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
        <div class="stem-card rounded-2xl p-6 flex-1" style="background: var(--bg-color);">
-        <p class="text-lg" style="color: var(--text-color);">עוברים מ<strong>רגש</strong></p>
-        <p class="text-2xl mt-2">"זה מעצבן" 😤</p>
+        <p class="text-lg" style="color: var(--text-color);">מ<strong>רגש</strong></p>
+        <p class="text-2xl mt-2">"זה מעצבן אותי" 😤</p>
+        <p class="text-sm mt-2 opacity-60">(כל אחת מכירה)</p>
        </div>
-       <div class="text-4xl">
-        ⬅️
-       </div>
+       <div class="text-4xl">⬅️</div>
        <div class="stem-card rounded-2xl p-6 flex-1" style="background: var(--bg-color);">
-        <p class="text-lg" style="color: var(--text-color);">ל<strong>תיאור של מצב</strong></p>
-        <p class="text-2xl mt-2 gradient-text font-bold">בעיה שאפשר לעבוד איתה 💡</p>
+        <p class="text-lg" style="color: var(--text-color);">ל<strong>הגדרה של בעיה</strong></p>
+        <p class="text-2xl mt-2 gradient-text font-bold">משהו שאפשר לפתור 💡</p>
+        <p class="text-sm mt-2 opacity-60">(וזו הנקודה שבה את הופכת ליזמת)</p>
        </div>
       </div>
       <div class="stem-card rounded-2xl p-8 max-w-xl mx-auto" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15)); border: 2px solid rgba(236, 72, 153, 0.3);">
        <h3 class="text-xl font-bold mb-4" style="color: var(--text-color);">בעיה ≠ פתרון</h3>
        <p class="text-3xl font-bold gradient-text">בעיה → צורך</p>
-       <p class="mt-4 text-base" style="color: var(--text-color); opacity: 0.9;"><strong>צורך הוא לא מוצר, לא שם מגניב, ולא רעיון סגור.</strong><br>
-         צורך הוא הבנה עמוקה של מה צריך להשתנות.</p>
+       <p class="mt-4 text-base" style="color: var(--text-color); opacity: 0.9;"><strong>צורך הוא לא אפליקציה. לא שם מגניב. לא רעיון סגור.</strong><br>
+         צורך הוא הבנה עמוקה של מה צריך להשתנות בשביל שמישהי תרגיש אחרת.</p>
       </div>
      </div>
-    </section><!-- Process Section -->
+    </section>
+
+    <!-- Girls Who Did It Section -->
+    <section class="py-12 px-6" style="background: linear-gradient(180deg, rgba(236, 72, 153, 0.03), rgba(139, 92, 246, 0.06));">
+     <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10"><span class="text-5xl mb-4 block">👑</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">בנות שעשו את זה</h2>
+       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">לא סיפורים מהספר. בנות אמיתיות שהתחילו בדיוק כמוך.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="stem-card rounded-2xl p-6 text-center" style="background: var(--surface-color);">
+        <div class="text-4xl mb-3">🧴</div>
+        <h3 class="font-bold text-lg mb-2 gradient-text">מלאני פרקינס</h3>
+        <p class="text-sm font-semibold mb-2" style="color: var(--text-color);">Canva</p>
+        <p class="text-sm" style="color: var(--text-color); opacity: 0.7;">הייתה סטודנטית שנשבר לה שקשה לעצב. היום Canva שווה 40 מיליארד דולר. היא נדחתה מעל 100 פעם לפני שקיבלה מימון.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 text-center" style="background: var(--surface-color);">
+        <div class="text-4xl mb-3">💛</div>
+        <h3 class="font-bold text-lg mb-2 gradient-text">וויטני וולף הרד</h3>
+        <p class="text-sm font-semibold mb-2" style="color: var(--text-color);">Bumble</p>
+        <p class="text-sm" style="color: var(--text-color); opacity: 0.7;">הקימה אפליקציית הכרויות שבה רק בנות עושות את הצעד הראשון. בגיל 31 הפכה למיליארדרית הצעירה בעולם.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 text-center" style="background: var(--surface-color);">
+        <div class="text-4xl mb-3">🎮</div>
+        <h3 class="font-bold text-lg mb-2 gradient-text">גיטנגלי ראו</h3>
+        <p class="text-sm font-semibold mb-2" style="color: var(--text-color);">יזמת בגיל 15</p>
+        <p class="text-sm" style="color: var(--text-color); opacity: 0.7;">בגיל 15 פיתחה אפליקציה שמזהה מחלות עיניים מתמונה. לא המתינה שמישהו ייתן לה רשות.</p>
+       </div>
+      </div>
+      <div class="text-center mt-8">
+       <div class="stem-card rounded-xl p-4 inline-block" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));">
+        <p class="text-lg font-bold" style="color: var(--text-color);">מה משותף לכולן? 🤔 הן לא חיכו שיגידו להן שהן מספיק טובות.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- Process Section -->
     <section class="py-12 px-6">
      <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10"><span class="text-5xl mb-4 block">🛠️</span>
-       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">כך נראה התהליך שלנו</h2>
-       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">מוצר טוב לא נולד מרעיון מבריק אחד. הוא נבנה דרך תהליך.</p>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">8 שלבים. מרעיון למוצר אמיתי.</h2>
+       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">לא צריך להיות גאונית. צריך להיות מוכנה ללכלך את הידיים.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         1
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">1</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">מאתרות אתגר</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מזהות בעיה, מגדירות צורך ומבינות למי זה קורה באמת. עובדות עם קהל יעד ופרסונה כדי לא לדבר באוויר — אלא על משתמשת אמיתית.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מה מעצבן אותך? למי זה קורה? למה אף אחד עדיין לא פתר את זה? פה זה מתחיל.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         2
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">2</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">חושבות אחרת</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">חוקרות את הבעיה לעומק, בודקות פתרונות קיימים ועושות סיעור מוחות יצירתי בלי לפסול רעיונות מהר מדי.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">חוקרות לעומק ועושות סיעור מוחות. הרעיונות הכי מטורפים? אלה שבסוף עובדים.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         3
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">3</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">מגבשות פתרון</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בוחרות רעיון אחד, מפתחות קונספט מוצר, בודקות ערך למשתמשת, מקבלות החלטות GO / NO-GO ומשתמשות ב-AI בצורה אחראית ככלי לחשיבה – לא קיצור דרך.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בוחרות רעיון אחד ובודקות: זה באמת פותר משהו? למי? GO או NO-GO?</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         4
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">4</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">מעצבות אבטיפוס</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">הרעיון מקבל צורה. אבטיפוס, כלי AI וחוויית משתמש. זה ניסוי, לא מוצר מושלם.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">הרעיון מקבל צורה. לא מושלם — ניסיוני. כמו טיוטה ראשונה שאפשר לשפר.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         5
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">5</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">מדייקות מיזם</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מקבלות משוב, מנתחות תגובות ומשפרות. לא נעלבות — משתפרות.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מקבלות פידבק ומשתפרות. ביקורת היא לא עלבון — היא סופרפאואר.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         6
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">6</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">ממתגות ומבססות</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בונות סיפור מוצר, פוסטר חקר וסרטון AI, לומדות איך לשווק רעיון ואיך לאפיין קהל ברשתות.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בונות סיפור מוצר וסרטון. לומדות לשווק רעיון כאילו זה הפוסט הכי חשוב שפרסמתן.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         7
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">7</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">מציגות ומשכנעות</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בונות פיץ', מציגות פרזנטציה ולומדות לספר תהליך — לא רק תוצאה.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">פיץ' של 3 דקות. מספרות תהליך ומשכנעות חדר מלא. כן, גם את יכולה.</p>
        </div>
        <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-         8
-        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">8</div>
         <h3 class="font-bold text-lg mb-3 gradient-text text-center">משיקות ומשפיעות</h3>
-        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מציגות את המיזם, משיקות אותו וחושבות קדימה: איך זה ממשיך, איך זה גדל ואיך זה משפיע.</p>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">המיזם יוצא לעולם. לא "מתישהו". עכשיו. ואת מסתכלת אחורה ואומרת "וואלה, עשיתי את זה".</p>
        </div>
       </div>
      </div>
-    </section><!-- Where Are You Now Section -->
+    </section>
+
+    <!-- Where Are You Now Section -->
     <section class="py-12 px-6" style="background: linear-gradient(180deg, rgba(236, 72, 153, 0.05), rgba(139, 92, 246, 0.1));">
      <div class="max-w-4xl mx-auto text-center"><span class="text-6xl mb-6 block">📍</span>
       <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">אז איפה אתן עכשיו?</h2>
@@ -335,29 +414,37 @@
        <p style="color: var(--text-color); opacity: 0.8;">עוד לא בונות.<br>
          עוד לא מפתחות.<br><strong class="text-lg gradient-text">רק מתבוננות, שואלות ומדייקות.</strong></p>
        <p class="mt-6 font-bold gradient-text text-xl">וזה אחד השלבים הכי חשובים בתהליך.</p>
+       <p class="mt-4 text-sm" style="color: var(--text-color); opacity: 0.6;">(כי בלי שלב 1 — כל השאר זה בניין על חול)</p>
       </div>
      </div>
-    </section><!-- CTA Section -->
+    </section>
+
+    <!-- CTA Section -->
     <section class="py-16 px-6">
      <div class="max-w-3xl mx-auto text-center">
       <div class="stem-card rounded-2xl p-8 mb-10" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)); border: 2px solid var(--primary-color);">
-       <p class="text-xl font-bold mb-6" style="color: var(--text-color);">✨ לפני שאתן מתחילות, קריטריונים לבחירה:</p>
+       <p class="text-xl font-bold mb-6" style="color: var(--text-color);">✨ לפני שמתחילות — שלוש שאלות:</p>
        <div class="text-right space-y-4" style="color: var(--text-color);">
-        <p class="text-lg">✓ קורה לכן בעצמכן, לא רק למישהו אחר</p>
-        <p class="text-lg">✓ חוזר על עצמו, לא משהו חד־פעמי</p>
-        <p class="text-lg">✓ גורם לכן לעצור רגע ולהגיד "אוף"</p>
+        <p class="text-lg">✓ זה קורה לך בעצמך? (לא רק למישהי אחרת)</p>
+        <p class="text-lg">✓ זה חוזר על עצמו? (לא סתם יום רע)</p>
+        <p class="text-lg">✓ זה גורם לך להגיד "אוף" בפנים? (כן? מעולה.)</p>
        </div>
       </div>
-      <span class="text-6xl mb-6 block">👇</span> <button id="cta-button" class="pulse-btn text-white text-xl font-bold px-12 py-5 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));"> התחילי את הפעילות </button>
+      <span class="text-6xl mb-6 block">👇</span>
+      <button id="cta-button" class="pulse-btn text-white text-xl font-bold px-12 py-5 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));"> יאללה, מתחילות 🚀 </button>
       <div class="mt-12 stem-card rounded-2xl p-8" style="background: var(--surface-color); border: 2px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
        <p class="text-xl font-bold mb-4" style="color: var(--text-color);">כי כל שינוי גדול</p>
-       <p class="text-2xl gradient-text font-bold">מתחיל מבעיה קטנה אחת,<br>
-         שלא נתת לה לעבור לידך.</p>
+       <p class="text-2xl gradient-text font-bold">מתחיל מבעיה קטנה אחת,<br>שבת אחת החליטה שהיא לא נותנת לה לעבור.</p>
       </div>
-      <div class="mt-16 flex justify-center gap-4"><span class="text-3xl floating-emoji">💪</span> <span class="text-3xl floating-emoji" style="animation-delay: 0.3s;">🌟</span> <span class="text-3xl floating-emoji" style="animation-delay: 0.6s;">🚀</span>
+      <div class="mt-16 flex justify-center gap-4">
+       <span class="text-3xl floating-emoji">💪</span>
+       <span class="text-3xl floating-emoji" style="animation-delay: 0.3s;">🌟</span>
+       <span class="text-3xl floating-emoji" style="animation-delay: 0.6s;">🚀</span>
       </div>
      </div>
-    </section><!-- Footer -->
+    </section>
+
+    <!-- Footer -->
     <footer class="py-12 px-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white">
      <div class="max-w-5xl mx-auto text-center">
       <div class="flex items-center justify-center gap-3 mb-6">
@@ -367,7 +454,7 @@
        <span class="text-2xl font-bold">מרעיון למוצר</span>
       </div>
       <p class="text-white/80 text-lg mb-4">זה התחיל ממשהו קטן</p>
-      <p class="text-white/60 text-sm">תוכנית חינוכית לנערות | נבנה עבור בנות שישנו את העולם</p>
+      <p class="text-white/60 text-sm">נבנה עבור בנות שישנו את העולם</p>
       <p class="text-white/50 text-xs mt-4">© 2026 פורצות דרך</p>
      </div>
     </footer>
