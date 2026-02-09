@@ -43,19 +43,31 @@ The server runs on port 5000 and serves all static files.
 - Tailwind CSS for styling
 
 ## Recent Changes
-- 2026-02-08: Complete 8-step collaborative journey on idea-to-product.html
+- 2026-02-09: Added inspiration step (Step 6) + PDF rebuilt to 2 rich pages
+  - New Step 6: "נשים שהפכו צורך למוצר" — real product examples by women
+  - 3 domain-specific examples per domain (30 total across 10 domains)
+  - Products from girls' everyday world (Bumble, Canva, Flo, Spanx, Etsy, etc.)
+  - Rich storytelling — conversational, relatable, makes them want to Google
+  - Group-oriented messaging ("בדיוק כמוכן")
+  - Journey now 9 steps (was 8): steps 6-8 shifted to 7-9
+  - PDF rebuilt: 2 rich A4 pages (was 1 cramped page)
+  - Page 1: centered logo, title, names+date, 3 large info cards, quote
+  - Page 2: journey Q&A with numbered items, decision box, closing quote, credits
+  - Fixed title overflow issue next to logo (now centered layout)
+- 2026-02-08: Complete 9-step collaborative journey on idea-to-product.html
   - Step 1: Name entry (2-3 participants)
   - Step 2: Topic box selection (6 topics, turn-based)
   - Step 3: Branching questions engine with personal address by name
   - Step 4: Domain identification from accumulated choices
   - Step 5: Sub-domain drill-down
-  - Step 6: Shared decision (3 options)
-  - Step 7: Experiential ending with inspiring text
-  - Step 8: PDF generation (6-page A4 document with jsPDF + html2canvas)
+  - Step 6: Inspiration examples (real women-created products, domain-specific)
+  - Step 7: Shared decision (3 options)
+  - Step 8: Experiential ending with inspiring text
+  - Step 9: PDF generation (2-page A4 document with jsPDF + html2canvas)
   - Topics: בחירות יומיומיות, זהות ומי אני, מערכות יחסים, גבולות, קול פנימי, העולם סביבי
   - Questions: provocative, funny, relatable, empowering style
   - Smooth fade transitions between steps with step indicator dots
-  - PDF: single A4 page with header (logo + title + names), 3 info cards (topic, domain, sub-domain), journey answers, decision box, closing quote
+  - PDF: 2 rich A4 pages — cover+cards and journey+decision+quote
   - Logo preloaded as data URL for reliable PDF rendering
 - 2026-01-22: Scroll-lock mechanism for all domain pages (d1-d10)
   - js/scroll-lock.js - reusable script for hero lock/unlock

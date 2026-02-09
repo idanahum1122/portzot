@@ -581,6 +581,19 @@
       border-color: var(--primary-color);
       background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)) !important;
     }
+    .inspiration-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(253,244,255,0.9)) !important;
+      border: 1px solid rgba(236, 72, 153, 0.15);
+      transition: all 0.3s ease;
+    }
+    .inspiration-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(236, 72, 153, 0.15);
+      border-color: rgba(236, 72, 153, 0.3);
+    }
+    .inspiration-card .text-5xl {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
   </style>
   <script>
     const defaultConfig = {
@@ -871,6 +884,59 @@
       'looking-forward': { name: 'מבט קדימה', emoji: '🔮', subs: ['בחירת מסלול', 'חששות', 'כישורים חדשים', 'יזמות'] }
     };
 
+    const inspirationExamples = {
+      'body-feeling': [
+        { name: 'Flo', creator: 'אלנה בירמן', emoji: '🩸', story: 'היא הייתה סטודנטית שהרגישה שאף אפליקציה לא באמת מבינה את הגוף שלה. אז היא בנתה את Flo — אפליקציה שעוזרת למיליוני נשים להבין את המחזור שלהן ואת הגוף שלהן. היום יש לה 380 מיליון משתמשות.' },
+        { name: 'Girlfriend Collective', creator: 'אלי דינג', emoji: '👟', story: 'היא חיפשה ביגוד ספורט שמרגיש טוב על הגוף ולא הורס את הפלנטה. לא מצאה? אז יצרה בעצמה — בגדי ספורט מבקבוקי פלסטיק ממוחזרים. היום זה אחד המותגים הכי מבוקשים.' },
+        { name: 'Megababe', creator: 'קייטי סטורינו', emoji: '✨', story: 'כבלוגרית אופנה שלא התאימה למידות הסטנדרטיות היא נלחמה בבושה. יצרה קו מוצרי גוף לדברים שאף אחד לא מדבר עליהם — כמו זיעה וחיכוך. היום זה נמכר בכל רשת.' }
+      ],
+      'digital-life': [
+        { name: 'Bumble', creator: 'וויטני וולף הרד', emoji: '🐝', story: 'היא עבדה באפליקציית היכרויות והרגישה שבנות לא מרגישות בטוחות שם. אז היא בנתה את Bumble — שם רק הבנות פותחות שיחה. היום יש לה מיליארדים.' },
+        { name: 'Shine', creator: 'מרבי שין ונאומי הירבלו', emoji: '💛', story: 'שתי חברות שהרגישו שכל אפליקציות הבריאות הנפשית לא מדברות אליהן. בנו את Shine — אפליקציה שמדברת על חרדה ולחץ בשפה של בנות. מיליוני הורדות.' },
+        { name: 'Canva', creator: 'מלאני פרקינס', emoji: '🎨', story: 'בגיל 19 היא תיכננה ספר שנתון לבית הספר ונעצבה מכמה קשה לעצב. אז בנתה את Canva — כלי עיצוב שכל אחת יכולה להשתמש בו. היום זה שווה 40 מיליארד דולר.' }
+      ],
+      'learning-pressure': [
+        { name: 'Photomath', creator: 'דניקה פרסקנדר', emoji: '📸', story: 'מורה למתמטיקה שראתה תלמידות נתקעות על שיעורי בית ולא יודעות איך להתקדם. יצרה אפליקציה שמצלמת תרגיל ומסבירה את הפתרון צעד אחר צעד. 220 מיליון הורדות.' },
+        { name: 'Studyblr/Notion Templates', creator: 'קהילת בנות לומדות', emoji: '📓', story: 'בנות בגיל שלכן שנמאס להן מלמידה משעממת התחילו לשתף שיטות למידה יפות ויעילות ברשתות. מזה נולד תנועה שלמה של "ללמוד יפה" — עם תבניות צבעוניות וסיכומים מעוצבים.' },
+        { name: 'Brainly', creator: 'מיכאלינה יורצ\'יק (שותפה מייסדת)', emoji: '🧠', story: 'למה ללמוד לבד כשאפשר ביחד? פלטפורמה שבה תלמידות עוזרות אחת לשנייה עם שיעורי בית. 350 מיליון משתמשות כי לפעמים חברה מסבירה יותר טוב מהמורה.' }
+      ],
+      'social-life': [
+        { name: 'Hey! VINA', creator: 'אוליביה ג\'ון פונטיל', emoji: '👯', story: 'היא עברה לעיר חדשה ולא הכירה אף אחת. אפליקציות היכרויות? מלא. אפליקציות למצוא חברה? אפס. אז יצרה Hey! VINA — טינדר לחברויות בין בנות.' },
+        { name: 'Naya', creator: 'דניאלה יעקובוביץ\'', emoji: '🤝', story: 'ראתה חברות שמתמודדות עם בדידות ולא מוצאות עם מי לדבר. יצרה פלטפורמה שמחברת בין נשים שעוברות דברים דומים בחיים — כי לפעמים מישהי שמבינה שווה יותר ממאה מילים.' },
+        { name: 'Peanut', creator: 'מישל קנדי', emoji: '💬', story: 'אחרי שהפכה לאמא הרגישה לבד לגמרי. שום אפליקציה לא עזרה לה למצוא חברות חדשות. אז בנתה את Peanut — מקום שמחבר נשים לפי שלב בחיים.' }
+      ],
+      'daily-choices': [
+        { name: 'Rent the Runway', creator: 'ג\'ן היימן', emoji: '👗', story: 'למה לקנות שמלה יקרה ללבוש פעם אחת? היא יצרה שירות שמאפשר לשכור בגדי מעצבים. שינתה את הדרך שבה נשים חושבות על קניות ואופנה.' },
+        { name: 'Hint Water', creator: 'קארה גולדין', emoji: '💧', story: 'רצתה לשתות מים בטעם בלי סוכר. לא מצאה? עשתה בעצמה. היום Hint Water נמכר בכל סופרמרקט בארה"ב ושווה מאות מיליוני דולרים.' },
+        { name: 'Depop', creator: 'סימון ברטאצ\'ה (בהשראת שוק הוינטג\')', emoji: '♻️', story: 'אפליקציה שבה בנות מוכרות וקונות בגדים יד שנייה — כמו אינסטגרם של אופנה משומשת. הפכה קניות משומשות למגניבות ולאקולוגיות. מיליוני בנות משתמשות בה כל יום.' }
+      ],
+      'space-movement': [
+        { name: 'Safetipin', creator: 'קלפנה וישוונת', emoji: '📍', story: 'היא הסתכלה על ערים מהעיניים של נשים ושאלה: איפה מרגישים בטוחות? יצרה אפליקציה שמדרגת רחובות לפי בטיחות לנשים — עם תאורה נגישות ועוברי אורח.' },
+        { name: 'Hollaback!', creator: 'אמילי מיי', emoji: '✊', story: 'נמאס לה מהטרדות ברחוב. יצרה אפליקציה שבה נשים מדווחות על הטרדות ומסמנות מקומות לא בטוחים על מפה. הפכה כעס ופחד לכלי שמשנה רחובות בערים שלמות.' },
+        { name: 'Swvl', creator: 'דינה אל-שינאוי (מנהלת בכירה)', emoji: '🚌', story: 'בקהיר התחבורה הציבורית הייתה סיוט — במיוחד לנשים. נולד שירות שמאפשר להזמין מיניבוס בטוח ואמין באפליקציה. שינה את הדרך שנשים נעות בערים גדולות.' }
+      ],
+      'my-home': [
+        { name: 'The Home Edit', creator: 'קליה שפרר וג\'ואנה טפלין', emoji: '🏡', story: 'שתי חברות שאהבו סדר הפכו את זה לעסק. ארגון בתים בצבעי קשת שנראה כמו אמנות. מתוכנית בנטפליקס ועד מוצרים בכל חנות — הכול התחיל מאהבה לסדר.' },
+        { name: 'Boy Smells', creator: 'מתיו הרמן ודיוויד קין', emoji: '🕯️', story: 'רצו נרות שלא ריחניים מדי ולא "נשיים" מדי. יצרו נרות עם ריחות מיוחדים שמתאימים לכל אחת — והפכו את "להדליק נר" לחוויה שמשנה את האווירה בחדר.' },
+        { name: 'Havenly', creator: 'לי מאיר', emoji: '🛋️', story: 'רצתה לעצב את הדירה שלה אבל מעצבת פנים עלתה הון. יצרה שירות שמחבר אותך למעצבת אונליין במחיר שפוי. עכשיו כל אחת יכולה לגרום לחדר שלה להיראות מושלם.' }
+      ],
+      'living-environment': [
+        { name: 'Who Gives a Crap', creator: 'ג\'סיקה שור', emoji: '🧻', story: 'נייר טואלט ממוחזר שתורם 50% מהרווחים למים נקיים. ההוכחה שגם המוצר הכי משעמם בעולם יכול לשנות את העולם.' },
+        { name: 'S\'well', creator: 'שרה קאוס', emoji: '🍶', story: 'רצתה להפסיק להשתמש בבקבוקי פלסטיק חד-פעמיים. עיצבה בקבוק רב-פעמי שגם יפה וגם שומר על טמפרטורה. היום S\'well נמצא בתיק של כל בת שנייה — ומנע מיליוני בקבוקים מלהגיע לזבל.' },
+        { name: 'Too Good To Go', creator: 'לואיזה בייך דלבאק', emoji: '🍽️', story: 'מסעדות זורקות אוכל בסוף היום. היא יצרה אפליקציה שמוכרת את האוכל הזה בזול במקום לזרוק. חוסכת כסף מזון ואשמה — בפעולה אחת.' }
+      ],
+      'leisure-creativity': [
+        { name: 'Brit + Co', creator: 'ברית מורין', emoji: '🎨', story: 'אהבה ליצור דברים ביד אבל לא מצאה מקום אחד ללמוד הכול. יצרה פלטפורמה עם סדנאות DIY — מציור ועד אפייה ועד עיצוב. הפכה את "אני רוצה לנסות" ל"אני יודעת לעשות".' },
+        { name: 'Etsy', creator: 'קהילת יוצרות (מיליוני מוכרות)', emoji: '🧶', story: 'המקום שבו כל אחת יכולה למכור מה שהיא יוצרת — תכשיטים סטיקרים בגדים אמנות. מיליוני נשים הפכו תחביב לעסק אמיתי. הוכחה שיצירתיות יכולה להיות מקצוע.' },
+        { name: 'Skillshare', creator: 'מלינדה ליבמן (מנהלת תוכן)', emoji: '✏️', story: 'פלטפורמה שבה כל אחת יכולה ללמד וכל אחת יכולה ללמוד. רוצה ללמוד לצייר? לערוך סרטונים? לכתוב? אלפי קורסים חינמיים שמלמדים את מה שבית הספר לא.' }
+      ],
+      'looking-forward': [
+        { name: 'Spanx', creator: 'סארה בלייקלי', emoji: '👙', story: 'עמדה מול המראה עם מכנסיים לבנים ושום דבר שנראה טוב מתחת. גזרה את הרגליים של גרביון ולבשה. עבד. הלכה עם זה עד הסוף — ומכרה ב-5 מיליארד דולר. בלי משקיעים ובלי קשרים.' },
+        { name: 'Glossier', creator: 'אמילי וייס', emoji: '💄', story: 'התחילה מבלוג יופי בו שאלה בנות מה הן באמת רוצות. הקשיבה. ויצרה מותג איפור שנראה כמו "בלי איפור". בגיל 29 זה כבר היה שווה מיליארד.' },
+        { name: 'GoldieBlox', creator: 'דבי סטרלינג', emoji: '🔧', story: 'למה כל הצעצועים ההנדסיים רק לבנים? היא יצרה צעצועי בנייה שמיועדים לבנות — ושמו אותם על מדפים ליד הלגו. שינתה את מה שילדות חולמות להיות.' }
+      ]
+    };
+
     function getStepIndicator(current, total) {
       let dots = '';
       for (let i = 1; i <= total; i++) {
@@ -914,7 +980,7 @@
 
     function renderStep1() {
       const html = `
-        ${getStepIndicator(1, 8)}
+        ${getStepIndicator(1, 9)}
         <div class="text-center mb-8">
           <div class="text-6xl mb-4">👋</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">מי יוצאת למסע?</h2>
@@ -956,7 +1022,7 @@
 
       const namesStr = journeyData.names.join(' ו');
       const html = `
-        ${getStepIndicator(1, 8)}
+        ${getStepIndicator(1, 9)}
         <div class="text-center">
           <div class="text-6xl mb-6">✨</div>
           <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
@@ -991,7 +1057,7 @@
         }).join('');
 
         const html = `
-          ${getStepIndicator(2, 8)}
+          ${getStepIndicator(2, 9)}
           <div class="text-center mb-6">
             <div class="text-5xl mb-4">📦</div>
             <h2 class="text-3xl font-bold mb-3 gradient-text">בחירת תיבת נושא</h2>
@@ -1022,7 +1088,7 @@
 
           const topicObj = topicBoxes.find(b => b.id === primary);
           const html = `
-            ${getStepIndicator(2, 8)}
+            ${getStepIndicator(2, 9)}
             <div class="text-center">
               <div class="text-6xl mb-6">${topicObj.emoji}</div>
               <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
@@ -1065,7 +1131,7 @@
       `).join('');
 
       const html = `
-        ${getStepIndicator(3, 8)}
+        ${getStepIndicator(3, 9)}
         <div class="text-center mb-6">
           <div class="text-5xl mb-4">💭</div>
           <div class="stem-card rounded-full px-6 py-3 inline-block mb-4" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));">
@@ -1235,7 +1301,7 @@
       const domain = domainData[domainId];
 
       const html = `
-        ${getStepIndicator(4, 8)}
+        ${getStepIndicator(4, 9)}
         <div class="text-center">
           <div class="text-7xl mb-6">${domain.emoji}</div>
           <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
@@ -1263,7 +1329,7 @@
       `).join('');
 
       const html = `
-        ${getStepIndicator(5, 8)}
+        ${getStepIndicator(5, 9)}
         <div class="text-center mb-6">
           <div class="text-5xl mb-4">${domain.emoji}</div>
           <h2 class="text-2xl font-bold mb-3 gradient-text">${domain.name}</h2>
@@ -1289,11 +1355,47 @@
         else c.classList.remove('selected');
       });
 
-      setTimeout(() => renderStep6(), 600);
+      setTimeout(() => renderStep6Inspiration(), 600);
     }
 
-    function renderStep6() {
+    function renderStep6Inspiration() {
       journeyData.currentStep = 6;
+      const examples = inspirationExamples[journeyData.domain] || [];
+      const cardsHtml = examples.map(ex => `
+        <div class="inspiration-card stem-card rounded-2xl p-6 text-center" style="background: var(--surface-color);">
+          <div class="text-5xl mb-4">${ex.emoji}</div>
+          <h3 class="text-lg font-bold mb-1" style="color: var(--text-color);">${ex.name}</h3>
+          <p class="text-sm font-medium mb-3" style="color: var(--primary-color); opacity: 0.85;">${ex.creator}</p>
+          <p class="text-sm leading-relaxed" style="color: var(--text-color); opacity: 0.8;">${ex.story}</p>
+        </div>
+      `).join('');
+
+      const html = `
+        ${getStepIndicator(6, 9)}
+        <div class="text-center mb-8">
+          <div class="text-5xl mb-4">💡</div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4 gradient-text">נשים שהפכו צורך למוצר 💡</h2>
+          <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">מוצרים אמיתיים שנולדו מרגע של "למה אין דבר כזה?"</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 inspiration-grid">
+          ${cardsHtml}
+        </div>
+        <div class="text-center mb-6">
+          <div class="stem-card rounded-2xl p-6 inline-block max-w-xl" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));">
+            <p class="text-lg font-bold" style="color: var(--text-color);">כל אחת מהן התחילה מרגע של "למה אין דבר כזה?" — בדיוק כמוכן.</p>
+          </div>
+        </div>
+        <div class="text-center">
+          <button onclick="renderStep7()" class="pulse-btn text-white text-xl font-bold px-10 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+            עכשיו תורכן! →
+          </button>
+        </div>
+      `;
+      transitionStep(html);
+    }
+
+    function renderStep7() {
+      journeyData.currentStep = 7;
       const options = [
         { emoji: '👀', text: 'לשים לב למשהו', value: 'notice' },
         { emoji: '💬', text: 'לדבר עליו יותר', value: 'talk' },
@@ -1308,7 +1410,7 @@
       `).join('');
 
       const html = `
-        ${getStepIndicator(6, 8)}
+        ${getStepIndicator(7, 9)}
         <div class="text-center mb-6">
           <div class="text-5xl mb-4">🤝</div>
           <h2 class="text-2xl font-bold mb-4 gradient-text">החלטה משותפת</h2>
@@ -1325,13 +1427,13 @@
       journeyData.decision = label;
 
       const html = `
-        ${getStepIndicator(6, 8)}
+        ${getStepIndicator(7, 9)}
         <div class="text-center">
           <div class="text-6xl mb-6">💫</div>
           <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: var(--surface-color);">
             <h2 class="text-2xl font-bold mb-4 gradient-text">ההחלטה המשותפת שלכן</h2>
             <p class="text-xl mb-6" style="color: var(--text-color);">${label}</p>
-            <button onclick="renderStep7()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+            <button onclick="renderStep8()" class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
               המשיכו →
             </button>
           </div>
@@ -1340,16 +1442,16 @@
       transitionStep(html);
     }
 
-    function renderStep7() {
-      journeyData.currentStep = 7;
+    function renderStep8() {
+      journeyData.currentStep = 8;
       const html = `
-        ${getStepIndicator(7, 8)}
+        ${getStepIndicator(8, 9)}
         <div class="text-center">
           <div class="text-6xl mb-6">🌟</div>
           <div class="stem-card rounded-3xl p-10 max-w-xl mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
             <div class="text-white">
               <p class="text-xl mb-6 leading-relaxed">לא פתרתן הכול. אבל בחרתן לצעוד יחד לדייק ולקבל החלטה.</p>
-              <button onclick="renderStep8()" class="bg-white text-lg font-bold px-10 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="color: var(--primary-color);">
+              <button onclick="renderStep9()" class="bg-white text-lg font-bold px-10 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="color: var(--primary-color);">
                 הדרך שלנו – יחד 💜
               </button>
             </div>
@@ -1359,14 +1461,14 @@
       transitionStep(html);
     }
 
-    function renderStep8() {
-      journeyData.currentStep = 8;
+    function renderStep9() {
+      journeyData.currentStep = 9;
       const domain = domainData[journeyData.domain];
       const topicObj = topicBoxes.find(b => b.id === journeyData.primaryTopic);
       const namesStr = journeyData.names.join(' ו');
 
       const html = `
-        ${getStepIndicator(8, 8)}
+        ${getStepIndicator(9, 9)}
         <div class="text-center mb-6">
           <div class="text-6xl mb-4">📄</div>
           <h2 class="text-3xl font-bold mb-2 gradient-text">הדרך שלנו – יחד</h2>
