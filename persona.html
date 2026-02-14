@@ -221,7 +221,9 @@ function generatePDF() {
 
     const problemSentence = `נערות בגיל ${document.getElementById('pAge').value} אשר ${document.getElementById('pWho').value} מתקשות ב-${document.getElementById('pDifficulty').value} כאשר ${document.getElementById('pWhen').value}.`;
 
-    document.getElementById('summaryArea').innerHTML = `
+    const summary = document.getElementById('summaryArea');
+
+    summary.innerHTML = `
     <div class="final-wrapper">
         <div class="final-doc">
             <div class="text-side">
@@ -251,12 +253,17 @@ function generatePDF() {
         return;
     }
 
+    // חשוב: אלמנט עם display:none לא מרונדר ל-PDF
+    summary.style.display = 'block';
+
     html2pdf().set({
         margin: 0,
         filename: 'persona.pdf',
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(element).save();
+    }).from(element).save().then(() => {
+        summary.style.display = 'none';
+    });
 }
 </script>
 
