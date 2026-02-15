@@ -73,89 +73,6 @@ button {
 button:hover {
     opacity: 0.9;
 }
-
-/* PDF Styles */
-.final-wrapper {
-    width: 210mm;
-    min-height: 297mm;
-    padding: 20mm;
-    box-sizing: border-box;
-    background: white;
-    font-family: 'Assistant', sans-serif;
-    direction: rtl;
-}
-
-.final-wrapper h2 {
-    color: #e91e63;
-    font-family: 'Rubik', sans-serif;
-    font-size: 24px;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #00a7b5;
-    padding-bottom: 10px;
-}
-
-.final-wrapper p {
-    margin: 12px 0;
-    line-height: 1.8;
-    font-size: 14px;
-}
-
-.final-wrapper strong {
-    color: #00a7b5;
-    font-weight: 600;
-}
-
-.final-doc {
-    display: flex;
-    gap: 30px;
-}
-
-.text-side {
-    flex: 2;
-}
-
-.image-side {
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.image-side img {
-    max-width: 100%;
-    height: auto;
-    max-height: 400px;
-}
-
-.section-block {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
-    border-right: 4px solid #e91e63;
-}
-
-.quote-block {
-    background: #fff0f5;
-    padding: 15px;
-    border-radius: 8px;
-    font-style: italic;
-    text-align: center;
-    margin: 20px 0;
-    font-size: 16px;
-}
-
-.problem-statement {
-    background: linear-gradient(135deg, #e91e63, #00a7b5);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    font-size: 15px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 1.8;
-}
 </style>
 </head>
 
@@ -249,9 +166,37 @@ button:hover {
 <button onclick="generatePDF()">🎀 הורדת PDF</button>
 </div>
 
+<!-- Hidden image for conversion to base64 -->
+<img id="girlImage" src="girl.png" style="display:none;" crossorigin="anonymous">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
+let imageBase64 = '';
+
+// Convert image to base64 on page load
+window.addEventListener('load', function() {
+    const img = document.getElementById('girlImage');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        try {
+            imageBase64 = canvas.toDataURL('image/png');
+        } catch(e) {
+            console.log('Could not convert image to base64:', e);
+        }
+    };
+    
+    // Trigger load if image is already cached
+    if (img.complete) {
+        img.onload();
+    }
+});
+
 function getValues(className, otherId) {
     let vals = Array.from(document.querySelectorAll('.' + className + ':checked')).map(cb => cb.value);
     let other = document.getElementById(otherId).value.trim();
@@ -280,47 +225,51 @@ function generatePDF() {
 
     const problemSentence = `נערות בגיל ${pAge} אשר ${pWho} מתקשות ב-${pDifficulty} כאשר ${pWhen}.`;
 
-    // Create PDF content
+    // Use base64 image or placeholder
+    const imgSrc = imageBase64 || '';
+    const imgTag = imgSrc ? `<img src="${imgSrc}" style="max-width: 100%; height: auto; max-height: 400px;" alt="דמות פרסונה">` : '';
+
+    // Create PDF content with INLINE styles
     const pdfContent = `
-    <div class="final-wrapper">
-        <div class="final-doc">
-            <div class="text-side">
-                <h2>הגדרת הפרסונה של: ${team}</h2>
+    <div style="width: 210mm; min-height: 297mm; padding: 20mm; box-sizing: border-box; background: white; font-family: Arial, sans-serif; direction: rtl; color: #000;">
+        <div style="display: flex; gap: 30px;">
+            <div style="flex: 2;">
+                <h2 style="color: #e91e63; font-size: 24px; margin-bottom: 20px; border-bottom: 3px solid #00a7b5; padding-bottom: 10px;">הגדרת הפרסונה של: ${team}</h2>
                 
-                <div class="section-block">
-                    <p><strong>שם:</strong> ${name} | <strong>גיל:</strong> ${age}</p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">שם:</strong> ${name} | <strong style="color: #00a7b5;">גיל:</strong> ${age}</p>
                 </div>
                 
-                <div class="section-block">
-                    <p><strong>שגרת חיים:</strong> ${routine}</p>
-                    <p>${routineText}</p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">שגרת חיים:</strong> ${routine}</p>
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;">${routineText}</p>
                 </div>
                 
-                <div class="section-block">
-                    <p><strong>מיקומים עיקריים:</strong> ${location}</p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מיקומים עיקריים:</strong> ${location}</p>
                 </div>
                 
-                <div class="section-block">
-                    <p><strong>מתי הבעיה מופיעה:</strong> ${moment}</p>
-                    <p><strong>מה קורה בפועל:</strong> ${action}</p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מתי הבעיה מופיעה:</strong> ${moment}</p>
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מה קורה בפועל:</strong> ${action}</p>
                 </div>
                 
-                <div class="section-block">
-                    <p><strong>הרגשה:</strong> ${emotion}</p>
-                    <p><strong>תחומי השפעה:</strong> ${impactType}</p>
-                    <p>${impactText}</p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">הרגשה:</strong> ${emotion}</p>
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">תחומי השפעה:</strong> ${impactType}</p>
+                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;">${impactText}</p>
                 </div>
                 
-                <div class="quote-block">
+                <div style="background: #fff0f5; padding: 15px; border-radius: 8px; font-style: italic; text-align: center; margin: 20px 0; font-size: 16px; color: #000;">
                     "${quote}"
                 </div>
                 
-                <div class="problem-statement">
+                <div style="background: linear-gradient(135deg, #e91e63, #00a7b5); color: white; padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 15px; font-weight: 600; text-align: center; line-height: 1.8;">
                     ${problemSentence}
                 </div>
             </div>
-            <div class="image-side">
-                <img src="girl.png" onerror="this.style.display='none'" alt="דמות פרסונה">
+            <div style="flex: 1; display: flex; align-items: flex-end; justify-content: center;">
+                ${imgTag}
             </div>
         </div>
     </div>`;
@@ -332,7 +281,7 @@ function generatePDF() {
     tempDiv.style.left = '-9999px';
     document.body.appendChild(tempDiv);
 
-    const element = tempDiv.querySelector('.final-wrapper');
+    const element = tempDiv.querySelector('div');
 
     if (typeof html2pdf === 'undefined') {
         alert('ספריית PDF לא נטענה. בדוק חיבור אינטרנט.');
@@ -346,7 +295,9 @@ function generatePDF() {
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            letterRendering: true
+            allowTaint: true,
+            letterRendering: true,
+            backgroundColor: '#ffffff'
         },
         jsPDF: { 
             unit: 'mm', 
