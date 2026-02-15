@@ -166,37 +166,13 @@ button:hover {
 <button onclick="generatePDF()">🎀 הורדת PDF</button>
 </div>
 
-<!-- Hidden image for conversion to base64 -->
-<img id="girlImage" src="girl.png" style="display:none;" crossorigin="anonymous">
+<!-- Hidden canvas for PDF generation -->
+<canvas id="pdfCanvas" style="display:none;"></canvas>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
-let imageBase64 = '';
-
-// Convert image to base64 on page load
-window.addEventListener('load', function() {
-    const img = document.getElementById('girlImage');
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    img.onload = function() {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        try {
-            imageBase64 = canvas.toDataURL('image/png');
-        } catch(e) {
-            console.log('Could not convert image to base64:', e);
-        }
-    };
-    
-    // Trigger load if image is already cached
-    if (img.complete) {
-        img.onload();
-    }
-});
-
 function getValues(className, otherId) {
     let vals = Array.from(document.querySelectorAll('.' + className + ':checked')).map(cb => cb.value);
     let other = document.getElementById(otherId).value.trim();
@@ -204,7 +180,7 @@ function getValues(className, otherId) {
     return vals.length > 0 ? vals.join(', ') : 'לא צוין';
 }
 
-function generatePDF() {
+async function generatePDF() {
     const team = document.getElementById('teamNames').value.trim() || 'לא צוין';
     const name = document.getElementById('name').value.trim() || 'לא צוין';
     const age = document.getElementById('age').value.trim() || 'לא צוין';
@@ -225,93 +201,113 @@ function generatePDF() {
 
     const problemSentence = `נערות בגיל ${pAge} אשר ${pWho} מתקשות ב-${pDifficulty} כאשר ${pWhen}.`;
 
-    // Use base64 image or placeholder
-    const imgSrc = imageBase64 || '';
-    const imgTag = imgSrc ? `<img src="${imgSrc}" style="max-width: 100%; height: auto; max-height: 400px;" alt="דמות פרסונה">` : '';
+    // Load image as base64
+    let imgData = '';
+    try {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        await new Promise((resolve, reject) => {
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                imgData = canvas.toDataURL('image/png');
+                resolve();
+            };
+            img.onerror = () => {
+                console.log('Could not load image');
+                resolve(); // Continue without image
+            };
+            img.src = 'girl.png';
+        });
+    } catch(e) {
+        console.log('Image error:', e);
+    }
 
-    // Create PDF content with INLINE styles
-    const pdfContent = `
-    <div style="width: 210mm; min-height: 297mm; padding: 20mm; box-sizing: border-box; background: white; font-family: Arial, sans-serif; direction: rtl; color: #000;">
+    // Create PDF content div
+    const pdfDiv = document.createElement('div');
+    pdfDiv.style.width = '800px';
+    pdfDiv.style.padding = '40px';
+    pdfDiv.style.background = 'white';
+    pdfDiv.style.fontFamily = 'Arial, sans-serif';
+    pdfDiv.style.direction = 'rtl';
+    pdfDiv.style.position = 'absolute';
+    pdfDiv.style.right = '0';
+    pdfDiv.style.top = '0';
+
+    pdfDiv.innerHTML = `
         <div style="display: flex; gap: 30px;">
             <div style="flex: 2;">
                 <h2 style="color: #e91e63; font-size: 24px; margin-bottom: 20px; border-bottom: 3px solid #00a7b5; padding-bottom: 10px;">הגדרת הפרסונה של: ${team}</h2>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">שם:</strong> ${name} | <strong style="color: #00a7b5;">גיל:</strong> ${age}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong style="color: #00a7b5;">שם:</strong> ${name} | <strong style="color: #00a7b5;">גיל:</strong> ${age}</p>
                 </div>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">שגרת חיים:</strong> ${routine}</p>
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;">${routineText}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">שגרת חיים:</strong> ${routine}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;">${routineText}</p>
                 </div>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מיקומים עיקריים:</strong> ${location}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">מיקומים עיקריים:</strong> ${location}</p>
                 </div>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מתי הבעיה מופיעה:</strong> ${moment}</p>
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">מה קורה בפועל:</strong> ${action}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">מתי הבעיה מופיעה:</strong> ${moment}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">מה קורה בפועל:</strong> ${action}</p>
                 </div>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0; border-right: 4px solid #e91e63;">
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">הרגשה:</strong> ${emotion}</p>
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;"><strong style="color: #00a7b5;">תחומי השפעה:</strong> ${impactType}</p>
-                    <p style="margin: 8px 0; line-height: 1.8; font-size: 14px; color: #000;">${impactText}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">הרגשה:</strong> ${emotion}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;"><strong style="color: #00a7b5;">תחומי השפעה:</strong> ${impactType}</p>
+                    <p style="margin: 8px 0; line-height: 1.6; font-size: 13px;">${impactText}</p>
                 </div>
                 
-                <div style="background: #fff0f5; padding: 15px; border-radius: 8px; font-style: italic; text-align: center; margin: 20px 0; font-size: 16px; color: #000;">
+                <div style="background: #fff0f5; padding: 15px; border-radius: 8px; font-style: italic; text-align: center; margin: 20px 0; font-size: 15px;">
                     "${quote}"
                 </div>
                 
-                <div style="background: linear-gradient(135deg, #e91e63, #00a7b5); color: white; padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 15px; font-weight: 600; text-align: center; line-height: 1.8;">
+                <div style="background: #e91e63; color: white; padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 14px; font-weight: 600; text-align: center; line-height: 1.8;">
                     ${problemSentence}
                 </div>
             </div>
-            <div style="flex: 1; display: flex; align-items: flex-end; justify-content: center;">
-                ${imgTag}
+            <div id="imageContainer" style="flex: 1; display: flex; align-items: flex-end; justify-content: center;">
+                ${imgData ? `<img src="${imgData}" style="max-width: 100%; height: auto; max-height: 400px;">` : ''}
             </div>
         </div>
-    </div>`;
+    `;
 
-    // Create temporary element for PDF
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = pdfContent;
-    tempDiv.style.position = 'absolute';
-    tempDiv.style.left = '-9999px';
-    document.body.appendChild(tempDiv);
+    document.body.appendChild(pdfDiv);
 
-    const element = tempDiv.querySelector('div');
-
-    if (typeof html2pdf === 'undefined') {
-        alert('ספריית PDF לא נטענה. בדוק חיבור אינטרנט.');
-        document.body.removeChild(tempDiv);
-        return;
-    }
-
-    html2pdf().set({
-        margin: [10, 10, 10, 10],
-        filename: `persona_${name}_${new Date().getTime()}.pdf`,
-        html2canvas: { 
+    try {
+        const canvas = await html2canvas(pdfDiv, {
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            letterRendering: true,
-            backgroundColor: '#ffffff'
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait',
-            compress: true
-        }
-    }).from(element).save().then(() => {
-        document.body.removeChild(tempDiv);
-    }).catch(err => {
+            backgroundColor: '#ffffff',
+            windowWidth: 800
+        });
+
+        const imgWidth = 210; // A4 width in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const imgDataUrl = canvas.toDataURL('image/png');
+        pdf.addImage(imgDataUrl, 'PNG', 0, 0, imgWidth, imgHeight);
+        
+        pdf.save(`persona_${name}_${Date.now()}.pdf`);
+        
+        document.body.removeChild(pdfDiv);
+    } catch (err) {
         console.error('Error generating PDF:', err);
-        alert('שגיאה ביצירת PDF. נסה שוב.');
-        document.body.removeChild(tempDiv);
-    });
+        alert('שגיאה ביצירת PDF: ' + err.message);
+        document.body.removeChild(pdfDiv);
+    }
 }
 </script>
 
