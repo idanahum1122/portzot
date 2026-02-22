@@ -92,7 +92,7 @@ textarea {
     display: none;
     direction: rtl;
     text-align: right;
-    font-family: 'Assistant', sans-serif;
+    font-family: Arial, sans-serif;
     color: #111827;
     line-height: 1.7;
 }
@@ -232,19 +232,23 @@ window.generatePDF = async function(){
     }
 
     summaryArea.innerHTML = `
-        <h3>בדיקת מציאות והגדרת מוצר (GO)</h3>
-        ${sections.map(([title, content]) => 
-            `<p><strong>${title}:</strong> ${content}</p>`
-        ).join('')}
+        <div style="font-family: Arial, sans-serif; direction: rtl; text-align: right; color: #111827; line-height: 1.7; padding: 10px;">
+            <h3 style="font-family: Arial, sans-serif; margin-top: 0;">בדיקת מציאות והגדרת מוצר (GO)</h3>
+            ${sections.map(([title, content]) =>
+                `<p style="font-family: Arial, sans-serif;"><strong>${title}:</strong> ${content}</p>`
+            ).join('')}
+        </div>
     `;
 
     summaryArea.style.display = 'block';
+
+    await document.fonts.ready;
 
     await html2pdf().from(summaryArea).set({
         margin: 10,
         filename: 'GO_product_definition.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).save();
 
