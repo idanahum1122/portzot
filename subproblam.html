@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="he" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>זה התחיל ממשהו קטן</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Rubik', sans-serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .stem-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .stem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .floating-emoji {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .pulse-btn {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+      50% { box-shadow: 0 0 0 15px rgba(236, 72, 153, 0); }
+    }
+    
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
+    }
+    
+    :root {
+      --primary-color: #ec4899;
+      --secondary-color: #8b5cf6;
+      --bg-color: #fdf4ff;
+      --text-color: #1f2937;
+      --surface-color: #ffffff;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: var(--bg-color);"><!-- Main Content (Article) -->
+   <div id="main-content"><!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 py-16 relative overflow-hidden">
+     <div class="absolute top-20 right-10 text-6xl floating-emoji opacity-30">
+      💡
+     </div>
+     <div class="absolute bottom-32 left-10 text-5xl floating-emoji opacity-30" style="animation-delay: 1s;">
+      🚀
+     </div>
+     <div class="absolute top-40 left-20 text-4xl floating-emoji opacity-20" style="animation-delay: 0.5s;">
+      ✨
+     </div>
+     <div class="max-w-3xl text-center relative z-10">
+      <h1 id="main-title" class="text-4xl md:text-6xl font-bold mb-6 gradient-text leading-tight">זה התחיל ממשהו קטן</h1>
+      <p class="text-xl md:text-2xl mb-8 font-light" style="color: var(--text-color); opacity: 0.8;">(וככה מתחילים לשנות את העולם)</p>
+      <div class="stem-card rounded-2xl p-8 max-w-xl mx-auto mb-12" style="background: var(--surface-color);">
+       <p class="text-lg leading-relaxed" style="color: var(--text-color);">יש רגעים קטנים ביום-יום שגורמים לך לעצור.<br><br><span class="text-2xl">🔊</span> שריטה על לוח.<br><span class="text-2xl">🔋</span> אחוז אחד בסוללה.<br><span class="text-2xl">🚽</span> מכסה אסלה פתוח (כן, זה כן סוף העולם).</p>
+      </div>
+      <p class="text-lg" style="color: var(--text-color); opacity: 0.7;">לא דרמה גדולה. לא "בעיה גלובלית".<br>
+        רק תחושה קטנה ש: <strong class="gradient-text text-2xl">למה זה ככה בעצם?</strong></p>
+     </div>
+     <div class="absolute bottom-8 animate-bounce">
+      <svg class="w-8 h-8" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+     </div>
+    </section><!-- The Spark Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-4xl mx-auto">
+      <div class="section-divider mb-10"></div>
+      <div class="text-center mb-8"><span class="text-5xl mb-4 block">🌱</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">רוב האנשים ממשיכים הלאה</h2>
+       <p class="text-2xl gradient-text font-bold bg-white/50 rounded-xl px-6 py-4 inline-block">אבל יזמות טכנולוגיה ו-STEM מתחילים דווקא שם.</p>
+      </div>
+      <div class="stem-card rounded-3xl p-10 text-center" style="background: var(--surface-color); border: 3px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
+       <h3 class="text-2xl font-bold mb-6" style="color: var(--text-color);">החיים הם לא הפסקה מהלמידה</h3>
+       <p class="text-4xl gradient-text font-bold">הם הלמידה</p>
+      </div>
+     </div>
+    </section><!-- What is STEM Section -->
+    <section class="py-12 px-6" style="background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.05));">
+     <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10"><span class="text-5xl mb-4 block">🔬</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">STEM לא מתחיל בכיתה</h2>
+       <p class="text-xl" style="color: var(--text-color); opacity: 0.8;">הוא מתחיל בחיים עצמם.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+       <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
+        <div class="text-3xl mb-3">
+         🧪
+        </div>
+        <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">מדע</h3>
+        <p style="color: var(--text-color); opacity: 0.7;">עוזר להבין את הבעיה</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
+        <div class="text-3xl mb-3">
+         💻
+        </div>
+        <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">טכנולוגיה</h3>
+        <p style="color: var(--text-color); opacity: 0.7;">מאפשרת לשינוי לקרות בפועל</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
+        <div class="text-3xl mb-3">
+         ⚙️
+        </div>
+        <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">הנדסה</h3>
+        <p style="color: var(--text-color); opacity: 0.7;">מתכננת, בודקת ומשפרת</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6" style="background: var(--surface-color);">
+        <div class="text-3xl mb-3">
+         📐
+        </div>
+        <h3 class="font-bold text-lg mb-2" style="color: var(--text-color);">מתמטיקה</h3>
+        <p style="color: var(--text-color); opacity: 0.7;">עוזרת למדוד, להשוות ולהחליט</p>
+       </div>
+      </div>
+      <div class="text-center">
+       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">התהליך התכנוני הוא המקום שבו הכול נפגש.<br><strong class="text-xl gradient-text">לא ברגע אחד. לא בקסם. אלא שלב אחרי שלב.</strong></p>
+      </div>
+     </div>
+    </section><!-- Stop & Ask Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-4xl mx-auto">
+      <div class="stem-card rounded-3xl p-10 md:p-16" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+       <div class="text-center text-white"><span class="text-5xl mb-6 block">✋</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">רגע. עוצרים. לא פותרים.</h2>
+        <p class="text-lg opacity-90 mb-8 max-w-2xl mx-auto">יש לנו נטייה בעייתית לרוץ קדימה: להציע רעיון, לחשוב על אפליקציה, להמציא מוצר. <br><br>
+          אבל בתהליך תכנוני אמיתי עושים משהו אחר לגמרי.</p>
+        <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm max-w-md mx-auto">
+         <p class="font-bold text-xl mb-4">ושואלים שאלות:</p>
+         <p class="text-lg">📍 איפה זה קורה?<br>
+           👤 למי זה קורה?<br>
+           🚫 מה זה מונע?</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- The Magic Section -->
+    <section class="py-12 px-6" style="background: var(--surface-color);">
+     <div class="max-w-4xl mx-auto text-center"><span class="text-5xl mb-6 block">✨</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">ברגע הזה קורה קסם שקט</h2>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+       <div class="stem-card rounded-2xl p-6 flex-1" style="background: var(--bg-color);">
+        <p class="text-lg" style="color: var(--text-color);">עוברים מ<strong>רגש</strong></p>
+        <p class="text-2xl mt-2">"זה מעצבן" 😤</p>
+       </div>
+       <div class="text-4xl">
+        ⬅️
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex-1" style="background: var(--bg-color);">
+        <p class="text-lg" style="color: var(--text-color);">ל<strong>תיאור של מצב</strong></p>
+        <p class="text-2xl mt-2 gradient-text font-bold">בעיה שאפשר לעבוד איתה 💡</p>
+       </div>
+      </div>
+      <div class="stem-card rounded-2xl p-8 max-w-xl mx-auto" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15)); border: 2px solid rgba(236, 72, 153, 0.3);">
+       <h3 class="text-xl font-bold mb-4" style="color: var(--text-color);">בעיה ≠ פתרון</h3>
+       <p class="text-3xl font-bold gradient-text">בעיה → צורך</p>
+       <p class="mt-4 text-base" style="color: var(--text-color); opacity: 0.9;"><strong>צורך הוא לא מוצר, לא שם מגניב, ולא רעיון סגור.</strong><br>
+         צורך הוא הבנה עמוקה של מה צריך להשתנות.</p>
+      </div>
+     </div>
+    </section><!-- Process Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10"><span class="text-5xl mb-4 block">🛠️</span>
+       <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-color);">כך נראה התהליך שלנו</h2>
+       <p class="text-lg" style="color: var(--text-color); opacity: 0.8;">מוצר טוב לא נולד מרעיון מבריק אחד. הוא נבנה דרך תהליך.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         1
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">מאתרות אתגר</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מזהות בעיה, מגדירות צורך ומבינות למי זה קורה באמת. עובדות עם קהל יעד ופרסונה כדי לא לדבר באוויר — אלא על משתמשת אמיתית.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         2
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">חושבות אחרת</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">חוקרות את הבעיה לעומק, בודקות פתרונות קיימים ועושות סיעור מוחות יצירתי בלי לפסול רעיונות מהר מדי.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         3
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">מגבשות פתרון</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בוחרות רעיון אחד, מפתחות קונספט מוצר, בודקות ערך למשתמשת, מקבלות החלטות GO / NO-GO ומשתמשות ב-AI בצורה אחראית ככלי לחשיבה – לא קיצור דרך.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         4
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">מעצבות אבטיפוס</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">הרעיון מקבל צורה. אבטיפוס, כלי AI וחוויית משתמש. זה ניסוי, לא מוצר מושלם.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         5
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">מדייקות מיזם</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מקבלות משוב, מנתחות תגובות ומשפרות. לא נעלבות — משתפרות.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         6
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">ממתגות ומבססות</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בונות סיפור מוצר, פוסטר חקר וסרטון AI, לומדות איך לשווק רעיון ואיך לאפיין קהל ברשתות.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         7
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">מציגות ומשכנעות</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">בונות פיץ', מציגות פרזנטציה ולומדות לספר תהליך — לא רק תוצאה.</p>
+       </div>
+       <div class="stem-card rounded-2xl p-6 flex flex-col" style="background: var(--surface-color);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mb-4 mx-auto" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+         8
+        </div>
+        <h3 class="font-bold text-lg mb-3 gradient-text text-center">משיקות ומשפיעות</h3>
+        <p class="text-sm flex-grow" style="color: var(--text-color); opacity: 0.8;">מציגות את המיזם, משיקות אותו וחושבות קדימה: איך זה ממשיך, איך זה גדל ואיך זה משפיע.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Where Are You Now Section -->
+    <section class="py-12 px-6" style="background: linear-gradient(180deg, rgba(236, 72, 153, 0.05), rgba(139, 92, 246, 0.1));">
+     <div class="max-w-4xl mx-auto text-center"><span class="text-6xl mb-6 block">📍</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-color);">אז איפה אתן עכשיו?</h2>
+      <p class="text-xl mb-6 gradient-text font-semibold">בדיוק בתחילת הדרך.</p>
+      <div class="stem-card rounded-3xl p-10 max-w-2xl mx-auto mb-8" style="background: var(--surface-color); border: 3px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
+       <p class="text-lg mb-6" style="color: var(--text-color);">אנחנו היום בשלב הראשון: <strong class="text-2xl gradient-text">איתור בעיה</strong>.</p>
+       <p style="color: var(--text-color); opacity: 0.8;">עוד לא בונות.<br>
+         עוד לא מפתחות.<br><strong class="text-lg gradient-text">רק מתבוננות, שואלות ומדייקות.</strong></p>
+       <p class="mt-6 font-bold gradient-text text-xl">וזה אחד השלבים הכי חשובים בתהליך.</p>
+      </div>
+     </div>
+    </section><!-- CTA Section -->
+    <section class="py-16 px-6">
+     <div class="max-w-3xl mx-auto text-center"><span class="text-6xl mb-6 block">👇</span> <button id="cta-button" class="pulse-btn text-white text-xl font-bold px-12 py-5 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));"> התחילי את הפעילות </button>
+      <div class="mt-12 stem-card rounded-2xl p-8" style="background: var(--surface-color); border: 2px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
+       <p class="text-xl font-bold mb-4" style="color: var(--text-color);">כי כל שינוי גדול</p>
+       <p class="text-2xl gradient-text font-bold">מתחיל מבעיה קטנה אחת,<br>
+         שלא נתת לה לעבור לידך.</p>
+      </div>
+      <div class="mt-16 flex justify-center gap-4"><span class="text-3xl floating-emoji">💪</span> <span class="text-3xl floating-emoji" style="animation-delay: 0.3s;">🌟</span> <span class="text-3xl floating-emoji" style="animation-delay: 0.6s;">🚀</span>
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <footer class="py-8 px-6 text-center" style="background: var(--surface-color);">
+     <p class="text-sm" style="color: var(--text-color); opacity: 0.6;">נבנה עבור בנות שישנו את העולם 💜</p>
+    </footer>
+   </div><!-- Domains Selection View -->
+   <div id="domains-view" style="display: none;">
+    <section class="min-h-screen py-16 px-6">
+     <div class="max-w-6xl mx-auto"><!-- Header -->
+      <div class="text-center mb-12">
+       <div class="text-6xl mb-6">
+        🎯
+       </div>
+       <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">בחרי תחום שמעניין אותך</h2><!-- Pedagogical Goal Box -->
+       <div class="stem-card rounded-2xl p-8 max-w-3xl mx-auto mb-6" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)); border: 2px solid var(--primary-color);">
+        <p class="text-xl font-bold mb-4" style="color: var(--text-color);">💡 המטרה שלנו</p>
+        <p class="text-lg mb-4" style="color: var(--text-color); opacity: 0.9;">התחום שתבחרי יהיה <strong class="gradient-text">נקודת המוצא לפיתוח מוצר טכנולוגי</strong> שיפתור בעיה אמיתית בחיים שלך ושל בנות אחרות בגילך.</p>
+        <p class="text-base" style="color: var(--text-color); opacity: 0.8;">אז חשבי: באיזה תחום את הכי רוצה לראות שינוי? איזה בעיה את רוצה לפתור?</p>
+       </div>
+       <p class="text-lg" style="color: var(--text-color); opacity: 0.7;">כל תחום מכיל מצבים שונים מהחיים של נערות בגילך</p>
+      </div><!-- Domains Grid -->
+      <div id="domains-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"><!-- Domains will be rendered here by JavaScript -->
+      </div><!-- Back Button -->
+      <div class="text-center mt-12"><button onclick="showMainView()" class="text-lg font-bold px-8 py-4 rounded-full transition-all duration-300" style="background: var(--surface-color); color: var(--text-color); border: 2px solid var(--primary-color);"> ← חזרה למאמר </button>
+      </div>
+     </div>
+    </section>
+   </div><!-- Situations Selection View -->
+   <div id="situations-view" style="display: none;">
+    <section class="min-h-screen py-16 px-6">
+     <div class="max-w-5xl mx-auto"><!-- Header -->
+      <div class="text-center mb-12">
+       <div id="domain-emoji" class="text-7xl mb-4"></div>
+       <h2 id="domain-name" class="text-4xl md:text-5xl font-bold mb-6 gradient-text"></h2><!-- Pedagogical Reminder -->
+       <div class="stem-card rounded-2xl p-6 max-w-2xl mx-auto mb-6" style="background: rgba(255, 255, 255, 0.8); border: 2px solid var(--secondary-color);">
+        <p class="text-base font-semibold mb-2" style="color: var(--text-color);">💭 זכרי: את בוחרת מצבים שיובילו לפיתוח מוצר טכנולוגי</p>
+        <p class="text-sm" style="color: var(--text-color); opacity: 0.8;">המצבים שתבחרי יעזרו לך להגדיר בעיה ברורה ולמצוא לה פתרון יצירתי</p>
+       </div>
+       <p class="text-xl mb-4" style="color: var(--text-color); opacity: 0.8;">בחרי את המצבים שאת מרגישה מזוהה איתם</p>
+       <div class="inline-block bg-white/70 rounded-full px-6 py-3">
+        <p class="text-lg font-bold" style="color: var(--text-color);">נבחרו: <span id="selected-count" class="gradient-text text-2xl">0</span> מצבים</p>
+       </div>
+      </div><!-- Situations Grid -->
+      <div id="situations-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"><!-- Situations will be rendered here by JavaScript -->
+      </div><!-- Actions -->
+      <div id="situations-actions" class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12"><button id="back-to-domains-btn" onclick="showDomainsView()" class="text-lg font-bold px-8 py-4 rounded-full transition-all duration-300" style="background: var(--surface-color); color: var(--text-color); border: 2px solid var(--primary-color);"> ← חזרה לבחירת תחום </button> <button id="continue-btn" onclick="continueToProblemDefinition()" disabled class="text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); opacity: 0.5; cursor: not-allowed;"> המשיכי עם המצבים שנבחרו → </button>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      primary_color: '#ec4899',
+      secondary_color: '#8b5cf6',
+      background_color: '#fdf4ff',
+      text_color: '#1f2937',
+      surface_color: '#ffffff',
+      font_family: 'Rubik',
+      font_size: 18,
+      main_title: 'זה התחיל ממשהו קטן',
+      button_text: 'התחילי את הפעילות'
+    };
+
+    let config = { ...defaultConfig };
+    let currentView = 'main';
+    let selectedDomain = null;
+    let selectedSituations = [];
+
+    // Domain data with 8 situations each
+    const domains = [
+      {
+        id: 'body-feeling',
+        name: 'תחושת גוף',
+        emoji: '💪',
+        situations: [
+          { emoji: '😴', text: 'קשה לי להירדם בלילה ואני עייפה כל הזמן' },
+          { emoji: '🪞', text: 'לא מרגישה בנוח עם איך שאני נראית' },
+          { emoji: '🍕', text: 'אוכלת הרבה אוכל לא בריא כשאני במתח' },
+          { emoji: '🏃‍♀️', text: 'אין לי מוטיבציה להתאמן או לזוז' },
+          { emoji: '💧', text: 'שוכחת לשתות מים במהלך היום' },
+          { emoji: '🤕', text: 'יש לי הרבה כאבי ראש או כאבי בטן' },
+          { emoji: '⚡', text: 'מרגישה בלחץ ולא יודעת איך להירגע' },
+          { emoji: '🩸', text: 'הווסת מפריעה לי ללמוד או לעשות דברים' }
+        ]
+      },
+      {
+        id: 'digital-life',
+        name: 'חיים דיגיטליים',
+        emoji: '📱',
+        situations: [
+          { emoji: '👁️', text: 'אני במסך שעות ארוכות ולא מצליחה להפסיק' },
+          { emoji: '💬', text: 'רואה משהו ברשת שגורם לי להרגיש רע' },
+          { emoji: '🔔', text: 'התראות מפריעות לי כל הזמן' },
+          { emoji: '🔐', text: 'חוששת שהמידע שלי לא מוגן' },
+          { emoji: '😰', text: 'פחד מפספוס - חייבת לבדוק כל הזמן מה קורה' },
+          { emoji: '🎮', text: 'משחקים או אפליקציות גונבים לי את כל הזמן' },
+          { emoji: '👤', text: 'לא בטוחה מה בטוח לשתף ברשת' },
+          { emoji: '😓', text: 'משווה את עצמי לאחרים ברשתות' }
+        ]
+      },
+      {
+        id: 'learning-pressure',
+        name: 'למידה בלחץ',
+        emoji: '📚',
+        situations: [
+          { emoji: '⏰', text: 'דוחה מטלות עד הרגע האחרון' },
+          { emoji: '😵', text: 'קשה לי להתרכז בשיעור' },
+          { emoji: '🎯', text: 'לא מצליחה לארגן את הלימודים שלי' },
+          { emoji: '😰', text: 'לחץ לפני מבחנים' },
+          { emoji: '❓', text: 'לא מבינה ונבוך לי לשאול' },
+          { emoji: '📖', text: 'החומר לא מעניין אותי בכלל' },
+          { emoji: '💤', text: 'מגיעה עייפה לבית הספר' },
+          { emoji: '🎒', text: 'התיק כבד ומלא דברים שלא צריכה' }
+        ]
+      },
+      {
+        id: 'social-life',
+        name: 'חיים חברתיים',
+        emoji: '👭',
+        situations: [
+          { emoji: '😔', text: 'קשה לי להכיר חברות חדשות' },
+          { emoji: '💔', text: 'יש קונפליקט עם חברה טובה' },
+          { emoji: '🎭', text: 'לחץ להשתייך לקבוצה מסוימת' },
+          { emoji: '🤐', text: 'קשה לי להגיד מה אני באמת חושבת' },
+          { emoji: '😞', text: 'מרגישה בודדה גם כשיש הרבה אנשים' },
+          { emoji: '😣', text: 'בושה לבקש עזרה כשאני צריכה' },
+          { emoji: '👂', text: 'חברות לא באמת מקשיבות לי' },
+          { emoji: '😠', text: 'מישהו אומר עליי דברים לא נעימים' }
+        ]
+      },
+      {
+        id: 'daily-choices',
+        name: 'בחירות יום-יומיות',
+        emoji: '🤔',
+        situations: [
+          { emoji: '👗', text: 'לא יודעת מה ללבוש בבוקר' },
+          { emoji: '🍽️', text: 'קשה לי לבחור אוכל בריא' },
+          { emoji: '💸', text: 'לא יודעת איך לנהל את הכסף שלי' },
+          { emoji: '⏱️', text: 'קשה לי לנהל את הזמן שלי' },
+          { emoji: '🎯', text: 'לא יודעת מה חשוב לי באמת' },
+          { emoji: '🛍️', text: 'קונה דברים שאני לא באמת צריכה' },
+          { emoji: '♻️', text: 'רוצה להיות ירוקה יותר אבל לא יודעת איך' },
+          { emoji: '📺', text: 'בזבוז זמן על דברים שלא מקדמים אותי' }
+        ]
+      },
+      {
+        id: 'space-movement',
+        name: 'מרחב ותנועה',
+        emoji: '🚶‍♀️',
+        situations: [
+          { emoji: '🚌', text: 'הדרך לבית הספר ארוכה ומעייפת' },
+          { emoji: '🏙️', text: 'אין מקומות נחמדים להיות בהם בשכונה' },
+          { emoji: '🌙', text: 'לא מרגישה בטוחה לצאת בחושך' },
+          { emoji: '🚲', text: 'אין איפה לרכוב על אופניים בבטחה' },
+          { emoji: '🏞️', text: 'אין פארקים או שטחים ירוקים קרובים' },
+          { emoji: '♿', text: 'המרחב לא נגיש לכולן' },
+          { emoji: '🚦', text: 'מסוכן לחצות כבישים בשכונה' },
+          { emoji: '🏃‍♀️', text: 'אין מקום לעשות פעילות גופנית בחוץ' }
+        ]
+      },
+      {
+        id: 'my-home',
+        name: 'הבית שלי',
+        emoji: '🏠',
+        situations: [
+          { emoji: '🚪', text: 'אין לי פרטיות בבית' },
+          { emoji: '🔊', text: 'יותר מדי רעש - קשה להתרכז' },
+          { emoji: '👨‍👩‍👧', text: 'ויכוחים עם ההורים על כללים' },
+          { emoji: '🌀', text: 'החדר שלי תמיד מבולגן' },
+          { emoji: '📚', text: 'אין לי מקום שקט ללמוד' },
+          { emoji: '💡', text: 'התאורה בחדר לא טובה' },
+          { emoji: '❄️', text: 'קר או חם מדי בחדר שלי' },
+          { emoji: '🪑', text: 'הריהוט לא נוח או לא מתאים לי' }
+        ]
+      },
+      {
+        id: 'living-environment',
+        name: 'סביבה חיה',
+        emoji: '🌱',
+        situations: [
+          { emoji: '🌳', text: 'מעט עצים וצמחים בסביבה שלי' },
+          { emoji: '♻️', text: 'קשה למיין פסולת - אין פחים מתאימים' },
+          { emoji: '🚗', text: 'זיהום אוויר מרכבים' },
+          { emoji: '🦜', text: 'אין חיות או ציפורים בסביבה' },
+          { emoji: '🗑️', text: 'הרבה זבל ברחובות' },
+          { emoji: '💧', text: 'בזבוז מים בבית' },
+          { emoji: '🌍', text: 'רוצה לעשות משהו למען הסביבה אבל לא יודעת מה' },
+          { emoji: '🌿', text: 'לא מרגישה קשר לטבע' }
+        ]
+      },
+      {
+        id: 'leisure-creativity',
+        name: 'פנאי ויצירה',
+        emoji: '🎨',
+        situations: [
+          { emoji: '😐', text: 'משעמם לי - אין מה לעשות' },
+          { emoji: '🎭', text: 'רוצה לנסות דברים חדשים אבל אין אפשרות' },
+          { emoji: '💰', text: 'חוגים והפעלות יקרים מדי' },
+          { emoji: '🎵', text: 'אין מקום להתאמן או להופיע' },
+          { emoji: '✏️', text: 'רוצה ליצור אבל אין לי כלים או מקום' },
+          { emoji: '📖', text: 'קשה למצוא ספרים או תכנים שמעניינים אותי' },
+          { emoji: '👥', text: 'אין עם מי לעשות פעילויות' },
+          { emoji: '⏰', text: 'אין זמן לתחביבים' }
+        ]
+      },
+      {
+        id: 'looking-forward',
+        name: 'מבט קדימה',
+        emoji: '🔮',
+        situations: [
+          { emoji: '❓', text: 'לא יודעת מה אני רוצה להיות בעתיד' },
+          { emoji: '🎓', text: 'לחץ לגבי בחירת מסלול לימודים' },
+          { emoji: '😟', text: 'חוששת שלא אצליח להגשים חלומות' },
+          { emoji: '🌟', text: 'יש לי רעיון אבל לא יודעת איך להתחיל' },
+          { emoji: '💪', text: 'רוצה לפתח כישורים חדשים' },
+          { emoji: '🗺️', text: 'לא בטוחה באיזה כיוון להתקדם' },
+          { emoji: '🚀', text: 'רוצה לעשות שינוי אבל זה מפחיד' },
+          { emoji: '🤷‍♀️', text: 'מרגישה שאני צריכה לדעת הכל עכשיו' }
+        ]
+      }
+    ];
+
+    function updateCSSVariables(cfg) {
+      document.documentElement.style.setProperty('--primary-color', cfg.primary_color || defaultConfig.primary_color);
+      document.documentElement.style.setProperty('--secondary-color', cfg.secondary_color || defaultConfig.secondary_color);
+      document.documentElement.style.setProperty('--bg-color', cfg.background_color || defaultConfig.background_color);
+      document.documentElement.style.setProperty('--text-color', cfg.text_color || defaultConfig.text_color);
+      document.documentElement.style.setProperty('--surface-color', cfg.surface_color || defaultConfig.surface_color);
+    }
+
+    function showMainView() {
+      currentView = 'main';
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('domains-view').style.display = 'none';
+      document.getElementById('situations-view').style.display = 'none';
+    }
+
+    function showDomainsView() {
+      currentView = 'domains';
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('domains-view').style.display = 'block';
+      document.getElementById('situations-view').style.display = 'none';
+      
+      // Render domains
+      const container = document.getElementById('domains-container');
+      container.innerHTML = domains.map(domain => `
+        <div class="stem-card rounded-2xl p-6 cursor-pointer transform hover:scale-105 transition-all duration-300" 
+             style="background: var(--surface-color);"
+             onclick="showSituationsView('${domain.id}')">
+          <div class="text-6xl mb-4 text-center">${domain.emoji}</div>
+          <h3 class="text-xl font-bold text-center gradient-text">${domain.name}</h3>
+          <p class="text-center text-sm mt-2 opacity-70" style="color: var(--text-color);">
+            לחצי לבחירת מצבים
+          </p>
+        </div>
+      `).join('');
+    }
+
+    function showSituationsView(domainId) {
+      currentView = 'situations';
+      selectedDomain = domains.find(d => d.id === domainId);
+      selectedSituations = [];
+      
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('domains-view').style.display = 'none';
+      document.getElementById('situations-view').style.display = 'block';
+      
+      // Update header
+      document.getElementById('domain-emoji').textContent = selectedDomain.emoji;
+      document.getElementById('domain-name').textContent = selectedDomain.name;
+      
+      // Render situations
+      const container = document.getElementById('situations-container');
+      container.innerHTML = selectedDomain.situations.map((situation, index) => `
+        <div class="situation-card stem-card rounded-2xl p-6 cursor-pointer transition-all duration-300" 
+             style="background: var(--surface-color);"
+             data-index="${index}"
+             onclick="toggleSituation(${index})">
+          <div class="flex items-center gap-4">
+            <div class="text-4xl">${situation.emoji}</div>
+            <p class="text-base flex-1" style="color: var(--text-color);">${situation.text}</p>
+            <div class="checkmark hidden">✓</div>
+          </div>
+        </div>
+      `).join('');
+      
+      // Reset continue button
+      document.getElementById('continue-btn').style.display = 'inline-block';
+      document.getElementById('back-to-domains-btn').textContent = '← חזרה לבחירת תחום';
+      
+      // Remove any extra buttons
+      const actionsDiv = document.getElementById('situations-actions');
+      while (actionsDiv.children.length > 2) {
+        actionsDiv.removeChild(actionsDiv.lastChild);
+      }
+      
+      updateContinueButton();
+    }
+
+    function toggleSituation(index) {
+      const situationIndex = selectedSituations.indexOf(index);
+      const card = document.querySelector(`[data-index="${index}"]`);
+      const checkmark = card.querySelector('.checkmark');
+      
+      if (situationIndex === -1) {
+        selectedSituations.push(index);
+        card.style.borderColor = config.primary_color || defaultConfig.primary_color;
+        card.style.borderWidth = '3px';
+        card.style.borderStyle = 'solid';
+        checkmark.classList.remove('hidden');
+        checkmark.style.color = config.primary_color || defaultConfig.primary_color;
+        checkmark.style.fontSize = '2rem';
+        checkmark.style.fontWeight = 'bold';
+      } else {
+        selectedSituations.splice(situationIndex, 1);
+        card.style.border = 'none';
+        checkmark.classList.add('hidden');
+      }
+      
+      updateContinueButton();
+    }
+
+    function updateContinueButton() {
+      const btn = document.getElementById('continue-btn');
+      const count = document.getElementById('selected-count');
+      
+      count.textContent = selectedSituations.length;
+      
+      if (selectedSituations.length > 0) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      } else {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+      }
+    }
+
+    function continueToProblemDefinition() {
+      if (selectedSituations.length === 0) return;
+      
+      const selectedSituationTexts = selectedSituations.map(i => selectedDomain.situations[i]);
+      
+      // Create summary message
+      const summaryContainer = document.getElementById('situations-container');
+      summaryContainer.innerHTML = `
+        <div class="stem-card rounded-2xl p-8 text-center col-span-2" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15)); border: 3px solid; border-image: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) 1;">
+          <div class="text-6xl mb-6">🎯</div>
+          <h3 class="text-2xl font-bold mb-4 gradient-text">מעולה! בחרת ${selectedSituations.length} מצבים</h3>
+          <p class="text-lg mb-6" style="color: var(--text-color);">
+            עכשיו את מוכנה להתחיל את התהליך התכנוני שיוביל לפיתוח מוצר טכנולוגי
+          </p>
+          <div class="space-y-3 mb-6">
+            ${selectedSituationTexts.map(s => `
+              <div class="bg-white/50 rounded-xl p-4 flex items-center gap-3">
+                <span class="text-2xl">${s.emoji}</span>
+                <span style="color: var(--text-color);">${s.text}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="stem-card rounded-xl p-6 mb-6" style="background: rgba(255, 255, 255, 0.7); border: 2px solid var(--primary-color);">
+            <p class="text-lg font-bold mb-2" style="color: var(--text-color);">
+              🚀 השלב הבא
+            </p>
+            <p class="text-base" style="color: var(--text-color); opacity: 0.9;">
+              בחרי אחד מהמצבים האלה והפכי אותו לבעיה מוגדרת שאפשר לפתור באמצעות טכנולוגיה 💡
+            </p>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('continue-btn').style.display = 'none';
+      document.getElementById('back-to-domains-btn').textContent = 'בחרי מצבים נוספים';
+      
+      // Add new action button
+      const actionsDiv = document.getElementById('situations-actions');
+      const newBtn = document.createElement('button');
+      newBtn.textContent = 'התחילי להגדיר בעיה';
+      newBtn.className = 'pulse-btn text-white text-lg font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300';
+      newBtn.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
+      newBtn.onclick = () => {
+        // This is a placeholder for future functionality
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'mt-6 p-6 rounded-2xl text-center';
+        messageDiv.style.background = 'var(--surface-color)';
+        messageDiv.style.border = '2px solid var(--primary-color)';
+        messageDiv.innerHTML = `
+          <p class="text-xl font-bold gradient-text mb-3">🚀 השלב הבא בפיתוח!</p>
+          <p class="mt-2" style="color: var(--text-color);">
+            כאן תתחיל עבודה על הגדרת הבעיה והתהליך התכנוני שיוביל לפיתוח המוצר הטכנולוגי שלך
+          </p>
+        `;
+        summaryContainer.appendChild(messageDiv);
+        newBtn.style.display = 'none';
+      };
+      actionsDiv.appendChild(newBtn);
+    }
+
+    async function onConfigChange(cfg) {
+      config = { ...defaultConfig, ...cfg };
+      
+      updateCSSVariables(config);
+      
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.querySelectorAll('*').forEach(el => {
+        if (el.style) {
+          el.style.fontFamily = `'${fontFamily}', sans-serif`;
+        }
+      });
+      
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.documentElement.style.fontSize = `${baseSize}px`;
+      
+      const mainTitle = document.getElementById('main-title');
+      if (mainTitle) {
+        mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      }
+      
+      const ctaButton = document.getElementById('cta-button');
+      if (ctaButton) {
+        ctaButton.textContent = config.button_text || defaultConfig.button_text;
+        ctaButton.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
+      }
+      
+      const continueBtn = document.getElementById('continue-btn');
+      if (continueBtn && !continueBtn.disabled) {
+        continueBtn.style.background = `linear-gradient(135deg, ${config.primary_color || defaultConfig.primary_color}, ${config.secondary_color || defaultConfig.secondary_color})`;
+      }
+    }
+
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => cfg.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => cfg.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => cfg.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              window.elementSdk.setConfig({ secondary_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => cfg.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => cfg.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(cfg) {
+      return new Map([
+        ['main_title', cfg.main_title || defaultConfig.main_title],
+        ['button_text', cfg.button_text || defaultConfig.button_text]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    document.getElementById('cta-button').addEventListener('click', () => {
+      showDomainsView();
+      document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c3e3de5962fc22f',t:'MTc2OTQxMTk2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
