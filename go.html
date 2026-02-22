@@ -207,48 +207,97 @@ window.generatePDF = async function(){
 
     const decision = document.querySelector('input[name="decision"]:checked');
     const summaryArea = document.getElementById('summaryArea');
+    const decisionValue = decision ? decision.value : 'לא סומן';
+    const isGo = decisionValue === 'GO';
 
-    const sections = [
-        ['בעיה מדויקת', val('problem1')],
-        ['קהל יעד', val('audience')],
-        ['למה זו בעיה אמיתית', val('realProblem')],
-        ['למה Must Have', val('mustHave')],
-        ['ערך ייחודי', val('unique')],
-        ['החלטה', decision ? decision.value : 'לא סומן']
+    // Load logo as base64 so html2canvas can render it
+    let logoData = '';
+    try {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            img.onload = () => {
+                const c = document.createElement('canvas');
+                c.width = img.width;
+                c.height = img.height;
+                c.getContext('2d').drawImage(img, 0, 0);
+                logoData = c.toDataURL('image/png');
+                resolve();
+            };
+            img.onerror = () => resolve();
+            img.src = 'logo.png';
+        });
+    } catch(e) {}
+
+    const partA = [
+        ['מה הבעיה המדויקת?', val('problem1')],
+        ['למי זה מתאים?', val('audience')],
+        ['למה זו בעיה אמיתית?', val('realProblem')],
+        ['למה זה Must Have?', val('mustHave')],
+        ['מה מייחד אותנו?', val('unique')],
     ];
 
-    if(decision && decision.value === 'GO'){
-        sections.push(
-            ['שם מוצר', val('productName')],
-            ['בעיה סופית', val('finalProblem')],
-            ['קהל יעד סופי', val('finalAudience')],
-            ['פתרון', val('solution')],
-            ['פעולת משתמשת', val('userAction')],
-            ['מה משתנה', val('afterUse')],
-            ['שלב 1', val('step1')],
-            ['שלב 2', val('step2')],
-            ['שלב 3', val('step3')]
-        );
-    }
+    const partB = isGo ? [
+        ['שם מוצר', val('productName')],
+        ['ניסוח סופי של הבעיה', val('finalProblem')],
+        ['קהל יעד', val('finalAudience')],
+        ['הפתרון שלנו', val('solution')],
+        ['מה המשתמשת עושה?', val('userAction')],
+        ['מה משתנה אחרי שימוש?', val('afterUse')],
+        ['שלב 1', val('step1')],
+        ['שלב 2', val('step2')],
+        ['שלב 3', val('step3')],
+    ] : [];
+
+    const decisionColor = isGo ? '#16a34a' : '#dc2626';
+    const decisionBg   = isGo ? '#f0fdf4'  : '#fef2f2';
 
     summaryArea.innerHTML = `
-        <div style="font-family: Arial, sans-serif; direction: rtl; text-align: right; color: #111827; line-height: 1.7; padding: 10px;">
-            <h3 style="font-family: Arial, sans-serif; margin-top: 0;">בדיקת מציאות והגדרת מוצר (GO)</h3>
-            ${sections.map(([title, content]) =>
-                `<p style="font-family: Arial, sans-serif;"><strong>${title}:</strong> ${content}</p>`
-            ).join('')}
+        <div style="font-family:Arial,sans-serif;direction:rtl;text-align:right;width:750px;background:white;padding:30px;box-sizing:border-box;color:#111827;">
+
+            <!-- Header -->
+            <div style="background:linear-gradient(135deg,#7c3aed,#ec4899);padding:18px 24px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+                <h2 style="color:white;margin:0;font-family:Arial,sans-serif;font-size:18px;">דף עבודה – בדיקת מציאות והגדרת מוצר</h2>
+                ${logoData ? `<img src="${logoData}" style="height:55px;width:auto;">` : ''}
+            </div>
+
+            <!-- Part A -->
+            <h3 style="font-family:Arial,sans-serif;color:#7c3aed;border-bottom:2px solid #e9d5ff;padding-bottom:6px;margin-bottom:14px;margin-top:0;">חלק א׳ – בדיקת מציאות</h3>
+            ${partA.map(([title, content]) => `
+                <div style="background:#f5f3ff;border-right:4px solid #7c3aed;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:10px;">
+                    <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.7;">
+                        <strong style="color:#6d28d9;">${title}</strong><br>${content}
+                    </p>
+                </div>
+            `).join('')}
+
+            <!-- Decision -->
+            <div style="background:${decisionBg};border:2px solid ${decisionColor};padding:14px 18px;border-radius:10px;margin:20px 0;text-align:center;">
+                <span style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;color:${decisionColor};">החלטה: ${decisionValue}</span>
+            </div>
+
+            ${isGo ? `
+            <!-- Part B -->
+            <h3 style="font-family:Arial,sans-serif;color:#16a34a;border-bottom:2px solid #bbf7d0;padding-bottom:6px;margin-bottom:14px;margin-top:0;">חלק ב׳ – אפיון ראשוני</h3>
+            ${partB.map(([title, content]) => `
+                <div style="background:#f0fdf4;border-right:4px solid #16a34a;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:10px;">
+                    <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.7;">
+                        <strong style="color:#15803d;">${title}</strong><br>${content}
+                    </p>
+                </div>
+            `).join('')}
+            ` : ''}
         </div>
     `;
 
     summaryArea.style.display = 'block';
-
     await document.fonts.ready;
 
     await html2pdf().from(summaryArea).set({
         margin: 10,
         filename: 'GO_product_definition.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false, backgroundColor: '#ffffff' },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).save();
 
