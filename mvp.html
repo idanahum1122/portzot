@@ -1553,6 +1553,7 @@
             <h3 style="color:#1d4ed8; margin-top:0;">דף 3 – MVP לאפליקציה</h3>
             <p style="margin-top:0; line-height:1.8;">באפליקציה ה-MVP הוא הפונקציה המרכזית — ורק היא.</p>
             ${renderMvpQuestions('אפליקציה', ['הפונקציה המרכזית', 'פונקציות ב-MVP (עד 3)', 'מה עובר לגרסה מתקדמת יותר', 'מדד הצלחה', 'סקיצה של המסך הראשי'])}
+            ${renderAppMvpTemplate()}
           </div>
 
           <div style="margin-top: 2rem; padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
@@ -1609,6 +1610,67 @@
           <div style="padding:1rem; background:#fff; border:1px solid #e5e7eb; border-radius:0.75rem;"><p style="margin:0 0 0.5rem; font-weight:700;">5. ${specificLabels[2]}</p><textarea placeholder="•" style="width:100%; min-height:70px; padding:0.65rem; border:1px solid #cbd5e1; border-radius:0.5rem; font-family:Heebo; resize:vertical;"></textarea></div>
           <div style="padding:1rem; background:#fff; border:1px solid #e5e7eb; border-radius:0.75rem;"><p style="margin:0 0 0.5rem; font-weight:700;">6. ${specificLabels[3]}</p><textarea placeholder="נדע שזה עובד כאשר..." style="width:100%; min-height:70px; padding:0.65rem; border:1px solid #cbd5e1; border-radius:0.5rem; font-family:Heebo; resize:vertical;"></textarea></div>
           <div style="padding:1rem; background:#fff; border:1px solid #e5e7eb; border-radius:0.75rem;"><p style="margin:0 0 0.5rem; font-weight:700;">7. ${specificLabels[4]}</p><textarea placeholder="שרטוט/תיאור חופשי..." style="width:100%; min-height:120px; padding:0.65rem; border:1px solid #cbd5e1; border-radius:0.5rem; font-family:Heebo; resize:vertical;"></textarea></div>
+        </div>
+      `;
+    }
+
+    function renderAppMvpTemplate() {
+      return `
+        <div style="margin-top:1.5rem; padding:1rem; background:#dbeafe; border:1px solid #93c5fd; border-radius:0.75rem;">
+          <h4 style="margin:0 0 0.45rem; color:#1e3a8a;">שבלונת מסכים לאפליקציה (נספח ד׳)</h4>
+          <p style="margin:0; color:#1e40af; line-height:1.8;">עדכנתי לפי הסקיצה: במסך האמצעי יש תיבה עליונה + שתי תיבות תוכן, בגודל מדויק יותר.</p>
+        </div>
+
+        <div style="margin-top:1rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; align-items:start;">
+          ${renderMobileFrame('מסך 1', '#f8fafc', `
+            ${renderSketchBox('תוכן מרכזי במסך פתיחה', 115)}
+          `)}
+
+          ${renderMobileFrame('מסך 2', '#fefce8', `
+            ${renderSketchBox('תיבה עליונה (כותרת/חיפוש)', 28)}
+            ${renderSketchBox('תיבה מרכזית', 92)}
+            ${renderSketchBox('תיבה תחתונה', 72)}
+            <div style="margin-top:0.55rem; display:grid; gap:0.35rem;">
+              ${renderActionLine('1) פעולה/בחירה')}
+              ${renderActionLine('2) פעולה/בחירה')}
+              ${renderActionLine('3) פעולה/בחירה')}
+            </div>
+          `)}
+
+          ${renderMobileFrame('מסך 3', '#f0fdf4', `
+            ${renderSketchBox('תוכן מרכזי במסך תוצאה', 120)}
+          `)}
+        </div>
+      `;
+    }
+
+    function renderMobileFrame(title, color, contentHtml) {
+      return `
+        <div style="background:#fff; border:1px solid #cbd5e1; border-radius:1rem; box-shadow:0 4px 10px rgba(30,41,59,0.08); padding:0.85rem;">
+          <p style="margin:0 0 0.6rem; font-weight:700; color:#1e3a8a; text-align:center;">${title}</p>
+          <div style="margin:0 auto; max-width:205px; border:2px solid #1f2937; border-radius:1.25rem; padding:0.5rem; background:#fff;">
+            <div style="height:14px; width:72px; margin:0 auto 0.55rem; border:1px solid #6b7280; border-radius:999px; background:#f3f4f6;"></div>
+            <div style="background:${color}; border:1px dashed #94a3b8; border-radius:0.9rem; min-height:285px; padding:0.55rem;">
+              ${contentHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSketchBox(placeholder, minHeight) {
+      return `
+        <div style="border:2px solid #334155; border-radius:0.35rem; background:#fff; padding:0.25rem; margin-bottom:0.45rem;">
+          <textarea placeholder="${placeholder}" style="width:100%; min-height:${minHeight}px; border:none; outline:none; resize:vertical; font-family:Heebo; background:transparent;"></textarea>
+        </div>
+      `;
+    }
+
+    function renderActionLine(placeholder) {
+      return `
+        <div style="display:flex; align-items:center; gap:0.35rem;">
+          <span style="width:10px; height:10px; border:2px solid #1f2937; border-radius:999px; display:inline-block; flex-shrink:0;"></span>
+          <input type="text" placeholder="${placeholder}" style="flex:1; border:none; border-bottom:2px solid #334155; background:transparent; padding:0.15rem 0.2rem; font-family:Heebo;" />
         </div>
       `;
     }
