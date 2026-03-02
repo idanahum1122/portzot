@@ -250,14 +250,23 @@
           font-family: 'Heebo', Arial, sans-serif;
           color: #111827;
           line-height: 1.7;
-          padding: 24px;
+          padding: 0;
           font-size: 13px;
+          page-break-after: avoid;
+      }
+
+      #printArea > div[style*="page-break-after"] {
+        margin: 0;
+        padding: 2rem;
       }
 
       /* Page break settings for printing */
       div[style*="page-break-after"] {
         page-break-after: always !important;
-        page-break-inside: avoid !important;
+        page-break-inside: auto !important;
+        min-height: auto !important;
+        height: auto !important;
+        overflow: visible !important;
       }
 
       h1, h2, h3 {
@@ -265,17 +274,17 @@
       }
 
       table {
-        page-break-inside: avoid !important;
+        page-break-inside: auto !important;
       }
 
       textarea, input {
-        page-break-inside: avoid !important;
-        page-break-before: avoid !important;
+        page-break-inside: auto !important;
+        page-break-before: auto !important;
       }
 
-      /* Ensure sections don't orphan */
+      /* Allow sections to break across pages if needed */
       div[style*="background"] {
-        page-break-inside: avoid !important;
+        page-break-inside: auto !important;
       }
 
       /* Set page size and margins */
@@ -292,6 +301,17 @@
       /* Prevent breaking in the middle of form sections */
       div[style*="background"][style*="border"] {
         page-break-inside: avoid;
+      }
+
+      /* Ensure all content prints */
+      body {
+        background: white;
+        color: #000;
+      }
+
+      /* Remove min-height for printing */
+      div[style*="min-height"] {
+        min-height: auto !important;
       }
     }
 
