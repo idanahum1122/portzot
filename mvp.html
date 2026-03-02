@@ -981,93 +981,96 @@
   </div>
 
   <script>
-    // Progress bar
-    window.addEventListener('scroll', () => {
-      const winScroll = document.documentElement.scrollTop + document.body.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('progress').style.width = scrolled + '%';
-    });
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Progress bar
+      window.addEventListener('scroll', () => {
+        const winScroll = document.documentElement.scrollTop + document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progress').style.width = scrolled + '%';
+      });
 
-    // Smooth scroll for TOC links
-    document.querySelectorAll('.toc-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
+      // Smooth scroll for TOC links
+      document.querySelectorAll('.toc-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       });
-    });
 
-    // Appendix buttons
-    const appendixA = document.getElementById('btn-appendix-a');
-    const appendixB = document.getElementById('btn-appendix-b');
-    const appendixC = document.getElementById('btn-appendix-c');
-    const appendixD = document.getElementById('btn-appendix-d');
-    const appendixE = document.getElementById('btn-appendix-e');
+      // Appendix buttons
+      const appendixA = document.getElementById('btn-appendix-a');
+      const appendixB = document.getElementById('btn-appendix-b');
+      const appendixC = document.getElementById('btn-appendix-c');
+      const appendixD = document.getElementById('btn-appendix-d');
+      const appendixE = document.getElementById('btn-appendix-e');
 
-    // Header diamonds
-    const diamondA = document.getElementById('header-diamond-a');
-    const diamondB = document.getElementById('header-diamond-b');
-    const diamondC = document.getElementById('header-diamond-c');
-    const diamondD = document.getElementById('header-diamond-d');
-    const diamondE = document.getElementById('header-diamond-e');
+      // Header diamonds
+      const diamondA = document.getElementById('header-diamond-a');
+      const diamondB = document.getElementById('header-diamond-b');
+      const diamondC = document.getElementById('header-diamond-c');
+      const diamondD = document.getElementById('header-diamond-d');
+      const diamondE = document.getElementById('header-diamond-e');
 
-    if (appendixA) {
-      appendixA.addEventListener('click', () => {
-        showAppendixA();
-      });
-    }
-    if (diamondA) {
-      diamondA.addEventListener('click', () => {
-        showAppendixA();
-      });
-    }
+      if (appendixA) {
+        appendixA.addEventListener('click', () => {
+          showAppendixA();
+        });
+      }
+      if (diamondA) {
+        diamondA.addEventListener('click', () => {
+          showAppendixA();
+        });
+      }
 
-    if (appendixB) {
-      appendixB.addEventListener('click', () => {
-        showAppendixB();
-      });
-    }
-    if (diamondB) {
-      diamondB.addEventListener('click', () => {
-        showAppendixB();
-      });
-    }
+      if (appendixB) {
+        appendixB.addEventListener('click', () => {
+          showAppendixB();
+        });
+      }
+      if (diamondB) {
+        diamondB.addEventListener('click', () => {
+          showAppendixB();
+        });
+      }
 
-    if (appendixC) {
-      appendixC.addEventListener('click', () => {
-        showAppendixC();
-      });
-    }
-    if (diamondC) {
-      diamondC.addEventListener('click', () => {
-        showAppendixC();
-      });
-    }
+      if (appendixC) {
+        appendixC.addEventListener('click', () => {
+          showAppendixC();
+        });
+      }
+      if (diamondC) {
+        diamondC.addEventListener('click', () => {
+          showAppendixC();
+        });
+      }
 
-    if (appendixD) {
-      appendixD.addEventListener('click', () => {
-        alert('נספח ד׳ בתהליך פיתוח - יהיה זמין בעדכון הבא');
-      });
-    }
-    if (diamondD) {
-      diamondD.addEventListener('click', () => {
-        alert('נספח ד׳ בתהליך פיתוח - יהיה זמין בעדכון הבא');
-      });
-    }
+      if (appendixD) {
+        appendixD.addEventListener('click', () => {
+          alert('נספח ד׳ בתהליך פיתוח - יהיה זמין בעדכון הבא');
+        });
+      }
+      if (diamondD) {
+        diamondD.addEventListener('click', () => {
+          alert('נספח ד׳ בתהליך פיתוח - יהיה זמין בעדכון הבא');
+        });
+      }
 
-    if (appendixE) {
-      appendixE.addEventListener('click', () => {
-        showAppendixE();
-      });
-    }
-    if (diamondE) {
-      diamondE.addEventListener('click', () => {
-        showAppendixE();
-      });
-    }
+      if (appendixE) {
+        appendixE.addEventListener('click', () => {
+          showAppendixE();
+        });
+      }
+      if (diamondE) {
+        diamondE.addEventListener('click', () => {
+          showAppendixE();
+        });
+      }
+    }); // End of DOMContentLoaded
 
     function showAppendixA() {
       const appendixContent = `
