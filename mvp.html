@@ -408,8 +408,8 @@
     <div class="top-header-inner max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
       <p class="text-stone-700 font-semibold m-0">פורצות דרך</p>
       <div class="flex gap-1 items-center" style="flex-shrink: 0;">
-        <button id="header-diamond-d" title="נספח – MVP מעשי" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #f59e0b; padding: 0.25rem; transition: transform 0.2s; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">◆</button>
-        <button id="header-diamond-e" title="נספח – בדיקת אבטיפוס" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #8b5cf6; padding: 0.25rem; transition: transform 0.2s; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">◆</button>
+        <button id="header-diamond-d" title="MVP מעשי" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #f59e0b; padding: 0.25rem; transition: transform 0.2s; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">◆</button>
+        <button id="header-diamond-e" title="בדיקת אבטיפוס" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #8b5cf6; padding: 0.25rem; transition: transform 0.2s; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">◆</button>
         <a href="tree.html" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.8rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem; color: #ec4899; border: 1.5px solid #ec4899; background: rgba(236,72,153,0.07); text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(236,72,153,0.15)'" onmouseout="this.style.background='rgba(236,72,153,0.07)'">← עץ מוצר</a>
       </div>
       <a href="index.html" class="home-btn" aria-label="חזרה לעמוד הבית" style="font-size: 1.5rem; display: inline-flex; align-items: center; justify-content: center;">🏠</a>
@@ -702,13 +702,13 @@
 
    <!-- Navigation Buttons to Appendices -->
    <div class="max-w-6xl mx-auto px-6 py-10 mb-8 appendix-launcher">
-    <p class="text-center text-stone-600 mb-6 font-semibold">🎯 בוחרות נספח להדפסה ומילוי:</p>
+    <p class="text-center text-stone-600 mb-6 font-semibold">🎯 בוחרות דף להדפסה ומילוי:</p>
     <div class="grid md:grid-cols-2 gap-3 appendix-grid" style="max-width: 500px; margin: 0 auto;">
      <button id="btn-appendix-d" class="group relative overflow-hidden rounded-xl p-4 text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
       <div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white transition-opacity"></div>
       <div class="relative">
        <p class="text-xl mb-2">🔧</p>
-       <p class="text-base">נספח ד׳</p>
+       <p class="text-base">mvp</p>
        <p class="text-xs font-normal opacity-90">MVP מעשי</p>
        <p class="text-xs font-normal opacity-75 mt-1">דף עבודה דינמי</p>
       </div>
@@ -717,7 +717,7 @@
       <div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white transition-opacity"></div>
       <div class="relative">
        <p class="text-xl mb-2">✅</p>
-       <p class="text-base">נספח ה׳</p>
+       <p class="text-base">בדיקה</p>
        <p class="text-xs font-normal opacity-90">בדיקת אבטיפוס</p>
        <p class="text-xs font-normal opacity-75 mt-1">צ'ק ליסט</p>
       </div>
@@ -788,7 +788,7 @@
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; border-bottom: 3px solid #f59e0b; padding-bottom: 1.5rem;">
             <img src="logo.png" style="height: 48px; width: auto;" onerror="this.style.display='none'">
             <div style="text-align: center; flex: 1; padding: 0 1rem;">
-              <h1 style="color: #f59e0b; font-size: 2rem; margin: 0; font-weight: 700;">✨ נספח ד׳ – MVP מעשי</h1>
+              <h1 style="color: #f59e0b; font-size: 2rem; margin: 0; font-weight: 700;">✨MVP מעשי</h1>
               <p style="color: #666; font-size: 1.1rem; margin: 0.5rem 0;">דף השראה + דף עבודה שניתן למלא אונליין ולהדפיס</p>
             </div>
             <div style="width: 48px;"></div>
@@ -867,13 +867,13 @@
 
           <div style="margin-top: 2rem; padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; gap: 1rem;">
-              <button onclick="document.querySelector('[data-modal-page]')?.remove(); document.body.style.overflow = 'auto'; showAppendixE();" style="background: linear-gradient(135deg, #7c3aed, #ec4899); color: white; border: none; border-radius: 0.65rem; padding: 0.55rem 1rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 15px rgba(124,58,237,0.25); font-family: Heebo, sans-serif;" class="no-print">מעבר לנספח הבא ➜</button>
+              <button onclick="document.querySelector('[data-modal-page]')?.remove(); document.body.style.overflow = 'auto'; showAppendixE();" style="background: linear-gradient(135deg, #7c3aed, #ec4899); color: white; border: none; border-radius: 0.65rem; padding: 0.55rem 1rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 15px rgba(124,58,237,0.25); font-family: Heebo, sans-serif;" class="no-print">מעבר לדף הבא ➜</button>
             </div>
             <p style="margin: 0; color: #666; font-size: 0.85rem;">דף העבודה ניתן למילוי אונליין ולהדפסה דרך כפתור ההדפסה למעלה.</p>
           </div>
         </div>
       `;
-      openModal(appendixContent, 'נספח ד׳ – MVP מעשי');
+      openModal(appendixContent, mVP מעשי');
 
       const modalPage = document.querySelector('[data-modal-page]');
       if (!modalPage) return;
@@ -926,7 +926,7 @@
     function renderAppMvpTemplate() {
       return `
         <div style="margin-top:1.5rem; padding:1rem; background:#dbeafe; border:1px solid #93c5fd; border-radius:0.75rem;">
-          <h4 style="margin:0 0 0.45rem; color:#1e3a8a;">שבלונת מסכים לאפליקציה (נספח ד׳)</h4>
+          <h4 style="margin:0 0 0.45rem; color:#1e3a8a;">שבלונת מסכים לאפליקציה (mvp)</h4>
           <p style="margin:0; color:#1e40af; line-height:1.8;">מלאי את שלושת המסכים כמו בסקיצה: מסך פתיחה, מסך פעולה מרכזית, ומסך תוצאה.</p>
         </div>
 
@@ -1063,7 +1063,7 @@
           </div>
         </div>
       `;
-      openModal(appendixContent, 'נספח ה׳ – בדיקת אבטיפוס מקצועית');
+      openModal(appendixContent, ' בדיקת אבטיפוס מקצועית');
     }
 
     window.generatePDF = function() {
@@ -1077,7 +1077,7 @@
         <div class="p-header">
           <div>
             <div style="font-size:22px;font-weight:700;color:white;">${document.getElementById('article-title')?.textContent || 'פורצות דרך'}</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.85);text-decoration:underline;">${document.querySelector('[data-modal-title]')?.textContent || 'נספח להדפסה'}</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.85);text-decoration:underline;">${document.querySelector('[data-modal-title]')?.textContent || 's; להדפסה'}</div>
           </div>
           <img src="logo.png" style="height:50px;width:auto;" onerror="this.style.display='none'">
         </div>
