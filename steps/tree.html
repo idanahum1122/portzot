@@ -286,21 +286,33 @@
           page-break-inside: auto;
       }
 
-      #printArea > div[style*="page-break-after"] {
-        margin: 0;
-        padding: 2rem;
-      }
-
-      div[style*="page-break-after"] {
-        page-break-after: always !important;
-        page-break-inside: auto !important;
+      #printArea .print-sheet {
+        margin: 0 !important;
+        padding: 0 !important;
         min-height: auto !important;
         height: auto !important;
         overflow: visible !important;
-        background: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        display: block !important;
+      }
+
+      #printArea [style*="page-break-after"] {
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+
+      #printArea .print-task-box > div:last-child,
+      #printArea .print-footer:last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+
+      #printArea [style*="min-height"] {
+        min-height: auto !important;
       }
 
       h1, h2, h3 {
@@ -342,8 +354,8 @@
         color: #000;
       }
 
-      div[style*="min-height"] {
-        min-height: auto !important;
+      #printArea :empty {
+        display: none !important;
       }
     }
 
