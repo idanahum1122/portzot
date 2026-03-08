@@ -1503,7 +1503,7 @@
         c.getContext('2d').drawImage(img, 0, 0);
         try { logoDataUrl = c.toDataURL('image/png'); } catch(e) {}
       };
-      img.src = '/favicon.png';
+      img.src = '/icon/favicon.png';
     })();
 
     async function generatePDF() {
@@ -1516,7 +1516,7 @@
       const topicObj = topicBoxes.find(b => b.id === journeyData.primaryTopic);
       const namesStr = journeyData.names.join(' ו');
       const renderArea = document.getElementById('pdf-render-area');
-      const logoSrc = logoDataUrl || '/favicon.png';
+      const logoSrc = logoDataUrl || '/icon/favicon.png';
 
       const pages = [];
 
