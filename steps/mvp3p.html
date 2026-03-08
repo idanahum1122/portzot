@@ -28,21 +28,18 @@
       .gradient-bg { background: white !important; }
       .sparkle { display: none !important; }
 
-      body.printing-summary > #app > :not(#summary-modal) {
+      body.printing-main #summary-modal,
+      body.printing-main #prompt-generator-modal,
+      body.printing-main #prompts-display-modal {
         display: none !important;
       }
 
-      body.printing-summary #summary-modal {
-        position: static !important;
-        inset: auto !important;
-        display: flex !important;
-        background: transparent !important;
-        padding: 0 !important;
+      body.printing-main > #app > :not(.print-active) {
+        display: none !important;
       }
 
-      body.printing-summary #summary-modal > div {
-        box-shadow: none !important;
-        max-height: none !important;
+      body.printing-main > #app > .print-active {
+        display: block !important;
       }
     }
   </style>
@@ -972,18 +969,41 @@ ${metrics.map((m, i) => `${i + 1}. ${m}`).join('\n')}
       document.getElementById('landing-page').classList.remove('hidden');
     }
     
+    function getActiveMainPage() {
+      const pageIds = ['physical-page', 'digital-page', 'app-page', 'landing-page'];
+      for (const id of pageIds) {
+        const page = document.getElementById(id);
+        if (!page) continue;
+        if (!page.classList.contains('hidden')) {
+          return page;
+        }
+      }
+      return document.getElementById('landing-page');
+    }
+
     function printPage() {
       const summaryModal = document.getElementById('summary-modal');
-      const isSummaryOpen = summaryModal && !summaryModal.classList.contains('hidden');
+      const wasSummaryOpen = summaryModal && !summaryModal.classList.contains('hidden');
+      const activePage = getActiveMainPage();
 
-      if (isSummaryOpen) {
-        document.body.classList.add('printing-summary');
+      if (wasSummaryOpen) {
+        closeSummaryModal();
+      }
+
+      if (activePage) {
+        activePage.classList.add('print-active');
+        document.body.classList.add('printing-main');
       }
 
       window.print();
 
-      if (isSummaryOpen) {
-        document.body.classList.remove('printing-summary');
+      if (activePage) {
+        activePage.classList.remove('print-active');
+        document.body.classList.remove('printing-main');
+      }
+
+      if (wasSummaryOpen) {
+        openSummaryModal();
       }
     }
     
