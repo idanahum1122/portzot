@@ -1017,9 +1017,6 @@ ${metrics.map((m, i) => `${i + 1}. ${m}`).join('\n')}
 
       window.print();
 
-      // Browsers that block on print will run this only after closing dialog.
-      cleanupMainPrintState();
-
       if (wasSummaryOpen) {
         openSummaryModal();
       }
